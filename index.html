@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+    <title>For You Leenie ❤️</title>
     <style>
-        /* Google Fonts import kiye hain pyari handwriting ke liye */
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
         body {
@@ -15,22 +14,80 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Romantic pinkish gradient background */
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            /* Yahan 'B' bada kar diya hai */
+            background: url('Background.jpg') no-repeat center center fixed;
+            background-color: #ffb6c1; 
+            background-size: cover;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Glass effect wala card */
-        .container {
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2); 
+            z-index: 1;
+        }
+
+        /* === Airplane Banner === */
+        .airplane-container {
+            position: fixed;
+            top: 50px;
+            left: -400px; 
+            display: flex;
+            align-items: center;
+            z-index: 10;
+            animation: flyAcross 20s linear infinite;
+        }
+
+        .airplane {
+            font-size: 40px;
+            transform: scaleX(-1);
+        }
+
+        .banner {
+            font-family: 'Dancing Script', cursive;
+            background-color: white;
+            color: #d81b60;
+            padding: 10px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-left: -10px; 
+            white-space: nowrap; 
+            position: relative;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid white;
+        }
+
+        @keyframes flyAcross {
+            0% { left: -400px; }
+            100% { left: 100vw; }
+        }
+
+        /* === Main Counter Box === */
+        .main-container {
+            position: relative;
+            z-index: 5; 
             text-align: center;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px); /* iPhone ke liye */
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); 
             padding: 40px 20px;
             border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             color: #333;
             width: 90%;
             max-width: 400px;
@@ -42,13 +99,14 @@
             color: #d81b60;
             margin-bottom: 5px;
             margin-top: 0;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         p.subtitle {
             font-size: 1rem;
             margin-bottom: 30px;
-            color: #555;
-            font-weight: 400;
+            color: #444;
+            font-weight: 600;
         }
 
         .counter {
@@ -59,11 +117,11 @@
         }
 
         .time-box {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.85);
             padding: 15px 10px;
             border-radius: 12px;
             min-width: 65px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .time-box span.number {
@@ -75,30 +133,82 @@
 
         .time-box span.text {
             font-size: 0.75rem;
-            color: #666;
+            color: #555;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        /* Dhadakta hua dil */
         .heart {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #e91e63;
-            animation: beat 1s infinite alternate;
+            animation: beat 0.8s infinite alternate;
             margin-top: 30px;
             display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(233, 30, 99, 0.4));
         }
 
         @keyframes beat {
             0% { transform: scale(1); }
-            100% { transform: scale(1.2); }
+            100% { transform: scale(1.15); }
+        }
+
+        /* === Swimming Photos Section === */
+        #photo-pool {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2; 
+            overflow: hidden;
+            pointer-events: none; 
+        }
+
+        .swimming-photo {
+            position: absolute;
+            width: 100px; 
+            height: 120px;
+            background: white;
+            border: 5px solid white;
+            border-bottom: 15px solid white; 
+            border-radius: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            animation: swim 20s linear infinite;
+        }
+
+        .swimming-photo img {
+            width: 100%; 
+            height: 100px;
+            object-fit: cover; 
+        }
+
+        @keyframes swim {
+            0% {
+                left: -150px; 
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% { transform: translateY(40px) rotate(8deg); }
+            50% { transform: translateY(-40px) rotate(-8deg); }
+            75% { transform: translateY(20px) rotate(5deg); }
+            100% {
+                left: 100vw; 
+                transform: translateY(0px) rotate(0deg);
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="overlay"></div>
+
+    <div class="airplane-container">
+        <span class="airplane">✈️</span>
+        <div class="banner">welcome My leenie babyyy on our special day</div>
+    </div>
+
+    <div class="main-container">
         <h1>Days I Fell For You</h1>
         <p class="subtitle">Every single second counts...</p>
 
@@ -124,9 +234,10 @@
         <div class="heart">❤️</div>
     </div>
 
+    <div id="photo-pool"></div>
+
     <script>
-        // Date set ki hai: 5 April 2023, 3:00 PM (15:00:00)
-        // JS mein months 0 se start hote hain, isliye April = 3
+        // === Counter Logic ===
         const startDate = new Date(2023, 3, 5, 15, 0, 0).getTime();
 
         function updateCounter() {
@@ -143,12 +254,57 @@
             document.getElementById("mins").innerText = minutes;
             document.getElementById("secs").innerText = seconds;
         }
-
-        // Har ek second mein counter update hoga
         setInterval(updateCounter, 1000);
-        
-        // Page load hote hi ek baar run karna taaki 1 second ka delay na aaye
         updateCounter();
+
+        // === 15 Swimming Photos Setup ===
+        const photos = [
+            'photo1-1.jpg', 
+            'photo1-2.jpg', 
+            'photo1-3.jpg', 
+            'photo1-4.jpg', 
+            'photo1-5.jpg',
+            'photo1-6.png',
+            'photo1-7.jpg', 
+            'photo1-8.jpg', 
+            'photo1-9.jpg', 
+            'photo1-10.jpg',
+            'photo1-11.jpg', 
+            'photo1-12.jpg', 
+            'photo1-13.jpg', 
+            'photo1-14.jpg', 
+            'photo1-15.jpg'
+        ];
+
+        const photoPool = document.getElementById('photo-pool');
+
+        // Loop 15 times for 15 photos
+        for (let i = 0; i < 15; i++) {
+            const photoEl = document.createElement('div');
+            photoEl.className = 'swimming-photo';
+            
+            const randomTop = Math.random() * 80 + 5; 
+            photoEl.style.top = randomTop + 'vh';
+            
+            const randomDuration = Math.random() * 20 + 15; 
+            photoEl.style.animationDuration = randomDuration + 's';
+            
+            const randomDelay = Math.random() * -30; 
+            photoEl.style.animationDelay = randomDelay + 's';
+
+            const imgEl = document.createElement('img');
+            imgEl.src = photos[i];
+            
+            imgEl.onerror = function() {
+                this.style.display = 'none';
+                photoEl.style.background = 'transparent';
+                photoEl.style.border = 'none';
+                photoEl.style.boxShadow = 'none';
+            };
+
+            photoEl.appendChild(imgEl);
+            photoPool.appendChild(photoEl);
+        }
     </script>
 </body>
 </html>
