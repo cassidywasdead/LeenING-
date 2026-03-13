@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For You Leenie ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap');
 
         body {
             margin: 0;
@@ -25,7 +25,7 @@
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* Halka dark tint taaki text clear dikhe */
+            background: rgba(0, 0, 0, 0.3); 
             z-index: 1;
         }
 
@@ -76,74 +76,79 @@
             100% { transform: translateX(100vw); }
         }
 
-        /* === Main Counter Box (BLUR REMOVED COMPLETELY) === */
+        /* === Main Container === */
         .main-container {
             position: relative;
             z-index: 5; 
             text-align: center;
-            background: rgba(255, 255, 255, 0.15); /* Bas halka sa white transparent */
-            /* Blur wali lines hata di hain taaki peeche ka sab clear dikhe */
-            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 30px 20px;
             border-radius: 20px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: white; /* Text white kar diya taaki background pe chamke */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white; 
             width: 90%;
-            max-width: 400px;
+            max-width: 350px; 
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
             font-size: 2.8rem;
-            color: #ff4d85; /* Pink color */
+            color: #ff4d85; 
             margin-bottom: 5px;
             margin-top: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Dark shadow taaki text clear rahe */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
         }
 
         p.subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+            font-size: 1rem;
+            margin-bottom: 25px;
             color: white;
             font-weight: 600;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
-        .counter {
+        /* === Reel Style Vertical Counter === */
+        .reel-counter {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            flex-direction: column;
+            gap: 10px; 
+            align-items: center;
         }
 
-        .time-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px 10px;
-            border-radius: 12px;
-            min-width: 65px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        .reel-pill {
+            background: rgba(0, 0, 0, 0.55);
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            width: 95%;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            letter-spacing: 0.5px;
         }
 
-        .time-box span.number {
-            display: block;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #e91e63;
-        }
-
-        .time-box span.text {
-            font-size: 0.75rem;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .reel-pill span.num {
             font-weight: 700;
+            font-size: 1.3rem;
+            margin-right: 8px;
+            color: #fff;
+        }
+
+        .reel-pill span.emoji {
+            margin-left: auto; 
+            font-size: 1.2rem;
         }
 
         .heart {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #e91e63;
             animation: beat 0.8s infinite alternate;
-            margin-top: 30px;
+            margin-top: 20px;
             display: inline-block;
             filter: drop-shadow(0 0 10px rgba(233, 30, 99, 0.4));
         }
@@ -206,24 +211,36 @@
 
     <div class="main-container">
         <h1>Days I Fell For You</h1>
-        <p class="subtitle">Every single second counts...</p>
+        <p class="subtitle">Every moment with you counts...</p>
 
-        <div class="counter">
-            <div class="time-box">
-                <span class="number" id="days">0</span>
-                <span class="text">Days</span>
+        <div class="reel-counter">
+            <div class="reel-pill">
+                <span class="num" id="val-years">0</span> years 
+                <span class="emoji">✨</span>
             </div>
-            <div class="time-box">
-                <span class="number" id="hours">0</span>
-                <span class="text">Hrs</span>
+            <div class="reel-pill">
+                <span class="num" id="val-months">0</span> months 
+                <span class="emoji">🫧</span>
             </div>
-            <div class="time-box">
-                <span class="number" id="mins">0</span>
-                <span class="text">Mins</span>
+            <div class="reel-pill">
+                <span class="num" id="val-weeks">0</span> weeks 
+                <span class="emoji">🌷</span>
             </div>
-            <div class="time-box">
-                <span class="number" id="secs">0</span>
-                <span class="text">Secs</span>
+            <div class="reel-pill">
+                <span class="num" id="val-days">0</span> days 
+                <span class="emoji">🪶</span>
+            </div>
+            <div class="reel-pill">
+                <span class="num" id="val-hours">0</span> hours 
+                <span class="emoji">☘️</span>
+            </div>
+            <div class="reel-pill">
+                <span class="num" id="val-mins">0</span> minutes 
+                <span class="emoji">👀</span>
+            </div>
+            <div class="reel-pill">
+                <span class="num" id="val-secs">0</span> seconds 
+                <span class="emoji">⏱️</span>
             </div>
         </div>
 
@@ -233,41 +250,45 @@
     <div id="photo-pool"></div>
 
     <script>
-        const startDate = new Date(2023, 3, 5, 15, 0, 0).getTime();
+        // 5 April 2023, 3:00 PM
+        const startDate = new Date(2023, 3, 5, 15, 0, 0); 
 
         function updateCounter() {
-            const now = new Date().getTime();
-            const difference = now - startDate;
+            const now = new Date();
+            const difference = now.getTime() - startDate.getTime();
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            // Total sum of each unit individually
+            const totalSeconds = Math.floor(difference / 1000);
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const totalHours = Math.floor(totalMinutes / 60);
+            const totalDays = Math.floor(totalHours / 24);
+            const totalWeeks = Math.floor(totalDays / 7);
+            
+            // Accurate Months logic
+            let totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+            if (now.getDate() < startDate.getDate() || (now.getDate() === startDate.getDate() && now.getHours() < startDate.getHours())) {
+                totalMonths--;
+            }
+            
+            const totalYears = Math.floor(totalMonths / 12);
 
-            document.getElementById("days").innerText = days;
-            document.getElementById("hours").innerText = hours;
-            document.getElementById("mins").innerText = minutes;
-            document.getElementById("secs").innerText = seconds;
+            // Adding commas (e.g. 1,250,500)
+            document.getElementById("val-years").innerText = totalYears.toLocaleString('en-US');
+            document.getElementById("val-months").innerText = totalMonths.toLocaleString('en-US');
+            document.getElementById("val-weeks").innerText = totalWeeks.toLocaleString('en-US');
+            document.getElementById("val-days").innerText = totalDays.toLocaleString('en-US');
+            document.getElementById("val-hours").innerText = totalHours.toLocaleString('en-US');
+            document.getElementById("val-mins").innerText = totalMinutes.toLocaleString('en-US');
+            document.getElementById("val-secs").innerText = totalSeconds.toLocaleString('en-US');
         }
         setInterval(updateCounter, 1000);
         updateCounter();
 
+        // Photos Setup
         const photos = [
-            'photo1-1.jpg', 
-            'photo1-2.jpg', 
-            'photo1-3.jpg', 
-            'photo1-4.jpg', 
-            'photo1-5.jpg',
-            'photo1-6.png',
-            'photo1-7.jpg', 
-            'photo1-8.jpg', 
-            'photo1-9.jpg', 
-            'photo1-10.jpg',
-            'photo1-11.jpg', 
-            'photo1-12.jpg', 
-            'photo1-13.jpg', 
-            'photo1-14.jpg', 
-            'photo1-15.jpg'
+            'photo1-1.jpg', 'photo1-2.jpg', 'photo1-3.jpg', 'photo1-4.jpg', 'photo1-5.jpg',
+            'photo1-6.png', 'photo1-7.jpg', 'photo1-8.jpg', 'photo1-9.jpg', 'photo1-10.jpg',
+            'photo1-11.jpg', 'photo1-12.jpg', 'photo1-13.jpg', 'photo1-14.jpg', 'photo1-15.jpg'
         ];
 
         const photoPool = document.getElementById('photo-pool');
