@@ -29,7 +29,54 @@
             z-index: 1;
         }
 
-        /* === Blimp === */
+        /* === Real Bubbles (CSS Drawn) === */
+        #bubble-pool {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2; /* Photos ke peeche, background ke upar */
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .real-bubble {
+            position: absolute;
+            bottom: -50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px rgba(255, 255, 255, 0.2);
+            animation: rise infinite ease-in;
+            will-change: transform, opacity;
+        }
+
+        /* Bubble ki chamak (Shine) */
+        .real-bubble::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            width: 25%;
+            height: 25%;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            filter: blur(1px);
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            50% { transform: translateY(-50vh) translateX(20px) scale(1.1); }
+            100% {
+                transform: translateY(-110vh) translateX(-20px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* === Fixed Blimp and Banner with Floating Effect === */
         .airship-container {
             position: fixed;
             top: 60px;
@@ -37,7 +84,7 @@
             display: flex;
             align-items: center;
             z-index: 10;
-            animation: flyAcross 25s linear infinite;
+            animation: flyAcross 25s linear infinite, floatUpDown 5s ease-in-out infinite;
             will-change: transform;
         }
 
@@ -45,9 +92,10 @@
             position: relative;
             width: 80px;
             height: 45px;
-            background: linear-gradient(to bottom, #ff4d4d, #cc0000);
+            background: linear-gradient(to bottom, #ff4d4d, #cc0000); 
             border-radius: 50px; 
             border: 2px solid #333;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.3);
             z-index: 2;
         }
 
@@ -72,9 +120,10 @@
             transform: translateX(-50%);
             width: 25px;
             height: 12px;
-            background: #8b5a2b;
+            background: #8b5a2b; 
             border: 2px solid #333;
             border-radius: 3px;
+            box-shadow: 0 4px 5px rgba(0,0,0,0.3);
         }
 
         .banner {
@@ -83,6 +132,7 @@
             color: #d81b60;
             padding: 10px 25px;
             border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             font-size: 1.5rem;
             font-weight: bold;
             margin-left: 20px; 
@@ -98,11 +148,17 @@
             transform: translateY(-50%);
             border-right: 20px solid white;
             height: 10px;
+            background: transparent;
         }
 
         @keyframes flyAcross {
             0% { transform: translateX(-500px); }
             100% { transform: translateX(100vw); }
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
         /* === Main Container === */
@@ -113,6 +169,7 @@
             background: rgba(255, 255, 255, 0.1); 
             padding: 25px 20px;
             border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white; 
             width: 90%;
@@ -148,6 +205,8 @@
             padding: 10px 8px;
             border-radius: 12px;
             min-width: 60px; 
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
@@ -156,6 +215,7 @@
             font-weight: 700;
             font-size: 1.5rem; 
             color: #e91e63; 
+            text-shadow: 0 0 2px rgba(233, 30, 99, 0.2);
         }
 
         .count-box span.unit {
@@ -163,11 +223,14 @@
             font-size: 0.7rem; 
             color: #555; 
             text-transform: uppercase;
+            letter-spacing: 0.5px;
             font-weight: 700;
+            margin-top: -3px; 
         }
         
         .count-box .emoji {
             font-size: 0.8rem;
+            margin-left: 2px;
         }
 
         .heart {
@@ -176,6 +239,7 @@
             animation: beat 0.8s infinite alternate;
             margin-top: 20px;
             display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(233, 30, 99, 0.4));
         }
 
         @keyframes beat {
@@ -183,52 +247,64 @@
             100% { transform: scale(1.15); }
         }
 
-        /* === Swimming Fish Photos (Updated) === */
+        /* === Swimming Fish Photos === */
         #photo-pool {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 2; 
+            z-index: 3; 
             overflow: hidden;
             pointer-events: none; 
         }
 
         .swimming-photo {
             position: absolute;
-            /* Size Reduced Significantly (about 25% smaller and sleeker) */
-            width: 75px; 
-            height: 55px;
+            width: 110px; 
+            height: 70px;
             left: 0; 
-            overflow: hidden; /* Photo bounds outside shape */
-            
-            /* Apply SVG Fish Shape (defined below in body) */
+            overflow: hidden;
             clip-path: url(#fishShape);
-            -webkit-clip-path: url(#fishShape); /* For Safari/iOS compatibility */
-            
+            -webkit-clip-path: url(#fishShape); 
+            background: white; 
+            border: 2px solid white; 
+            border-radius: 2px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             animation: swim 20s linear infinite;
             will-change: transform;
         }
 
+        .swimming-photo::before {
+            content: '⚪️';
+            position: absolute;
+            top: 15px; 
+            left: 10px;
+            font-size: 10px;
+            color: white;
+            z-index: 5;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+        }
+
         .swimming-photo img {
             width: 100%; 
             height: 100%;
-            object-fit: cover; /* Centers faces perfectly in the wide body section */
+            object-fit: cover; 
             object-position: center;
         }
 
         @keyframes swim {
-            0% { transform: translate(-150px, 0px); }
-            25% { transform: translate(25vw, 40px); }
-            50% { transform: translate(50vw, -40px); }
-            75% { transform: translate(75vw, 20px); }
-            100% { transform: translate(110vw, 0px); }
+            0% { transform: translate(-150px, 0px) rotate(0deg); }
+            25% { transform: translate(25vw, 40px) rotate(5deg); }
+            50% { transform: translate(50vw, -40px) rotate(-5deg); }
+            75% { transform: translate(75vw, 20px) rotate(3deg); }
+            100% { transform: translate(110vw, 0px) rotate(0deg); }
         }
     </style>
 </head>
 <body>
 
     <div class="overlay"></div>
+
+    <div id="bubble-pool"></div>
 
     <svg width="0" height="0">
         <defs>
@@ -241,7 +317,7 @@
 
     <div class="airship-container">
         <div class="blimp"></div>
-        <div class="banner">welcome My leenie babyyy on our special day</div>
+        <div class="banner">Happy 3Years of togetherness leenie</div>
     </div>
 
     <div class="main-container">
@@ -315,6 +391,27 @@
         setInterval(updateCounter, 1000);
         updateCounter();
 
+        // 🫧 JS to generate real bubbles
+        const bubblePool = document.getElementById('bubble-pool');
+        for (let i = 0; i < 25; i++) {
+            const bubbleEl = document.createElement('div');
+            bubbleEl.className = 'real-bubble';
+            
+            // Random sizes between 10px and 40px
+            const size = Math.random() * 30 + 10;
+            bubbleEl.style.width = size + 'px';
+            bubbleEl.style.height = size + 'px';
+            
+            // Random start position across the screen width
+            bubbleEl.style.left = Math.random() * 100 + 'vw';
+            
+            // Random animation speed and delay
+            bubbleEl.style.animationDuration = (Math.random() * 8 + 6) + 's'; // 6s to 14s
+            bubbleEl.style.animationDelay = (Math.random() * 5) + 's';
+            
+            bubblePool.appendChild(bubbleEl);
+        }
+
         const photos = [
             'photo1-1.jpg', 'photo1-2.jpg', 'photo1-3.jpg', 'photo1-4.jpg', 'photo1-5.jpg',
             'photo1-6.png', 'photo1-7.jpg', 'photo1-8.jpg', 'photo1-9.jpg', 'photo1-10.jpg',
@@ -342,7 +439,9 @@
             imgEl.onerror = function() {
                 this.style.display = 'none';
                 photoEl.style.background = 'transparent';
-                photoEl.style.clipPath = 'none'; /* Remove fish shape if image breaks */
+                photoEl.style.border = 'none';
+                photoEl.style.boxShadow = 'none';
+                photoEl.style.clipPath = 'none';
             };
 
             photoEl.appendChild(imgEl);
