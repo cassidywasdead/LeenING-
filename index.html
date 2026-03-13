@@ -29,7 +29,7 @@
             z-index: 1;
         }
 
-        /* === Airplane Banner === */
+        /* === Airplane Banner (Compact design preserved) === */
         .airplane-container {
             position: fixed;
             top: 50px;
@@ -76,13 +76,13 @@
             100% { transform: translateX(100vw); }
         }
 
-        /* === Main Container === */
+        /* === Main Container (Smaller, compact padding) === */
         .main-container {
             position: relative;
             z-index: 5; 
             text-align: center;
             background: rgba(255, 255, 255, 0.1); 
-            padding: 30px 20px;
+            padding: 25px 20px; /* Reduced vertical padding */
             border-radius: 20px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -108,40 +108,46 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* === Reel Style Vertical Counter === */
-        .reel-counter {
+        /* === Reverted and Compact Counter Logic === */
+        .compact-counter {
             display: flex;
-            flex-direction: column;
-            gap: 10px; 
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px; /* Consistent compact spacing */
+            justify-content: center;
         }
 
-        .reel-pill {
-            background: rgba(0, 0, 0, 0.55);
-            padding: 8px 20px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            width: 95%;
+        .count-box {
+            /* Compact square box like purana wala but size reduced slightly to fit 7 */
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 8px;
+            border-radius: 12px;
+            min-width: 60px; /* Reduced size to accommodate more boxes in rows */
             box-sizing: border-box;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 1.1rem;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.3);
-            letter-spacing: 0.5px;
         }
 
-        .reel-pill span.num {
+        .count-box span.num {
+            display: block;
             font-weight: 700;
-            font-size: 1.3rem;
-            margin-right: 8px;
-            color: #fff;
+            font-size: 1.5rem; /* Compact font size */
+            color: #e91e63; /* Same pink color as purana numbers */
+            text-shadow: 0 0 2px rgba(233, 30, 99, 0.2);
         }
 
-        .reel-pill span.emoji {
-            margin-left: auto; 
-            font-size: 1.2rem;
+        .count-box span.unit {
+            display: block;
+            font-size: 0.7rem; /* Compacter unit text */
+            color: #555; /* Same purana gray color */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            margin-top: -3px; /* Pull unit closer to number */
+        }
+        
+        .count-box .emoji {
+            font-size: 0.8rem;
+            margin-left: 2px;
         }
 
         .heart {
@@ -213,34 +219,34 @@
         <h1>Days I Fell For You</h1>
         <p class="subtitle">Every moment with you counts...</p>
 
-        <div class="reel-counter">
-            <div class="reel-pill">
-                <span class="num" id="val-years">0</span> years 
-                <span class="emoji">✨</span>
+        <div class="compact-counter">
+            <div class="count-box">
+                <span class="num" id="val-years">0</span>
+                <span class="unit">years <span class="emoji">✨</span></span>
             </div>
-            <div class="reel-pill">
-                <span class="num" id="val-months">0</span> months 
-                <span class="emoji">🫧</span>
+            <div class="count-box">
+                <span class="num" id="val-months">0</span>
+                <span class="unit">months <span class="emoji">🫧</span></span>
             </div>
-            <div class="reel-pill">
-                <span class="num" id="val-weeks">0</span> weeks 
-                <span class="emoji">🌷</span>
+            <div class="count-box">
+                <span class="num" id="val-weeks">0</span>
+                <span class="unit">weeks <span class="emoji">🌷</span></span>
             </div>
-            <div class="reel-pill">
-                <span class="num" id="val-days">0</span> days 
-                <span class="emoji">🪶</span>
+            <div class="count-box">
+                <span class="num" id="val-days">0</span>
+                <span class="unit">days <span class="emoji">🪶</span></span>
             </div>
-            <div class="reel-pill">
-                <span class="num" id="val-hours">0</span> hours 
-                <span class="emoji">☘️</span>
+            <div class="count-box">
+                <span class="num" id="val-hours">0</span>
+                <span class="unit">hours <span class="emoji">☘️</span></span>
             </div>
-            <div class="reel-pill">
-                <span class="num" id="val-mins">0</span> minutes 
-                <span class="emoji">👀</span>
+            <div class="count-box">
+                <span class="num" id="val-mins">0</span>
+                <span class="unit">minutes <span class="emoji">👀</span></span>
             </div>
-            <div class="reel-pill">
-                <span class="num" id="val-secs">0</span> seconds 
-                <span class="emoji">⏱️</span>
+            <div class="count-box">
+                <span class="num" id="val-secs">0</span>
+                <span class="unit">seconds <span class="emoji">⏱️</span></span>
             </div>
         </div>
 
@@ -250,7 +256,7 @@
     <div id="photo-pool"></div>
 
     <script>
-        // 5 April 2023, 3:00 PM
+        // Start date: 5 April 2023, 3:00 PM
         const startDate = new Date(2023, 3, 5, 15, 0, 0); 
 
         function updateCounter() {
@@ -272,7 +278,7 @@
             
             const totalYears = Math.floor(totalMonths / 12);
 
-            // Adding commas (e.g. 1,250,500)
+            // Set formatted values with commas for total calculated units
             document.getElementById("val-years").innerText = totalYears.toLocaleString('en-US');
             document.getElementById("val-months").innerText = totalMonths.toLocaleString('en-US');
             document.getElementById("val-weeks").innerText = totalWeeks.toLocaleString('en-US');
@@ -284,7 +290,7 @@
         setInterval(updateCounter, 1000);
         updateCounter();
 
-        // Photos Setup
+        // Photos logic preserved
         const photos = [
             'photo1-1.jpg', 'photo1-2.jpg', 'photo1-3.jpg', 'photo1-4.jpg', 'photo1-5.jpg',
             'photo1-6.png', 'photo1-7.jpg', 'photo1-8.jpg', 'photo1-9.jpg', 'photo1-10.jpg',
