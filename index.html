@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Leenie ❤️</title>
+    <title>For Leenie Baby ❤️</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -11,135 +11,170 @@
 
         body {
             margin: 0; padding: 0; min-height: 100vh;
-            background: url('Background.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('Background.jpg') no-repeat center center fixed;
             background-size: cover; font-family: 'Poppins', sans-serif;
-            overflow: hidden; position: relative; background-color: #ffb6c1;
+            overflow: hidden; position: relative; background-color: #000;
         }
 
-        /* 🎀 Welcome Ribbon Overlay */
+        /* 🎀 Improved Ribbon Entry */
         #welcome-cover {
-            position: fixed; inset: 0; background: #1a1a1a; 
+            position: fixed; inset: 0; background: #000; 
             z-index: 500; display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-            cursor: pointer;
         }
         .ribbon-vertical {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 70px; height: 100%; background: #e91e63;
-            box-shadow: 0 0 30px rgba(233, 30, 99, 0.5);
+            width: 90px; height: 100%; background: #e91e63;
+            box-shadow: 0 0 50px rgba(233, 30, 99, 0.8);
             display: flex; align-items: center; justify-content: center;
+            position: relative;
         }
         #tap-text {
             color: white; font-family: 'Dancing Script', cursive; font-size: 1.8rem;
-            z-index: 501; animation: pulse 1.5s infinite; text-align: center; line-height: 1.2;
+            text-align: center; animation: heartbeat 1.5s infinite;
         }
-        @keyframes pulse { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
-
-        /* 🫧 Real Bubbles Style */
-        .real-bubble {
-            position: absolute; bottom: -100px; background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 50%;
-            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
-            animation: rise infinite ease-in; pointer-events: none;
-        }
-        @keyframes rise {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
 
-        /* 🐟 Fish Shape Photos */
+        /* 🐟 Fish Fix: Machli seedhi chalegi */
         .swimming-photo {
-            position: absolute; width: 120px; height: 80px; left: -150px;
-            clip-path: url(#fishShape); background: white; border: 2px solid white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4); animation: swim linear infinite;
+            position: absolute; width: 140px; height: 90px; 
+            right: -200px; /* Start from right */
+            clip-path: url(#fishShape); 
+            background: white; border: 2px solid #fff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            animation: swimLeft linear infinite;
             z-index: 10;
         }
-        .swimming-photo img { width: 100%; height: 100%; object-fit: cover; }
-
-        @keyframes swim {
-            0% { transform: translateX(0) rotate(0deg); }
-            100% { transform: translateX(120vw) rotate(5deg); }
+        .swimming-photo img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; 
+            transform: scaleX(-1); /* Photo ko flip kiya taaki machli ki shakal sahi lage */
         }
 
-        /* ✨ Main Text (No Slabs) */
+        @keyframes swimLeft {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(-125vw) rotate(-5deg); }
+        }
+
+        /* ✨ Main Content Styling */
         #main-content {
             position: relative; z-index: 5; text-align: center; color: white;
-            padding-top: 15vh; opacity: 0;
+            padding-top: 10vh; display: none;
         }
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 2px 2px 8px rgba(0,0,0,0.6); }
-        .subtitle { font-size: 1.2rem; font-weight: 600; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
+        h1 { 
+            font-family: 'Dancing Script', cursive; font-size: 3.8rem; 
+            color: #ff4d85; text-shadow: 0 0 15px rgba(255, 77, 133, 0.8); 
+            margin-bottom: 0;
+        }
+        .glow-text {
+            font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+        }
 
+        /* 🧪 Chemistry Button */
+        #chem-btn {
+            margin-top: 30px; padding: 12px 25px;
+            background: transparent; border: 2px solid #ff4d85;
+            color: #ff4d85; border-radius: 50px; font-weight: bold;
+            cursor: pointer; transition: 0.3s;
+        }
+        #chem-btn:hover { background: #ff4d85; color: white; box-shadow: 0 0 20px #ff4d85; }
     </style>
 </head>
 <body>
 
-    <div id="welcome-cover" onclick="openGift()">
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="welcome-cover" onclick="revealWorld()">
         <div class="ribbon-vertical">
-            <div id="tap-text">Tap to <br> Unfold ❤️</div>
+            <div id="tap-text">Tap to <br> Cook ❤️</div>
         </div>
     </div>
 
-    <div id="bubble-pool"></div>
-    <div id="photo-pool"></div>
-
     <div id="main-content">
-        <h1>Days I Fell For You</h1>
-        <p class="subtitle">Every moment with you counts...</p>
-        <div style="font-size: 4rem; margin-top: 20px;">❤️</div>
+        <h1 id="title-text">For My Leenu</h1>
+        <p class="glow-text">You're my favorite Chemistry</p>
+        
+        <button id="chem-btn" onclick="triggerChemistry()">Check Our Bond 🧪</button>
+        
+        <div style="font-size: 3rem; margin-top: 20px; animation: heartbeat 2s infinite;">❤️</div>
     </div>
+
+    <div id="photo-pool"></div>
+    <div id="bubble-pool"></div>
 
     <svg width="0" height="0">
         <defs>
             <clipPath id="fishShape" clipPathUnits="objectBoundingBox">
-                <path d="M0,0.5 C0.05,0.2, 0.25,0, 0.5,0 C0.85,0, 1,0.25, 1,0.5 C1,0.75, 0.85,1, 0.5,1 C0.25,1, 0.05,0.8, 0,0.5 Z M0.92,0.5 L1,0.35 L1,0.65 Z"></path>
+                <path d="M1,0.5 C0.95,0.2, 0.75,0, 0.5,0 C0.15,0, 0,0.25, 0,0.5 C0,0.75, 0.15,1, 0.5,1 C0.75,1, 0.95,0.8, 1,0.5 Z M0.08,0.5 L0,0.35 L0,0.65 Z"></path>
             </clipPath>
         </defs>
     </svg>
 
     <script>
-        function openGift() {
-            // Ribbon Animation
-            document.getElementById('welcome-cover').style.transform = 'translateY(-100%)';
-            gsap.to("#main-content", { opacity: 1, duration: 2, delay: 0.5 });
-            
-            // Start Confetti
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        function revealWorld() {
+            // Audio Start
+            const music = document.getElementById('bg-music');
+            music.play().catch(() => console.log("Music needs user interaction"));
 
-            initExperience();
+            // Ribbon Shatter Animation
+            gsap.to(".ribbon-vertical", { duration: 1, scaleY: 0, opacity: 0, ease: "power4.in" });
+            gsap.to("#welcome-cover", { duration: 1.5, opacity: 0, display: "none", delay: 0.5 });
+
+            // Show Content
+            document.getElementById('main-content').style.display = 'block';
+            gsap.from("#main-content", { y: 50, opacity: 0, duration: 2, delay: 1 });
+
+            initMagic();
         }
 
-        function initExperience() {
-            // 🫧 Bubbles
+        function initMagic() {
+            // Floating Bubbles
             const bp = document.getElementById('bubble-pool');
-            for(let i=0; i<25; i++) {
+            for(let i=0; i<30; i++) {
                 const b = document.createElement('div');
-                b.className = 'real-bubble';
-                let s = Math.random() * 35 + 10;
-                b.style.width = b.style.height = s + 'px';
-                b.style.left = Math.random() * 100 + 'vw';
-                b.style.animationDuration = (Math.random() * 6 + 6) + 's';
-                b.style.animationDelay = Math.random() * 5 + 's';
+                b.style.cssText = `position:absolute; bottom:-50px; left:${Math.random()*100}vw; 
+                width:${Math.random()*20+10}px; height:${Math.random()*20+10}px; 
+                background:rgba(255,255,255,0.2); border-radius:50%; 
+                animation: rise ${Math.random()*5+5}s infinite linear;`;
                 bp.appendChild(b);
             }
 
-            // 🐟 Fish Photos (Pattern: photo1-1.jpg to photo1-15.jpg)
+            // Fish Photos (From Right to Left)
             const pp = document.getElementById('photo-pool');
             for(let i=1; i<=15; i++) {
                 const p = document.createElement('div');
                 p.className = 'swimming-photo';
-                p.style.top = (Math.random() * 75 + 10) + 'vh';
-                p.style.animationDuration = (Math.random() * 12 + 18) + 's';
+                p.style.top = (Math.random() * 70 + 15) + 'vh';
+                p.style.animationDuration = (Math.random() * 10 + 15) + 's';
                 p.style.animationDelay = (Math.random() * -30) + 's';
                 
                 const img = document.createElement('img');
-                img.src = `photo1-${i}.jpg`; // Direct match with your GitHub files
-                img.onerror = () => p.style.display = 'none';
-
+                img.src = `photo1-${i}.jpg`;
                 p.appendChild(img);
                 pp.appendChild(p);
             }
         }
+
+        function triggerChemistry() {
+            // Patakhe phodo!
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#ff4d85', '#ffffff', '#e91e63']
+            });
+            alert("Our Bond is stronger than NaCl! 🧪❤️");
+        }
+
+        // Bubbles Animation logic
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes rise { 100% { transform: translateY(-110vh); opacity: 0; } }`;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
