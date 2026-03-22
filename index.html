@@ -11,17 +11,18 @@
 
         body {
             margin: 0; padding: 0; min-height: 100vh;
-            /* Based on your background/bokeh context */
-            background: #0a0a0a; /* Dark base for cosmic effect */
-            background-image: radial-gradient(circle at center, rgba(147, 51, 234, 0.1) 0%, #0a0a0a 70%); /* Cosmic purple bokeh base */
+            background: #0a0a0a;
+            background-image: radial-gradient(circle at center, rgba(147, 51, 234, 0.1) 0%, #0a0a0a 70%);
             font-family: 'Poppins', sans-serif;
             overflow: hidden; position: relative; color: white;
+            
+            /* 🔥 iPHONE FIX: Copy aur Highlight hone se rokne ke liye */
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
         }
 
-        /* 🎀 Welcome Ribbon Overlay - Optional entry if needed, but going straight to FP as requested */
-        /* Since we are doing only FP entry and pool unlock, we remove previous Ribbon CSS */
-
-        /* 🔒 1. Entry / Fingerprint Screen */
+        /* 🔒 ENTRY SCREEN */
         #entry-screen {
             position: fixed; inset: 0; background: #0a0a0a;
             z-index: 1000; display: flex; flex-direction: column;
@@ -29,14 +30,16 @@
             transition: opacity 1s ease;
         }
 
-        /* Modern Aesthetic Buffer Circle (Spinner) Container */
+        /* Touch Container */
         #entry-button-container {
             position: relative; width: 140px; height: 140px;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+            cursor: pointer; 
+            /* 🔥 iPHONE FIX: Screen ko zoom/scroll hone se rokne ke liye */
+            touch-action: none; 
         }
 
-        /* Glowing Neon Pink Fingerprint Icon */
+        /* Glowing Fingerprint Icon */
         .fingerprint-icon {
             width: 80px; height: 80px; 
             font-size: 3rem; color: #ff4d85;
@@ -46,10 +49,10 @@
             position: absolute; z-index: 10;
         }
 
-        /* Modern Buffer Circle (SVG Spinner) - Set to hide, reveals on hold */
+        /* Loading Circle (Hidden initially) */
         #circ-loading {
             position: absolute; inset: 0; transform: rotate(-90deg);
-            display: none; /* Revealed on hold */
+            display: none;
         }
         #circ-loading circle {
             fill: none; stroke-width: 6; stroke-linecap: round;
@@ -57,77 +60,66 @@
         .circ-track { stroke: rgba(255, 77, 133, 0.2); }
         .circ-fill {
             stroke: #ff4d85;
-            stroke-dasharray: 440; /* 2 * PI * 70 (approx. container size inner radius) */
-            stroke-dashoffset: 440; /* Full offset to start empty */
+            stroke-dasharray: 440; 
+            stroke-dashoffset: 440; /* 440 means empty, 0 means full */
             filter: drop-shadow(0 0 10px #ff4d85);
-            /* Animates dashoffset in JS on hold */
         }
 
-        /* Simulated Apple-Style Green Tick SVG (Hidden) */
+        /* Apple-Style Green Tick (Hidden initially) */
         #apple-tick-svg {
             position: absolute; inset: 0; width: 140px; height: 140px;
-            display: none; /* Revealed and animated on complete */
+            display: none; 
         }
         .tick-circle {
-            fill: none; stroke: none; stroke-width: 6; stroke-linecap: round;
+            fill: none; stroke: #4cd964; stroke-width: 6; stroke-linecap: round;
             stroke-dasharray: 440; stroke-dashoffset: 440;
             filter: drop-shadow(0 0 15px #4cd964);
         }
         .tick-mark {
-            fill: none; stroke: none; stroke-width: 8; stroke-linecap: round;
+            fill: none; stroke: #4cd964; stroke-width: 8; stroke-linecap: round;
             stroke-dasharray: 100; stroke-dashoffset: 100;
             filter: drop-shadow(0 0 10px #4cd964);
         }
 
-        /* Entry Call to Action Text */
+        /* Text */
         #c-text { margin-top: 25px; color: white; font-size: 1.2rem; font-weight: 600; text-align: center;}
         #c-subtext { margin-top: 5px; color: rgba(255,255,255,0.7); font-size: 0.9rem; text-align: center;}
 
-        /* Background elements during entry (Hearts/Bubbles context) */
-        #hearts-bokeh-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.5; }
-        .falling-heart { position: absolute; top: -50px; color: #ff4d85; font-size: 1.5rem; animation: heartFall linear infinite; pointer-events: none; opacity: 0.3; }
-        @keyframes heartFall { to { transform: translateY(110vh); } }
-
-        /* 🌊 2. Main World / Pool Composition (Hidden Initially) */
+        /* 🌊 MAIN WORLD (Hidden Initially) */
         #main-world {
             display: none; opacity: 0;
-            background: #0a0a0a; /* Base for standard cosmic purple background/image */
-            background-image: radial-gradient(circle at center, rgba(147, 51, 234, 0.1) 0%, #0a0a0a 70%);
-            width: 100vw; height: 100vh; position: relative;
+            background: url('Background.jpg') no-repeat center center fixed;
+            background-size: cover; width: 100vw; height: 100vh; position: relative;
         }
-        /* Fish Fix: Tail left, head right, left-to-right standard movement */
+
+        /* Title */
+        #title-container { text-align: center; padding-top: 10vh; color: white; position: relative; z-index: 20;}
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 10px #000; margin: 0; }
+        .subtitle { font-size: 1.2rem; font-weight: 600; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
+
+        /* Bubbles */
+        .real-bubble { position: absolute; bottom: -100px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 50%; box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5); animation: rise infinite ease-in; pointer-events: none; z-index: 5;}
+        @keyframes rise { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-110vh) scale(1.5); opacity: 0; } }
+
+        /* Fish Photos (No White Borders) */
         .swimming-photo {
             position: absolute; width: 130px; height: 85px; left: -150px;
-            /* Clipped to bubble/fish shape bubble - No standard white boundaries */
             clip-path: url(#fishShape); 
-            background: transparent; border: none; /* Removed previously complained visual artifacts boundaries */
+            background: transparent; border: none; 
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
             animation: swim linear infinite; z-index: 10;
         }
         .swimming-photo img { width: 100%; height: 100%; object-fit: cover; }
-
         @keyframes swim { 0% { transform: translateX(0); } 100% { transform: translateX(125vw); } }
-
-        /* Bubble Elements for Background */
-        .real-bubble { position: absolute; bottom: -100px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 50%; box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5); animation: rise infinite ease-in; pointer-events: none;}
-        @keyframes rise { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-110vh) scale(1.5); opacity: 0; } }
-
-        /* Main Page Title (Calligraphic context) */
-        #title-container { text-align: center; padding-top: 10vh; color: white; }
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 10px #000; margin: 0; }
-        .subtitle { font-size: 1.2rem; font-weight: 600; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
-
-        /* Scope restriction: No Navigation icons/bot requested */
 
     </style>
 </head>
 <body>
 
-    <div id="hearts-bokeh-bg"></div>
-
     <div id="entry-screen">
-        <div id="entry-button-container" onpointerdown="startVerification()" onpointerup="stopVerification()">
-            <div class="fingerprint-icon">☝️</div>
+        <div id="entry-button-container" onpointerdown="startHold(event)" onpointerup="stopHold(event)" onpointerleave="stopHold(event)">
+            
+            <div class="fingerprint-icon" id="fp-icon">☝️</div>
             
             <svg id="circ-loading" viewBox="0 0 150 150">
                 <circle class="circ-track" cx="75" cy="75" r="70"/>
@@ -148,9 +140,120 @@
             <h1>For My Leenu</h1>
             <p class="subtitle">Every moment with you counts...</p>
         </div>
-        
         <div id="bubble-pool"></div>
         <div id="photo-pool"></div>
     </div>
 
-    
+    <svg width="0" height="0">
+        <defs>
+            <clipPath id="fishShape" clipPathUnits="objectBoundingBox">
+                <path d="M0,0.5 C0.05,0.2, 0.25,0, 0.5,0 C0.85,0, 1,0.25, 1,0.5 C1,0.75, 0.85,1, 0.5,1 C0.25,1, 0.05,0.8, 0,0.5 Z M0.92,0.5 L1,0.35 L1,0.65 Z"></path>
+            </clipPath>
+        </defs>
+    </svg>
+
+    <script>
+        let holdTimer;
+        let progress = 0;
+        let isUnlocked = false;
+
+        // Touch & Hold Logic
+        function startHold(e) {
+            if (isUnlocked) return;
+            e.preventDefault(); // Stop default iPhone behaviors
+
+            document.getElementById('circ-loading').style.display = 'block';
+            const circFill = document.getElementById('circ-fill');
+            
+            // Increment progress every 20ms (Takes around 1.5 seconds to fill)
+            holdTimer = setInterval(() => {
+                progress += 1.5; 
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(holdTimer);
+                    triggerSuccess();
+                }
+                // 440 to 0 math for circle drawing
+                let offset = 440 - (440 * (progress / 100));
+                circFill.style.strokeDashoffset = offset;
+            }, 20);
+        }
+
+        function stopHold(e) {
+            if (isUnlocked) return;
+            e.preventDefault();
+            
+            // Reset everything if finger is lifted early
+            clearInterval(holdTimer);
+            progress = 0;
+            document.getElementById('circ-fill').style.strokeDashoffset = 440;
+            document.getElementById('circ-loading').style.display = 'none';
+        }
+
+        function triggerSuccess() {
+            isUnlocked = true;
+            
+            // Hide Fingerprint & Loader
+            document.getElementById('fp-icon').style.display = 'none';
+            document.getElementById('circ-loading').style.display = 'none';
+            document.getElementById('c-subtext').innerText = "Access Granted.";
+            document.getElementById('c-subtext').style.color = "#4cd964";
+
+            // Show Green Tick
+            document.getElementById('apple-tick-svg').style.display = 'block';
+
+            // Animate Green Tick using GSAP
+            gsap.to("#tick-circle", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" });
+            gsap.to("#tick-mark", { strokeDashoffset: 0, duration: 0.5, delay: 0.3, ease: "power2.out", onComplete: launchWorld });
+        }
+
+        function launchWorld() {
+            // Fade out entry screen, Fade in Main World
+            gsap.to("#entry-screen", { opacity: 0, duration: 1, delay: 0.5, onComplete: () => {
+                document.getElementById('entry-screen').style.display = 'none';
+                
+                const world = document.getElementById('main-world');
+                world.style.display = 'block';
+                gsap.to(world, { opacity: 1, duration: 1 });
+                
+                // Firecrackers!
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+                initExperience();
+            }});
+        }
+
+        function initExperience() {
+            // Spawn Bubbles
+            const bp = document.getElementById('bubble-pool');
+            for(let i=0; i<25; i++) {
+                const b = document.createElement('div');
+                b.className = 'real-bubble';
+                let s = Math.random() * 35 + 10;
+                b.style.width = b.style.height = s + 'px';
+                b.style.left = Math.random() * 100 + 'vw';
+                b.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                b.style.animationDelay = Math.random() * 5 + 's';
+                bp.appendChild(b);
+            }
+
+            // Spawn Fish Photos
+            const pp = document.getElementById('photo-pool');
+            for(let i=1; i<=15; i++) {
+                const p = document.createElement('div');
+                p.className = 'swimming-photo';
+                p.style.top = (Math.random() * 75 + 10) + 'vh';
+                p.style.animationDuration = (Math.random() * 12 + 18) + 's';
+                p.style.animationDelay = (Math.random() * -20) + 's';
+                
+                const img = document.createElement('img');
+                img.src = `photo1-${i}.jpg`; 
+                img.onerror = function() { this.style.display = 'none'; };
+
+                p.appendChild(img);
+                pp.appendChild(p);
+            }
+        }
+    </script>
+</body>
+</html>
