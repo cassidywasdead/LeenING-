@@ -74,6 +74,7 @@
             font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px;
             text-align: left; height: 120px; overflow: hidden;
             text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+            line-height: 1.5;
         }
 
         /* 🌊 2. MAIN WORLD (Hidden Initially) */
@@ -163,13 +164,14 @@
 
             // UI Changes on Tap
             document.getElementById('instruction-text').innerText = "Scanning...";
+            document.getElementById('face-id-icon').style.opacity = '0.3'; // Thoda dim ho jayega
             document.getElementById('scan-spinner').style.display = 'block';
 
             const logBox = document.getElementById('terminal-logs');
             logBox.innerHTML = "";
             let logIndex = 0;
 
-            // Logs ek-ek karke type honge har 450ms mein
+            // 🔥 FIX: Logs ek-ek karke type honge har 1.5 Seconds (1500ms) mein taaki padha ja sake
             const logInterval = setInterval(() => {
                 if (logIndex < hackLogs.length) {
                     logBox.innerHTML += hackLogs[logIndex] + "<br>";
@@ -180,7 +182,7 @@
                     clearInterval(logInterval);
                     showGreenTick();
                 }
-            }, 450); // Speed of logs printing
+            }, 1500); // <-- Yehi woh speed hai (1500ms = 1.5s)
         }
 
         function showGreenTick() {
