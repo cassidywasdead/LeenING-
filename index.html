@@ -7,18 +7,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&family=JetBrains+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=JetBrains+Mono&display=swap');
 
         body {
             margin: 0; padding: 0; min-height: 100vh;
             background: #000; font-family: 'Poppins', sans-serif;
             overflow: hidden; position: relative; color: white;
             
-            /* 🔥 iPhone UI Fix: Copy/Select popup band */
+            /* iPhone UI Fix */
             -webkit-touch-callout: none; 
             -webkit-user-select: none;   
             user-select: none;           
-            touch-action: none; /* Hilkant rokne ke liye scrolling band */
+            touch-action: none; 
         }
 
         /* 🔒 1. ENTRY SCREEN */
@@ -29,49 +29,18 @@
             transition: opacity 1s ease;
         }
 
-        #face-id-container {
-            position: relative; width: 120px; height: 120px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-        }
-
-        #face-id-icon {
-            width: 80px; height: 80px;
-            stroke: #ff4d85; fill: none; stroke-width: 4; stroke-linecap: round;
-            filter: drop-shadow(0 0 10px rgba(255, 77, 133, 0.6));
-            transition: opacity 0.3s;
-        }
-
-        #scan-spinner {
-            position: absolute; inset: 0; width: 120px; height: 120px;
-            animation: spin 1s linear infinite; display: none;
-        }
-        #scan-spinner circle {
-            fill: none; stroke: rgba(255, 77, 133, 0.8); stroke-width: 4;
-            stroke-dasharray: 200; stroke-dashoffset: 50; stroke-linecap: round;
-        }
+        #face-id-container { position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        #face-id-icon { width: 80px; height: 80px; stroke: #ff4d85; fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 10px rgba(255, 77, 133, 0.6)); transition: opacity 0.3s; }
+        
+        #scan-spinner { position: absolute; inset: 0; width: 120px; height: 120px; animation: spin 1s linear infinite; display: none; }
+        #scan-spinner circle { fill: none; stroke: rgba(255, 77, 133, 0.8); stroke-width: 4; stroke-dasharray: 200; stroke-dashoffset: 50; stroke-linecap: round; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        #apple-tick {
-            position: absolute; width: 80px; height: 80px; display: none;
-        }
-        .tick-path {
-            fill: none; stroke: #4cd964; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round;
-            stroke-dasharray: 100; stroke-dashoffset: 100;
-            filter: drop-shadow(0 0 10px #4cd964);
-        }
+        #apple-tick { position: absolute; width: 80px; height: 80px; display: none; }
+        .tick-path { fill: none; stroke: #4cd964; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; filter: drop-shadow(0 0 10px #4cd964); }
 
-        #instruction-text {
-            margin-top: 25px; color: #ff4d85; font-size: 1.2rem; font-weight: 600; text-align: center;
-        }
-        
-        #terminal-logs {
-            margin-top: 30px; font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px;
-            text-align: left; height: 160px; overflow: hidden;
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-            line-height: 1.5;
-        }
+        #instruction-text { margin-top: 25px; color: #ff4d85; font-size: 1.2rem; font-weight: 600; text-align: center; }
+        #terminal-logs { margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px; text-align: left; height: 160px; overflow: hidden; text-shadow: 0 0 5px rgba(0, 255, 0, 0.5); line-height: 1.5; }
 
         /* 🌊 2. MAIN WORLD */
         #main-world {
@@ -80,61 +49,71 @@
             background-size: cover; width: 100vw; height: 100vh; position: relative;
         }
 
-        #title-container { text-align: center; padding-top: 10vh; color: white; position: relative; z-index: 20;}
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 10px #000; margin: 0; }
-        .subtitle { font-size: 1.2rem; font-weight: 600; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
-
-        /* 🫧 PERFORMANCE FIX: SIMPLE BACKGROUND BUBBLES 🫧 */
-        #bubble-pool { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden;}
+        /* 🫧 ULTRA REALISTIC 3D BUBBLES 🫧 */
+        #bubble-pool { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+        
+        /* Container for smooth Y-axis movement */
+        .bubble-y { position: absolute; bottom: -100px; will-change: transform; animation: floatUp linear infinite; }
+        
+        /* Container for smooth X-axis wobble */
+        .bubble-x { width: 100%; height: 100%; will-change: transform; animation: wobbleX ease-in-out infinite alternate; }
+        
+        /* The actual bubble styling */
         .bubble {
-            position: absolute; bottom: -50px; border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 70%);
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.4);
-            /* Wobble animation hata di hillant rokne ke liye */
-            animation: riseUp simple infinite linear;
-            will-change: transform; /* Hardware Acceleration for iPhone */
+            width: 100%; height: 100%; border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Pink & Cyan tint + White center */
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.05) 40%, transparent 60%);
+            box-shadow: 
+                inset 0 0 20px rgba(255, 255, 255, 0.3),
+                inset 10px 0 20px rgba(255, 77, 133, 0.2), /* Pink reflection */
+                inset -10px 0 20px rgba(0, 255, 255, 0.2), /* Cyan reflection */
+                0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        /* Top Left Glare (Shine) */
+        .bubble::before {
+            content: ''; position: absolute; top: 12%; left: 15%; width: 35%; height: 25%;
+            border-radius: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
+            transform: rotate(-45deg);
         }
 
-        @keyframes riseUp {
-            0% { transform: translateY(0) scale(0.8); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
-        }
+        @keyframes floatUp { 100% { transform: translateY(-120vh); } }
+        @keyframes wobbleX { 0% { transform: translateX(-20px); } 100% { transform: translateX(20px); } }
 
-        /* 🐟 🫧 PHOTOS IN BUBBLE SHAPE 🫧 🐟 */
+        /* 📸 PHOTOS TRAPPED INSIDE REAL BUBBLES */
+        #photo-pool { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+        
+        .photo-x { position: absolute; left: -150px; will-change: transform; animation: swimRight linear infinite; }
+        .photo-y { width: 120px; height: 120px; will-change: transform; animation: bobbingY ease-in-out infinite alternate; }
+        
         .photo-bubble {
-            position: absolute; 
-            /* Square dimension for perfect circle */
-            width: 110px; height: 110px; 
-            left: -150px;
-            
-            /* MAGIC: GOL SHAPE WITH SHINE */
-            border-radius: 50%; 
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.7), 0 5px 15px rgba(0,0,0,0.4);
-            
-            overflow: hidden; /* Photo bahar na nikalne paye */
-            animation: swim linear infinite;
-            z-index: 10;
-            will-change: transform;
-        }
-        .photo-bubble img { 
-            width: 100%; height: 100%; 
-            object-fit: cover; /* Photo stretch nahi hogi */
-            object-position: center;
+            width: 100%; height: 100%; border-radius: 50%;
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            /* Same Pink/Cyan 3D Glass Effect */
+            box-shadow: 
+                inset 0 0 20px rgba(255, 255, 255, 0.6),
+                inset 10px 0 30px rgba(255, 77, 133, 0.3),
+                inset -10px 0 30px rgba(0, 255, 255, 0.3),
+                0 10px 20px rgba(0,0,0,0.5);
+            overflow: hidden; position: relative;
         }
         
-        /* Bubble Shine Glare over the photo */
+        /* The Photo */
+        .photo-bubble img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0.85; /* Thoda transparent taaki paani ke andar lage */
+        }
+        
+        /* The Glassy Glare OVER the photo */
         .photo-bubble::after {
-            content:''; position:absolute;
-            top:15%; left:15%; width:25%; height:25%;
-            border-radius:50%; background:rgba(255,255,255,0.9);
-            filter:blur(1px); z-index: 11;
+            content: ''; position: absolute; top: 5%; left: 15%; width: 40%; height: 25%;
+            border-radius: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+            transform: rotate(-30deg); z-index: 2; pointer-events: none;
         }
 
-        @keyframes swim { 0% { transform: translateX(0); } 100% { transform: translateX(125vw); } }
+        @keyframes swimRight { 100% { transform: translateX(125vw); } }
+        @keyframes bobbingY { 0% { transform: translateY(-15px); } 100% { transform: translateY(15px); } }
 
     </style>
 </head>
@@ -160,10 +139,6 @@
     </div>
 
     <div id="main-world">
-        <div id="title-container">
-            <h1>Days I Fell For You</h1>
-            <p class="subtitle">Every moment with you counts...</p>
-        </div>
         <div id="bubble-pool"></div>
         <div id="photo-pool"></div>
     </div>
@@ -207,7 +182,6 @@
                             colors: ['#ff4d85', '#00ff00', '#ffffff'], zIndex: 9999
                         });
                     }
-                    
                     logIndex++;
                 } else {
                     clearInterval(logInterval);
@@ -243,35 +217,58 @@
             }});
         }
 
+        // 🫧 Smooth Transparent Bubbles
         function spawnBubbles() {
             const bp = document.getElementById('bubble-pool');
-            for(let i=0; i<20; i++) { // Bubbles thode kam kiye stability ke liye
+            for(let i=0; i<15; i++) { 
+                const yWrap = document.createElement('div');
+                yWrap.className = 'bubble-y';
+                yWrap.style.left = Math.random() * 100 + 'vw';
+                yWrap.style.animationDuration = `${Math.random() * 8 + 8}s`; 
+                yWrap.style.animationDelay = `${Math.random() * -10}s`;
+
+                const xWrap = document.createElement('div');
+                xWrap.className = 'bubble-x';
+                xWrap.style.animationDuration = `${Math.random() * 3 + 2}s`; 
+                xWrap.style.animationDelay = `${Math.random() * -5}s`;
+
                 const b = document.createElement('div');
                 b.className = 'bubble';
-                let s = Math.random() * 25 + 10;
-                b.style.width = b.style.height = s + 'px';
-                b.style.left = Math.random() * 100 + 'vw';
-                b.style.animationDuration = `${Math.random() * 6 + 6}s`; // Single animation
-                b.style.animationDelay = `${Math.random() * 5}s`;
-                bp.appendChild(b);
+                let s = Math.random() * 30 + 15; // 15px to 45px
+                yWrap.style.width = yWrap.style.height = s + 'px';
+
+                xWrap.appendChild(b);
+                yWrap.appendChild(xWrap);
+                bp.appendChild(yWrap);
             }
         }
 
+        // 📸 Smooth Photo Bubbles
         function spawnFishes() {
             const pp = document.getElementById('photo-pool');
             for(let i=1; i<=15; i++) {
-                const p = document.createElement('div');
-                p.className = 'photo-bubble'; // NEW CLASS NAME
-                p.style.top = (Math.random() * 70 + 15) + 'vh';
-                p.style.animationDuration = (Math.random() * 12 + 18) + 's';
-                p.style.animationDelay = (Math.random() * -20) + 's';
+                const xWrap = document.createElement('div');
+                xWrap.className = 'photo-x';
+                xWrap.style.top = (Math.random() * 70 + 10) + 'vh';
+                xWrap.style.animationDuration = (Math.random() * 15 + 20) + 's'; // Slow smooth swim
+                xWrap.style.animationDelay = (Math.random() * -30) + 's';
+
+                const yWrap = document.createElement('div');
+                yWrap.className = 'photo-y';
+                yWrap.style.animationDuration = (Math.random() * 4 + 3) + 's'; // Bobbing up and down
+                yWrap.style.animationDelay = (Math.random() * -5}s`;
+
+                const pBubble = document.createElement('div');
+                pBubble.className = 'photo-bubble';
                 
                 const img = document.createElement('img');
                 img.src = `photo1-${i}.jpg`; 
-                img.onerror = function() { this.style.display = 'none'; p.style.display='none'; };
+                img.onerror = function() { xWrap.style.display = 'none'; };
 
-                p.appendChild(img);
-                pp.appendChild(p);
+                pBubble.appendChild(img);
+                yWrap.appendChild(pBubble);
+                xWrap.appendChild(yWrap);
+                pp.appendChild(xWrap);
             }
         }
     </script>
