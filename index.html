@@ -91,7 +91,40 @@
         h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 10px #000; margin: 0; }
         .subtitle { font-size: 1.2rem; font-weight: 600; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
 
-        /* Fish Photos */
+        /* 🫧 REALISTIC BUBBLES 🫧 */
+        #bubble-pool {
+            position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden;
+        }
+        .bubble {
+            position: absolute; bottom: -50px; border-radius: 50%;
+            /* Glassy 3D Gradient */
+            background: radial-gradient(150% 150% at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05) 50%, transparent);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Outer shadow + inner reflection + pinkish tint */
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.6), inset 10px 0 20px rgba(255, 255, 255, 0.2), inset -10px 0 20px rgba(255, 105, 180, 0.2);
+            backdrop-filter: blur(1px); /* Halka blur peeche ka */
+            animation: riseUp linear infinite, sideWobble ease-in-out infinite alternate;
+        }
+        /* Bubble ki White Shine (Glare) */
+        .bubble::after {
+            content: ''; position: absolute;
+            top: 15%; left: 15%; width: 25%; height: 25%;
+            border-radius: 50%; background: rgba(255, 255, 255, 0.8);
+            filter: blur(2px); transform: rotate(-45deg);
+        }
+
+        @keyframes riseUp {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+        }
+        @keyframes sideWobble {
+            0% { margin-left: 0px; }
+            100% { margin-left: 25px; } /* Paani mein hilne wala effect */
+        }
+
+        /* 🐟 Fish Photos */
         .swimming-photo {
             position: absolute; width: 130px; height: 85px; left: -150px;
             clip-path: url(#fishShape); background: transparent; border: none; 
@@ -129,6 +162,7 @@
             <h1>Days I Fell For You</h1>
             <p class="subtitle">Every moment with you counts...</p>
         </div>
+        <div id="bubble-pool"></div>
         <div id="photo-pool"></div>
     </div>
 
@@ -151,7 +185,7 @@
             "> Stole data from NASA...",
             "> Missed call rcvd from Jaadu...",
             "> Using Doraemon’s gadget...",
-            // Vip Welcome text
+            // VIP Welcome text
             `<div style="text-align: center; font-size: 1.8rem; color: #ff4d85; text-shadow: 0 0 15px #ff4d85; margin-top: 15px; font-weight: bold; font-family: 'Poppins', sans-serif;">Welcome Lovleen</div>`
         ];
 
@@ -174,21 +208,21 @@
                     logBox.innerHTML += hackLogs[logIndex] + "<br>";
                     logBox.scrollTop = logBox.scrollHeight;
                     
-                    // ASLI PATAKHE: Z-INDEX FIX KE SATH
+                    // PATAKHE MAGIC
                     if (logIndex === hackLogs.length - 1) {
                         confetti({
                             particleCount: 200,
                             spread: 100,
                             origin: { y: 0.6 },
                             colors: ['#ff4d85', '#00ff00', '#ffffff'],
-                            zIndex: 9999 // MAGIC FIX: Sabse aage phatenge ab
+                            zIndex: 9999
                         });
                     }
                     
                     logIndex++;
                 } else {
                     clearInterval(logInterval);
-                    setTimeout(showGreenTick, 1500); // Thoda time diya taaki patakhe dikhein
+                    setTimeout(showGreenTick, 1500); 
                 }
             }, 1500); 
         }
@@ -220,8 +254,30 @@
                 world.style.display = 'block';
                 gsap.to(world, { opacity: 1, duration: 1 });
                 
+                spawnBubbles();
                 spawnFishes();
             }});
+        }
+
+        // Realistic Bubble Spawner Function
+        function spawnBubbles() {
+            const bp = document.getElementById('bubble-pool');
+            for(let i=0; i<30; i++) {
+                const b = document.createElement('div');
+                b.className = 'bubble';
+                // Random Size (15px to 45px)
+                let s = Math.random() * 30 + 15;
+                b.style.width = s + 'px';
+                b.style.height = s + 'px';
+                // Random position across the screen
+                b.style.left = Math.random() * 100 + 'vw';
+                // Random animation speed (6s to 14s up, 2s to 4s wobble)
+                b.style.animationDuration = `${Math.random() * 8 + 6}s, ${Math.random() * 2 + 2}s`;
+                // Random delay so they don't start together
+                b.style.animationDelay = `${Math.random() * 5}s, 0s`;
+                
+                bp.appendChild(b);
+            }
         }
 
         function spawnFishes() {
