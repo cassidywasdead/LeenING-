@@ -49,37 +49,49 @@
             background-size: cover; width: 100vw; height: 100vh; position: relative;
         }
 
-        /* 🫧 ULTRA REALISTIC 3D BUBBLES 🫧 */
-        #bubble-pool { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+        /* ❤️ PREMIUM RED HEARTS (Floating Background) ❤️ */
+        #heart-pool { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
         
-        .bubble-y { position: absolute; bottom: -100px; will-change: transform; animation: floatUp linear infinite; }
-        .bubble-x { width: 100%; height: 100%; will-change: transform; animation: wobbleX ease-in-out infinite alternate; }
-        
-        .bubble {
-            width: 100%; height: 100%; border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.05) 40%, transparent 60%);
-            box-shadow: 
-                inset 0 0 20px rgba(255, 255, 255, 0.3),
-                inset 10px 0 20px rgba(255, 77, 133, 0.2), 
-                inset -10px 0 20px rgba(0, 255, 255, 0.2), 
-                0 5px 15px rgba(0,0,0,0.2);
-            position: relative;
+        .heart-wrapper {
+            position: absolute; bottom: -50px;
+            will-change: transform;
+            animation: floatHeartUp linear infinite;
         }
-        .bubble::before {
-            content: ''; position: absolute; top: 12%; left: 15%; width: 35%; height: 25%;
-            border-radius: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
-            transform: rotate(-45deg);
+        .heart-inner {
+            width: 100%; height: 100%;
+            will-change: transform;
+            animation: swayHeart ease-in-out infinite alternate;
+        }
+        .heart-svg {
+            width: 100%; height: 100%;
+            fill: url(#redGradient);
+            filter: drop-shadow(0 5px 10px rgba(255, 0, 64, 0.5));
         }
 
-        @keyframes floatUp { 100% { transform: translateY(-120vh); } }
-        @keyframes wobbleX { 0% { transform: translateX(-20px); } 100% { transform: translateX(20px); } }
+        @keyframes floatHeartUp { 
+            0% { transform: translateY(0) scale(0.5); opacity: 0; } 
+            10% { opacity: 0.8; } 
+            90% { opacity: 0.8; } 
+            100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } 
+        }
+        @keyframes swayHeart { 
+            0% { transform: translateX(-20px) rotate(-15deg); } 
+            100% { transform: translateX(20px) rotate(15deg); } 
+        }
 
-        /* 📸 PHOTOS TRAPPED INSIDE REAL BUBBLES */
-        #photo-pool { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+        /* 📸 SOAP BUBBLES WITH PHOTOS (Rising from Bottom) */
+        #photo-pool { position: absolute; inset: 0; z-index: 10; pointer-events: none; overflow: hidden; }
         
-        .photo-x { position: absolute; left: -150px; will-change: transform; animation: swimRight linear infinite; }
-        .photo-y { width: 120px; height: 120px; will-change: transform; animation: bobbingY ease-in-out infinite alternate; }
+        .photo-rise { 
+            position: absolute; bottom: -150px; /* Neeche se aayenge */
+            will-change: transform; 
+            animation: riseFromBottom linear infinite; 
+        }
+        .photo-wobble { 
+            width: 110px; height: 110px; 
+            will-change: transform; 
+            animation: bobbingX ease-in-out infinite alternate; 
+        }
         
         .photo-bubble {
             width: 100%; height: 100%; border-radius: 50%;
@@ -94,21 +106,33 @@
         
         .photo-bubble img { 
             width: 100%; height: 100%; object-fit: cover; 
-            opacity: 0.85; 
+            opacity: 0.9; 
         }
         
+        /* Glass Glare */
         .photo-bubble::after {
             content: ''; position: absolute; top: 5%; left: 15%; width: 40%; height: 25%;
             border-radius: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
             transform: rotate(-30deg); z-index: 2; pointer-events: none;
         }
 
-        @keyframes swimRight { 100% { transform: translateX(125vw); } }
-        @keyframes bobbingY { 0% { transform: translateY(-15px); } 100% { transform: translateY(15px); } }
+        /* 🚀 Fast Floating Animation */
+        @keyframes riseFromBottom { 100% { transform: translateY(-125vh); } }
+        @keyframes bobbingX { 0% { transform: translateX(-15px); } 100% { transform: translateX(15px); } }
 
     </style>
 </head>
 <body>
+
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ff4d4d; stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#ff0040; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#b3002d; stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
 
     <div id="entry-screen">
         <div id="face-id-container" onclick="startUnlockSequence()">
@@ -130,7 +154,7 @@
     </div>
 
     <div id="main-world">
-        <div id="bubble-pool"></div>
+        <div id="heart-pool"></div>
         <div id="photo-pool"></div>
     </div>
 
@@ -203,63 +227,72 @@
                 world.style.display = 'block';
                 gsap.to(world, { opacity: 1, duration: 1 });
                 
-                spawnBubbles();
+                spawnHearts();
                 spawnFishes();
             }});
         }
 
-        function spawnBubbles() {
-            const bp = document.getElementById('bubble-pool');
-            for(let i=0; i<15; i++) { 
-                const yWrap = document.createElement('div');
-                yWrap.className = 'bubble-y';
-                yWrap.style.left = Math.random() * 100 + 'vw';
-                yWrap.style.animationDuration = (Math.random() * 8 + 8) + 's'; 
-                yWrap.style.animationDelay = (Math.random() * -10) + 's';
+        // ❤️ Spawn High Quality Red Hearts
+        function spawnHearts() {
+            const hp = document.getElementById('heart-pool');
+            // Premium SVG Heart Path
+            const heartPath = "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z";
+            
+            for(let i=0; i<25; i++) { 
+                const wrapper = document.createElement('div');
+                wrapper.className = 'heart-wrapper';
+                wrapper.style.left = Math.random() * 95 + 'vw';
+                wrapper.style.animationDuration = (Math.random() * 8 + 6) + 's'; 
+                wrapper.style.animationDelay = (Math.random() * -10) + 's';
 
-                const xWrap = document.createElement('div');
-                xWrap.className = 'bubble-x';
-                xWrap.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
-                xWrap.style.animationDelay = (Math.random() * -5) + 's';
+                const inner = document.createElement('div');
+                inner.className = 'heart-inner';
+                inner.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
+                inner.style.animationDelay = (Math.random() * -5) + 's';
 
-                const b = document.createElement('div');
-                b.className = 'bubble';
-                let s = Math.random() * 30 + 15;
-                yWrap.style.width = s + 'px';
-                yWrap.style.height = s + 'px';
+                let s = Math.random() * 15 + 15; // Small hearts (15px to 30px)
+                wrapper.style.width = s + 'px';
+                wrapper.style.height = s + 'px';
 
-                xWrap.appendChild(b);
-                yWrap.appendChild(xWrap);
-                bp.appendChild(yWrap);
+                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                svg.setAttribute("viewBox", "0 0 24 24");
+                svg.setAttribute("class", "heart-svg");
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", heartPath);
+                
+                svg.appendChild(path);
+                inner.appendChild(svg);
+                wrapper.appendChild(inner);
+                hp.appendChild(wrapper);
             }
         }
 
+        // 🫧 Spawn Photo Bubbles (Rising from bottom like soap bubbles)
         function spawnFishes() {
             const pp = document.getElementById('photo-pool');
             for(let i=1; i<=15; i++) {
-                const xWrap = document.createElement('div');
-                xWrap.className = 'photo-x';
-                xWrap.style.top = (Math.random() * 70 + 10) + 'vh';
-                xWrap.style.animationDuration = (Math.random() * 15 + 20) + 's'; 
-                xWrap.style.animationDelay = (Math.random() * -30) + 's';
+                const riseWrap = document.createElement('div');
+                riseWrap.className = 'photo-rise';
+                riseWrap.style.left = Math.random() * 80 + 10 + 'vw'; // Random horizontal position
+                riseWrap.style.animationDuration = (Math.random() * 8 + 10) + 's'; // Fast float (10s-18s)
+                riseWrap.style.animationDelay = (Math.random() * -20) + 's';
 
-                const yWrap = document.createElement('div');
-                yWrap.className = 'photo-y';
-                yWrap.style.animationDuration = (Math.random() * 4 + 3) + 's'; 
-                // YAHAN THI WOH BRACKET WALI GALTI, AB FIXED HAI 👇
-                yWrap.style.animationDelay = (Math.random() * -5) + 's';
+                const wobbleWrap = document.createElement('div');
+                wobbleWrap.className = 'photo-wobble';
+                wobbleWrap.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
+                wobbleWrap.style.animationDelay = (Math.random() * -5) + 's';
 
                 const pBubble = document.createElement('div');
                 pBubble.className = 'photo-bubble';
                 
                 const img = document.createElement('img');
                 img.src = `photo1-${i}.jpg`; 
-                img.onerror = function() { xWrap.style.display = 'none'; };
+                img.onerror = function() { riseWrap.style.display = 'none'; };
 
                 pBubble.appendChild(img);
-                yWrap.appendChild(pBubble);
-                xWrap.appendChild(yWrap);
-                pp.appendChild(xWrap);
+                wobbleWrap.appendChild(pBubble);
+                riseWrap.appendChild(wobbleWrap);
+                pp.appendChild(riseWrap);
             }
         }
     </script>
