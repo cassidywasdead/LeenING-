@@ -72,7 +72,9 @@
         #terminal-logs {
             margin-top: 30px; font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px;
-            text-align: left; height: 120px; overflow: hidden;
+            text-align: left; 
+            height: 160px; /* Thoda bada kiya taaki VIP text fit aa jaye */
+            overflow: hidden;
             text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
             line-height: 1.5;
         }
@@ -142,36 +144,36 @@
     </svg>
 
     <script>
-        // Teri exact list jo tune di thi
+        // Teri exact list aur end mein VIP Lovleen Banner
         const hackLogs = [
             "> Running DNA analysis...",
             "> Consulting Elon Musk...",
-            "> Verifying Arnav’s haemoglobin...",
-            "> Peeking Arnav’s heart...",
+            "> Verifying Ahrnav’s haemoglobin...",
+            "> Peeking Ahrnav’s heart...",
             "> Calling Stephen Hawking...",
-            "> Hacking Arnav's mind...",
+            "> Hacking Ahrnav's mind...",
             "> Stole data from NASA...",
             "> Missed call rcvd from Jaadu...",
             "> Using Doraemon’s gadget...",
-            "> SUCCESS: Welcome Leenie ❤️"
+            `<div style="text-align: center; font-size: 1.8rem; color: #ff4d85; text-shadow: 0 0 15px #ff4d85; margin-top: 15px; font-weight: bold; font-family: 'Poppins', sans-serif;">🎉 Welcome Lovleen 🎉</div>`
         ];
 
         let isScanning = false;
 
         function startUnlockSequence() {
-            if(isScanning) return; // Ek baar dabne ke baad dobara na chale
+            if(isScanning) return; 
             isScanning = true;
 
             // UI Changes on Tap
             document.getElementById('instruction-text').innerText = "Scanning...";
-            document.getElementById('face-id-icon').style.opacity = '0.3'; // Thoda dim ho jayega
+            document.getElementById('face-id-icon').style.opacity = '0.3'; 
             document.getElementById('scan-spinner').style.display = 'block';
 
             const logBox = document.getElementById('terminal-logs');
             logBox.innerHTML = "";
             let logIndex = 0;
 
-            // 🔥 FIX: Logs ek-ek karke type honge har 1.5 Seconds (1500ms) mein taaki padha ja sake
+            // Logs har 1.5 Seconds (1500ms) mein aayenge
             const logInterval = setInterval(() => {
                 if (logIndex < hackLogs.length) {
                     logBox.innerHTML += hackLogs[logIndex] + "<br>";
@@ -182,7 +184,7 @@
                     clearInterval(logInterval);
                     showGreenTick();
                 }
-            }, 1500); // <-- Yehi woh speed hai (1500ms = 1.5s)
+            }, 1500); 
         }
 
         function showGreenTick() {
