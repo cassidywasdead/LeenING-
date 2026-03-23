@@ -151,7 +151,7 @@
             "> Stole data from NASA...",
             "> Missed call rcvd from Jaadu...",
             "> Using Doraemon’s gadget...",
-            // Emojis removed, purely styled text
+            // Vip Welcome text
             `<div style="text-align: center; font-size: 1.8rem; color: #ff4d85; text-shadow: 0 0 15px #ff4d85; margin-top: 15px; font-weight: bold; font-family: 'Poppins', sans-serif;">Welcome Lovleen</div>`
         ];
 
@@ -174,21 +174,21 @@
                     logBox.innerHTML += hackLogs[logIndex] + "<br>";
                     logBox.scrollTop = logBox.scrollHeight;
                     
-                    // ASLI PATAKHE: Jab last line (Welcome Lovleen) aaye, tabhi blast hoga!
+                    // ASLI PATAKHE: Z-INDEX FIX KE SATH
                     if (logIndex === hackLogs.length - 1) {
                         confetti({
-                            particleCount: 150,
-                            spread: 80,
+                            particleCount: 200,
+                            spread: 100,
                             origin: { y: 0.6 },
-                            colors: ['#ff4d85', '#00ff00', '#ffffff'] // Matching theme colors
+                            colors: ['#ff4d85', '#00ff00', '#ffffff'],
+                            zIndex: 9999 // MAGIC FIX: Sabse aage phatenge ab
                         });
                     }
                     
                     logIndex++;
                 } else {
                     clearInterval(logInterval);
-                    // Thoda delay dekar tick dikhayenge taaki patakhe enjoy kar sake
-                    setTimeout(showGreenTick, 1000);
+                    setTimeout(showGreenTick, 1500); // Thoda time diya taaki patakhe dikhein
                 }
             }, 1500); 
         }
