@@ -13,23 +13,32 @@
             margin: 0; padding: 0; min-height: 100vh;
             background: #000; font-family: 'Poppins', sans-serif;
             overflow: hidden; position: relative; color: white;
-            -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: none; 
+            
+            /* iPhone UI Fix */
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            touch-action: none; 
         }
 
-        /* 🔒 1. ENTRY SCREEN (Same as before) */
+        /* 🔒 1. ENTRY SCREEN */
         #entry-screen {
             position: fixed; inset: 0; background: #050505;
             z-index: 1000; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             transition: opacity 1s ease;
         }
+
         #face-id-container { position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         #face-id-icon { width: 80px; height: 80px; stroke: #ff4d85; fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 10px rgba(255, 77, 133, 0.6)); transition: opacity 0.3s; }
+        
         #scan-spinner { position: absolute; inset: 0; width: 120px; height: 120px; animation: spin 1s linear infinite; display: none; }
         #scan-spinner circle { fill: none; stroke: rgba(255, 77, 133, 0.8); stroke-width: 4; stroke-dasharray: 200; stroke-dashoffset: 50; stroke-linecap: round; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+
         #apple-tick { position: absolute; width: 80px; height: 80px; display: none; }
         .tick-path { fill: none; stroke: #4cd964; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; filter: drop-shadow(0 0 10px #4cd964); }
+
         #instruction-text { margin-top: 25px; color: #ff4d85; font-size: 1.2rem; font-weight: 600; text-align: center; }
         #terminal-logs { margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px; text-align: left; height: 160px; overflow: hidden; text-shadow: 0 0 5px rgba(0, 255, 0, 0.5); line-height: 1.5; }
 
@@ -40,154 +49,253 @@
             background-size: cover; width: 100vw; height: 100vh; position: relative;
         }
 
-        /* 🗂️ 4 NEW SECTIONS (A, B, C, D) */
-        #top-sections {
-            position: absolute; top: 20px; left: 0; width: 100%;
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 10px; padding: 0 15px; z-index: 100;
+        /* ❤️ PREMIUM RED HEARTS (Floating Background) ❤️ */
+        #heart-pool { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
+        
+        .heart-wrapper {
+            position: absolute; bottom: -50px;
+            will-change: transform;
+            animation: floatHeartUp linear infinite;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px;
-            height: 60px; display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 1.2rem; color: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s;
+        .heart-inner {
+            width: 100%; height: 100%;
+            will-change: transform;
+            animation: swayHeart ease-in-out infinite alternate;
         }
-        .glass-card:active { transform: scale(0.95); background: rgba(255, 77, 133, 0.3); }
-
-        /* 💬 CHATBOX / HELP SYSTEM */
-        #help-trigger {
-            position: absolute; bottom: 30px; right: 20px;
-            width: 60px; height: 60px; background: #ff4d85;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 5px 15px rgba(255, 77, 133, 0.4); z-index: 110; cursor: pointer;
-        }
-        #help-trigger::after {
-            content: '1'; position: absolute; top: -5px; right: -5px;
-            background: red; color: white; font-size: 0.7rem; padding: 4px 8px;
-            border-radius: 50%; font-weight: bold; border: 2px solid white;
+        .heart-svg {
+            width: 100%; height: 100%;
+            fill: url(#redGradient);
+            filter: drop-shadow(0 5px 10px rgba(255, 0, 64, 0.5));
         }
 
-        #chat-panel {
-            position: absolute; bottom: 100px; right: 20px; width: 280px;
-            background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(15px);
-            border-radius: 20px; border: 1px solid #ff4d85; padding: 15px;
-            display: none; flex-direction: column; gap: 10px; z-index: 105;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        @keyframes floatHeartUp { 
+            0% { transform: translateY(0) scale(0.5); opacity: 0; } 
+            10% { opacity: 0.8; } 
+            90% { opacity: 0.8; } 
+            100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } 
         }
-        .bot-header { font-size: 0.9rem; color: #ff4d85; border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 5px; }
-        .opt-btn {
-            background: #222; color: #eee; border: 1px solid #444; padding: 10px;
-            border-radius: 10px; text-align: left; font-size: 0.8rem; cursor: pointer;
+        @keyframes swayHeart { 
+            0% { transform: translateX(-20px) rotate(-15deg); } 
+            100% { transform: translateX(20px) rotate(15deg); } 
         }
-        .opt-btn:hover { border-color: #ff4d85; color: #ff4d85; }
-        #chat-ans { font-size: 0.85rem; color: #4cd964; margin-top: 5px; min-height: 20px; border-top: 1px solid #333; padding-top: 8px; }
 
-        /* (Hearts & Photo Bubbles CSS - SAME AS BEFORE) */
-        #heart-pool, #photo-pool { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-        .heart-wrapper { position: absolute; bottom: -50px; animation: floatHeartUp linear infinite; }
-        .photo-rise { position: absolute; bottom: -150px; animation: riseFromBottom linear infinite; }
-        .photo-bubble { width: 110px; height: 110px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.6); overflow: hidden; box-shadow: inset 0 0 20px rgba(255,255,255,0.6); }
-        .photo-bubble img { width: 100%; height: 100%; object-fit: cover; }
+        /* 📸 SOAP BUBBLES WITH PHOTOS (Rising from Bottom) */
+        #photo-pool { position: absolute; inset: 0; z-index: 10; pointer-events: none; overflow: hidden; }
+        
+        .photo-rise { 
+            position: absolute; bottom: -150px; 
+            will-change: transform; 
+            animation: riseFromBottom linear infinite; 
+        }
+        .photo-wobble { 
+            width: 110px; height: 110px; 
+            will-change: transform; 
+            animation: bobbingX ease-in-out infinite alternate; 
+        }
+        
+        .photo-bubble {
+            width: 100%; height: 100%; border-radius: 50%;
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                inset 0 0 20px rgba(255, 255, 255, 0.6),
+                inset 10px 0 30px rgba(255, 77, 133, 0.3),
+                inset -10px 0 30px rgba(0, 255, 255, 0.3),
+                0 10px 20px rgba(0,0,0,0.5);
+            overflow: hidden; position: relative;
+        }
+        
+        .photo-bubble img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0.9; 
+        }
+        
+        /* Glass Glare */
+        .photo-bubble::after {
+            content: ''; position: absolute; top: 5%; left: 15%; width: 40%; height: 25%;
+            border-radius: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+            transform: rotate(-30deg); z-index: 2; pointer-events: none;
+        }
+
+        /* 🚀 Fast Floating Animation */
         @keyframes riseFromBottom { 100% { transform: translateY(-125vh); } }
-        @keyframes floatHeartUp { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
+        @keyframes bobbingX { 0% { transform: translateX(-15px); } 100% { transform: translateX(15px); } }
+
     </style>
 </head>
 <body>
 
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ff4d4d; stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#ff0040; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#b3002d; stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
     <div id="entry-screen">
         <div id="face-id-container" onclick="startUnlockSequence()">
-            <svg id="face-id-icon" viewBox="0 0 100 100"><path d="M 30,20 Q 20,20 20,30 L 20,40 M 70,20 Q 80,20 80,30 L 80,40 M 20,60 L 20,70 Q 20,80 30,80 M 80,60 L 80,70 Q 80,80 70,80" /><path d="M 40,40 L 40,50 M 60,40 L 60,50" /><path d="M 50,45 L 50,60 M 40,65 Q 50,75 60,65" /></svg>
-            <svg id="scan-spinner" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" /></svg>
-            <svg id="apple-tick" viewBox="0 0 100 100"><path class="tick-path" id="tick-mark" d="M 25,50 L 45,70 L 75,30" /></svg>
+            <svg id="face-id-icon" viewBox="0 0 100 100">
+                <path d="M 30,20 Q 20,20 20,30 L 20,40 M 70,20 Q 80,20 80,30 L 80,40 M 20,60 L 20,70 Q 20,80 30,80 M 80,60 L 80,70 Q 80,80 70,80" />
+                <path d="M 40,40 L 40,50 M 60,40 L 60,50" />
+                <path d="M 50,45 L 50,60 M 40,65 Q 50,75 60,65" />
+            </svg>
+            <svg id="scan-spinner" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" />
+            </svg>
+            <svg id="apple-tick" viewBox="0 0 100 100">
+                <path class="tick-path" id="tick-mark" d="M 25,50 L 45,70 L 75,30" />
+            </svg>
         </div>
+        
         <div id="instruction-text">Tap to Scan Face ID</div>
         <div id="terminal-logs"></div>
     </div>
 
     <div id="main-world">
-        <div id="top-sections">
-            <div class="glass-card">A</div>
-            <div class="glass-card">B</div>
-            <div class="glass-card">C</div>
-            <div class="glass-card">D</div>
-        </div>
-
         <div id="heart-pool"></div>
         <div id="photo-pool"></div>
-
-        <div id="help-trigger" onclick="toggleChat()">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-        </div>
-
-        <div id="chat-panel">
-            <div class="bot-header">Ahrnav's Support Center</div>
-            <button class="opt-btn" onclick="botReply('Life time warranty! Replacement strictly prohibited. 🚫')">Replace Ahrnav</button>
-            <button class="opt-btn" onclick="botReply('Refund processed in Kisses only! 💋')">Cancel Love Subscription</button>
-            <button class="opt-btn" onclick="botReply('Status: Currently thinking about you... 💭')">Track My Boy's Mood</button>
-            <div id="chat-ans">Choose an option...</div>
-        </div>
     </div>
 
     <script>
-        // Log animations and scanning logic
-        const hackLogs = ["> DNA Analysis...", "> Verifying Love...", "> Stole data from NASA...", `<div style="color:#ff4d85">Welcome Lovleen</div>` ];
+        const hackLogs = [
+            "> Running DNA analysis...",
+            "> Consulting Elon Musk...",
+            "> Verifying Ahrnav’s haemoglobin...",
+            "> Peeking Ahrnav’s heart...",
+            "> Calling Stephen Hawking...",
+            "> Hacking Ahrnav's mind...",
+            "> Stole data from NASA...",
+            "> Missed call rcvd from Jaadu...",
+            "> Using Doraemon’s gadget...",
+            `<div style="text-align: center; font-size: 1.8rem; color: #ff4d85; text-shadow: 0 0 15px #ff4d85; margin-top: 15px; font-weight: bold; font-family: 'Poppins', sans-serif;">Welcome Lovleen</div>`
+        ];
+
         let isScanning = false;
 
         function startUnlockSequence() {
-            if(isScanning) return; isScanning = true;
+            if(isScanning) return; 
+            isScanning = true;
+
             document.getElementById('instruction-text').innerText = "Scanning...";
+            document.getElementById('face-id-icon').style.opacity = '0.3'; 
             document.getElementById('scan-spinner').style.display = 'block';
-            let logIndex = 0;
+
             const logBox = document.getElementById('terminal-logs');
+            logBox.innerHTML = "";
+            let logIndex = 0;
+
             const logInterval = setInterval(() => {
                 if (logIndex < hackLogs.length) {
                     logBox.innerHTML += hackLogs[logIndex] + "<br>";
+                    logBox.scrollTop = logBox.scrollHeight;
+                    
+                    if (logIndex === hackLogs.length - 1) {
+                        confetti({
+                            particleCount: 200, spread: 100, origin: { y: 0.6 },
+                            colors: ['#ff4d85', '#00ff00', '#ffffff'], zIndex: 9999
+                        });
+                    }
                     logIndex++;
                 } else {
                     clearInterval(logInterval);
-                    setTimeout(showGreenTick, 1000);
+                    setTimeout(showGreenTick, 1500); 
                 }
-            }, 1000);
+            }, 1500); 
         }
 
         function showGreenTick() {
             document.getElementById('face-id-icon').style.display = 'none';
             document.getElementById('scan-spinner').style.display = 'none';
-            document.getElementById('apple-tick').style.display = 'block';
-            gsap.to("#tick-mark", { strokeDashoffset: 0, duration: 0.6, onComplete: () => {
-                setTimeout(launchWorld, 800);
-            }});
+            document.getElementById('instruction-text').innerText = "Access Granted.";
+            document.getElementById('instruction-text').style.color = "#4cd964";
+
+            const tickSvg = document.getElementById('apple-tick');
+            tickSvg.style.display = 'block';
+            
+            gsap.to("#tick-mark", { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", onComplete: () => {
+                    setTimeout(launchWorld, 1000);
+                }
+            });
         }
 
         function launchWorld() {
             gsap.to("#entry-screen", { opacity: 0, duration: 1, onComplete: () => {
                 document.getElementById('entry-screen').style.display = 'none';
-                document.getElementById('main-world').style.display = 'block';
-                gsap.to("#main-world", { opacity: 1, duration: 1 });
-                spawnElements();
+                const world = document.getElementById('main-world');
+                world.style.display = 'block';
+                gsap.to(world, { opacity: 1, duration: 1 });
+                
+                spawnHearts();
+                spawnFishes();
             }});
         }
 
-        function toggleChat() {
-            const panel = document.getElementById('chat-panel');
-            panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        function botReply(msg) {
-            document.getElementById('chat-ans').innerText = "Bot: " + msg;
-        }
-
-        function spawnElements() {
-            // Spawn Hearts & Bubbles
+        // ❤️ Spawn High Quality Red Hearts
+        function spawnHearts() {
             const hp = document.getElementById('heart-pool');
+            // Premium SVG Heart Path
+            const heartPath = "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z";
+            
+            for(let i=0; i<25; i++) { 
+                const wrapper = document.createElement('div');
+                wrapper.className = 'heart-wrapper';
+                wrapper.style.left = Math.random() * 95 + 'vw';
+                wrapper.style.animationDuration = (Math.random() * 8 + 6) + 's'; 
+                wrapper.style.animationDelay = (Math.random() * -10) + 's';
+
+                const inner = document.createElement('div');
+                inner.className = 'heart-inner';
+                inner.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
+                inner.style.animationDelay = (Math.random() * -5) + 's';
+
+                let s = Math.random() * 15 + 15; // Small hearts (15px to 30px)
+                wrapper.style.width = s + 'px';
+                wrapper.style.height = s + 'px';
+
+                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                svg.setAttribute("viewBox", "0 0 24 24");
+                svg.setAttribute("class", "heart-svg");
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", heartPath);
+                
+                svg.appendChild(path);
+                inner.appendChild(svg);
+                wrapper.appendChild(inner);
+                hp.appendChild(wrapper);
+            }
+        }
+
+        // 🫧 Spawn Photo Bubbles (Rising from bottom like soap bubbles)
+        function spawnFishes() {
             const pp = document.getElementById('photo-pool');
-            for(let i=0; i<15; i++) {
-                let r = document.createElement('div'); r.className = 'photo-rise';
-                r.style.left = 'calc('+(Math.random()*60+20)+'vw - 55px)';
-                r.style.animationDuration = (Math.random()*8+10)+'s';
-                r.innerHTML = `<div class="photo-bubble"><img src="photo1-${i+1}.jpg" onerror="this.parentElement.style.display='none'"></div>`;
-                pp.appendChild(r);
+            for(let i=1; i<=15; i++) {
+                const riseWrap = document.createElement('div');
+                riseWrap.className = 'photo-rise';
+                
+                // FIX: Offset by half the width (55px) to properly center the bubbles
+                riseWrap.style.left = 'calc(' + (Math.random() * 60 + 20) + 'vw - 55px)'; 
+                
+                riseWrap.style.animationDuration = (Math.random() * 8 + 10) + 's'; // Fast float (10s-18s)
+                riseWrap.style.animationDelay = (Math.random() * -20) + 's';
+
+                const wobbleWrap = document.createElement('div');
+                wobbleWrap.className = 'photo-wobble';
+                wobbleWrap.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
+                wobbleWrap.style.animationDelay = (Math.random() * -5) + 's';
+
+                const pBubble = document.createElement('div');
+                pBubble.className = 'photo-bubble';
+                
+                const img = document.createElement('img');
+                img.src = `photo1-${i}.jpg`; 
+                img.onerror = function() { riseWrap.style.display = 'none'; };
+
+                pBubble.appendChild(img);
+                wobbleWrap.appendChild(pBubble);
+                riseWrap.appendChild(wobbleWrap);
+                pp.appendChild(riseWrap);
             }
         }
     </script>
