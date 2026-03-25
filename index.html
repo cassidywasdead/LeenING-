@@ -83,7 +83,7 @@
         #photo-pool { position: absolute; inset: 0; z-index: 10; pointer-events: none; overflow: hidden; }
         
         .photo-rise { 
-            position: absolute; bottom: -150px; /* Neeche se aayenge */
+            position: absolute; bottom: -150px; 
             will-change: transform; 
             animation: riseFromBottom linear infinite; 
         }
@@ -273,7 +273,10 @@
             for(let i=1; i<=15; i++) {
                 const riseWrap = document.createElement('div');
                 riseWrap.className = 'photo-rise';
-                riseWrap.style.left = Math.random() * 80 + 10 + 'vw'; // Random horizontal position
+                
+                // FIX: Offset by half the width (55px) to properly center the bubbles
+                riseWrap.style.left = 'calc(' + (Math.random() * 60 + 20) + 'vw - 55px)'; 
+                
                 riseWrap.style.animationDuration = (Math.random() * 8 + 10) + 's'; // Fast float (10s-18s)
                 riseWrap.style.animationDelay = (Math.random() * -20) + 's';
 
