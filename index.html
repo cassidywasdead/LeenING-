@@ -42,7 +42,6 @@
         .photo-wobble { width: 110px; height: 110px; will-change: transform; animation: bobbingX ease-in-out infinite alternate; }
         .photo-bubble { width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.6); box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.6), inset 10px 0 30px rgba(255, 77, 133, 0.3), inset -10px 0 30px rgba(0, 255, 255, 0.3), 0 10px 20px rgba(0,0,0,0.5); overflow: hidden; position: relative; }
         
-        /* 🚀 Fast Loading Fade-In for Photos */
         .photo-bubble img { 
             width: 100%; height: 100%; object-fit: cover; 
             opacity: 0; transition: opacity 0.6s ease-in-out;
@@ -55,7 +54,7 @@
 
         /* 💌 VISIBLE ENVELOPE TRIGGER (TOP-LEFT) */
         #menu-trigger {
-            position: fixed; top: 30px; left: 25px; z-index: 500; cursor: pointer;
+            position: fixed; top: 25px; left: 25px; z-index: 500; cursor: pointer;
             width: 55px; height: 55px; background: rgba(255, 255, 255, 0.1);
             border: 2px solid #f7d77b; border-radius: 12px;
             display: flex; justify-content: center; align-items: center;
@@ -70,57 +69,49 @@
             50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(247, 215, 123, 0.9); }
         }
 
-        /* 🎡 MAGIC WHEEL MENU (FLEXBOX - NO OVERLAP GUARANTEE) */
+        /* 🎡 MAGIC MENU OVERLAY (ABSOLUTE PLACEMENT = NO OVERLAP) */
         #magic-menu-overlay {
             position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px);
             z-index: 400; display: none; opacity: 0; 
-            /* Flexbox distributes space evenly so elements never overlap */
-            flex-direction: column; align-items: center; justify-content: space-evenly;
-            padding: 40px 0; box-sizing: border-box;
         }
 
-        /* 🎨 Aesthetic Colorful Gradient Title */
+        /* 🎨 Aesthetic Colorful Gradient Title Pinned to Top */
         .magic-title {
-            font-family: 'Dancing Script', cursive; font-size: 3.8rem; font-weight: bold;
-            text-align: center; margin: 0; z-index: 10; line-height: 1.1;
-            /* Magical Pastel Gradient */
+            position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%;
+            font-family: 'Dancing Script', cursive; font-size: 3.2rem; font-weight: bold;
+            text-align: center; margin: 0; z-index: 10; line-height: 1.2;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 4px 12px rgba(255,105,180,0.7));
-        }
-        
-        .swipe-hint {
-            margin: 0; font-size: 0.95rem; color: #f7d77b;
-            letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
-            text-shadow: 0 0 15px rgba(247, 215, 123, 0.8);
-            padding-bottom: 20px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6));
         }
 
-        /* Adjusted Wheel Container to fit perfectly */
+        /* 🎡 WHEEL WRAPPER PINNED TO EXACT CENTER */
+        .wheel-wrapper {
+            position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 20;
+        }
+
         .wheel-container {
-            position: relative; width: 300px; height: 300px; 
+            position: relative; width: 280px; height: 280px; 
             border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4);
             display: flex; justify-content: center; align-items: center;
         }
 
         /* 🏠 CENTER HOME BUTTON */
         #home-btn {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 65px; height: 65px; border-radius: 50%;
+            position: absolute; width: 65px; height: 65px; border-radius: 50%;
             background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b;
             display: flex; justify-content: center; align-items: center;
             font-size: 2rem; cursor: pointer; z-index: 50;
             box-shadow: 0 0 25px rgba(247, 215, 123, 0.6), inset 0 0 15px rgba(247, 215, 123, 0.4);
             transition: all 0.2s; -webkit-tap-highlight-color: transparent;
         }
-        #home-btn:active { transform: translate(-50%, -50%) scale(0.85); box-shadow: 0 0 40px #f7d77b; }
+        #home-btn:active { transform: scale(0.85); box-shadow: 0 0 40px #f7d77b; }
 
-        /* Items moved slightly outward to give home button breathing room */
+        /* Items distance from center reduced for better fit */
         .wheel-item {
-            position: absolute; width: 120px; text-align: center;
-            /* translateY is the radius distance from center */
-            transform: rotate(calc(60deg * var(--i))) translateY(-160px) rotate(calc(-60deg * var(--i)));
+            position: absolute; width: 110px; text-align: center;
+            transform: rotate(calc(60deg * var(--i))) translateY(-145px) rotate(calc(-60deg * var(--i)));
             z-index: 10;
         }
 
@@ -140,10 +131,16 @@
 
         /* ✨ Decorative Colorful Labels */
         .wheel-label {
-            font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #fff;
-            margin-top: 8px; line-height: 1.1; font-weight: bold; letter-spacing: 0.5px;
-            /* Magical neon pink glow */
+            font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #fff;
+            margin-top: 6px; line-height: 1.1; font-weight: bold; letter-spacing: 0.5px;
             text-shadow: 0 0 8px #ff4d85, 0 0 15px rgba(255, 77, 133, 0.8), 0 2px 2px rgba(0,0,0,0.9);
+        }
+
+        /* Hint Pinned to Bottom */
+        .swipe-hint {
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); width: 100%; text-align: center;
+            font-size: 0.95rem; color: #f7d77b; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 15px rgba(247, 215, 123, 0.8); z-index: 10;
         }
 
         /* 🔥 FUNCTIONAL EMOJI ANIMATIONS 🔥 */
@@ -204,44 +201,45 @@
         
         <div class="magic-title">Love Recipe Guide</div>
         
-        <div class="wheel-container" id="wheel-spin-box">
-            
-            <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
+        <div class="wheel-wrapper">
+            <div class="wheel-container" id="wheel-spin-box">
+                <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
 
-            <div class="wheel-item" style="--i:0;">
-                <div class="item-inner" onclick="handleItemClick('Love in Every Tongue')">
-                    <div class="wheel-icon"><span class="anim-globe">🌍</span></div>
-                    <div class="wheel-label">Love in Every Tongue</div>
+                <div class="wheel-item" style="--i:0;">
+                    <div class="item-inner" onclick="handleItemClick('Love in Every Tongue')">
+                        <div class="wheel-icon"><span class="anim-globe">🌍</span></div>
+                        <div class="wheel-label">Love in Every Tongue</div>
+                    </div>
                 </div>
-            </div>
-            <div class="wheel-item" style="--i:1;">
-                <div class="item-inner" onclick="handleItemClick('Never Conditions')">
-                    <div class="wheel-icon"><span class="anim-infinity">♾️</span></div>
-                    <div class="wheel-label">Never Conditions</div>
+                <div class="wheel-item" style="--i:1;">
+                    <div class="item-inner" onclick="handleItemClick('Never Conditions')">
+                        <div class="wheel-icon"><span class="anim-infinity">♾️</span></div>
+                        <div class="wheel-label">Never Conditions</div>
+                    </div>
                 </div>
-            </div>
-            <div class="wheel-item" style="--i:2;">
-                <div class="item-inner" onclick="handleItemClick('Our Chemistry')">
-                    <div class="wheel-icon"><span class="anim-chem">🧪</span></div>
-                    <div class="wheel-label">Our Chemistry</div>
+                <div class="wheel-item" style="--i:2;">
+                    <div class="item-inner" onclick="handleItemClick('Our Chemistry')">
+                        <div class="wheel-icon"><span class="anim-chem">🧪</span></div>
+                        <div class="wheel-label">Our Chemistry</div>
+                    </div>
                 </div>
-            </div>
-            <div class="wheel-item" style="--i:3;">
-                <div class="item-inner" onclick="handleItemClick('A Letter for You')">
-                    <div class="wheel-icon"><span class="anim-letter">💌</span></div>
-                    <div class="wheel-label">A Letter for You</div>
+                <div class="wheel-item" style="--i:3;">
+                    <div class="item-inner" onclick="handleItemClick('A Letter for You')">
+                        <div class="wheel-icon"><span class="anim-letter">💌</span></div>
+                        <div class="wheel-label">A Letter for You</div>
+                    </div>
                 </div>
-            </div>
-            <div class="wheel-item" style="--i:4;">
-                <div class="item-inner" onclick="handleItemClick('Us Since')">
-                    <div class="wheel-icon"><span class="anim-time">⏳</span></div>
-                    <div class="wheel-label">Us Since</div>
+                <div class="wheel-item" style="--i:4;">
+                    <div class="item-inner" onclick="handleItemClick('Us Since')">
+                        <div class="wheel-icon"><span class="anim-time">⏳</span></div>
+                        <div class="wheel-label">Us Since</div>
+                    </div>
                 </div>
-            </div>
-            <div class="wheel-item" style="--i:5;">
-                <div class="item-inner" onclick="handleItemClick('Make a Wish')">
-                    <div class="wheel-icon"><span class="anim-candle">🕯️</span></div>
-                    <div class="wheel-label">Make a Wish</div>
+                <div class="wheel-item" style="--i:5;">
+                    <div class="item-inner" onclick="handleItemClick('Make a Wish')">
+                        <div class="wheel-icon"><span class="anim-candle">🕯️</span></div>
+                        <div class="wheel-label">Make a Wish</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -256,7 +254,6 @@
         function startUnlockSequence() {
             if(isScanning) return; isScanning = true;
             
-            // 🚀 SMART PRELOAD: Preload photos in background while Face ID scans
             for(let i=1; i<=15; i++) {
                 let img = new Image();
                 img.src = `photo1-${i}.jpg`;
@@ -309,7 +306,7 @@
                 triggerBtn.style.animation = "none"; 
                 gsap.fromTo(triggerBtn, {scale: 1.5, rotation: -10}, {scale: 1, rotation: 0, duration: 0.5, ease: "elastic.out(1, 0.3)"});
                 
-                overlay.style.display = 'flex'; 
+                overlay.style.display = 'block'; // Using block with absolute internal elements
                 gsap.to(overlay, { opacity: 1, duration: 0.5 });
                 
                 currentRot = 0;
