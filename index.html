@@ -7,15 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        /* ADDED 'Great Vibes' FOR ULTRA AESTHETIC TEXT */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=JetBrains+Mono&family=Dancing+Script:wght@700&family=Great+Vibes&display=swap');
 
-        body {
-            margin: 0; padding: 0; min-height: 100vh;
-            background: #000; font-family: 'Poppins', sans-serif;
-            overflow: hidden; position: relative; color: white;
-            -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: none; 
-        }
+        body { margin: 0; padding: 0; min-height: 100vh; background: #000; font-family: 'Poppins', sans-serif; overflow: hidden; position: relative; color: white; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: none; }
 
         /* 🔒 ENTRY SCREEN */
         #entry-screen { position: fixed; inset: 0; background: #050505; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1s ease; }
@@ -49,116 +43,102 @@
 
         /* 💌 VISIBLE ENVELOPE TRIGGER */
         #menu-trigger {
-            position: fixed; top: 25px; left: 25px; z-index: 500; cursor: pointer;
-            width: 55px; height: 55px; background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #f7d77b; border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            font-size: 2rem; backdrop-filter: blur(5px);
-            box-shadow: 0 0 15px rgba(247, 215, 123, 0.5), inset 0 0 10px rgba(247, 215, 123, 0.3);
-            animation: vibePulse 2s infinite ease-in-out; -webkit-tap-highlight-color: transparent; transition: all 0.3s ease;
+            position: fixed; top: 25px; left: 25px; z-index: 500; cursor: pointer; width: 55px; height: 55px; background: rgba(255, 255, 255, 0.1); border: 2px solid #f7d77b; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 2rem; backdrop-filter: blur(5px); box-shadow: 0 0 15px rgba(247, 215, 123, 0.5), inset 0 0 10px rgba(247, 215, 123, 0.3); animation: vibePulse 2s infinite ease-in-out; -webkit-tap-highlight-color: transparent; transition: all 0.3s ease;
         }
         @keyframes vibePulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(247, 215, 123, 0.5); } 50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(247, 215, 123, 0.9); } }
 
-        /* 🎡 MAGIC MENU OVERLAY (UPDATED FOR 7 ITEMS) */
+        /* 🎡 MAGIC MENU OVERLAY */
         #magic-menu-overlay { position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px); z-index: 400; display: none; opacity: 0; }
-        .magic-title {
-            position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%;
-            font-family: 'Great Vibes', cursive; font-size: 4rem; text-align: center; margin: 0; z-index: 10; line-height: 1.2;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6));
-        }
+        .magic-title { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%; font-family: 'Great Vibes', cursive; font-size: 4rem; text-align: center; margin: 0; z-index: 10; line-height: 1.2; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6)); }
         .wheel-wrapper { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 20; }
         .wheel-container { position: relative; width: 300px; height: 300px; border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4); display: flex; justify-content: center; align-items: center; }
-
-        /* 🏠 CENTER HOME BUTTON */
-        #home-btn {
-            position: absolute; width: 65px; height: 65px; border-radius: 50%; background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6), inset 0 0 15px rgba(247, 215, 123, 0.4); transition: all 0.2s; -webkit-tap-highlight-color: transparent;
-        }
+        #home-btn { position: absolute; width: 65px; height: 65px; border-radius: 50%; background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6), inset 0 0 15px rgba(247, 215, 123, 0.4); transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
         #home-btn:active { transform: scale(0.85); box-shadow: 0 0 40px #f7d77b; }
-
-        /* 7 ITEMS MATH: 360/7 = 51.428deg */
         .wheel-item { position: absolute; width: 110px; text-align: center; transform: rotate(calc(51.428deg * var(--i))) translateY(-155px) rotate(calc(-51.428deg * var(--i))); z-index: 10; }
         .item-inner { cursor: pointer; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; align-items: center; }
         .item-inner:active { transform: scale(0.9) !important; }
         .wheel-icon { font-size: 2.2rem; background: rgba(0,0,0,0.6); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(247, 215, 123, 0.8); box-shadow: 0 0 20px rgba(255, 77, 133, 0.5); position: relative; }
         .wheel-label { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: #fff; margin-top: 6px; line-height: 1.1; font-weight: bold; text-shadow: 0 0 8px #ff4d85, 0 0 15px rgba(255, 77, 133, 0.8), 0 2px 2px rgba(0,0,0,0.9); }
-        
         .swipe-hint { position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; font-size: 0.95rem; color: #f7d77b; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 15px rgba(247, 215, 123, 0.8); z-index: 10; }
 
         /* 📜 DYNAMIC SECTION MODAL */
-        #section-modal {
-            position: fixed; inset: 0; background: rgba(5, 0, 10, 0.95); backdrop-filter: blur(15px);
-            z-index: 1000; display: none; opacity: 0; flex-direction: column; align-items: center; justify-content: center;
-            overflow: hidden; perspective: 1000px;
-        }
-
-        /* 🌸 PETALS & 🌧️ RAIN EFFECTS */
+        #section-modal { position: fixed; inset: 0; background: rgba(5, 0, 10, 0.95); backdrop-filter: blur(15px); z-index: 1000; display: none; opacity: 0; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; perspective: 1000px; }
         #effect-container { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-        .real-petal { position: absolute; top: -30px; opacity: 0.9; animation: tumblePetal linear infinite; z-index: 0; box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3); }
-        @keyframes tumblePetal { 0% { transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; } 10% { opacity: 0.9; } 50% { transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); } 90% { opacity: 0.8; } 100% { transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); opacity: 0; } }
         
-        .raindrop { position: absolute; top: -50px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(200,230,255,0.7)); width: 2px; border-radius: 2px; animation: rainFall linear infinite; z-index: 0; }
-        @keyframes rainFall { 0% { transform: translateY(-50px); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
-
-        .modal-box {
-            width: 90%; max-width: 500px; height: 80vh;
-            background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(247, 215, 123, 0.4);
-            border-radius: 25px; box-shadow: 0 0 50px rgba(255, 77, 133, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.05);
-            position: relative; padding: 20px; display: flex; flex-direction: column; z-index: 10;
-        }
-
-        .modal-close {
-            position: absolute; top: -15px; right: -15px; width: 45px; height: 45px;
-            background: linear-gradient(135deg, #ff4d85, #ff0040); color: #fff; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: bold; 
-            cursor: pointer; box-shadow: 0 0 20px #ff4d85; border: 2px solid #fff; -webkit-tap-highlight-color: transparent; z-index: 20;
-        }
-
-        .modal-header {
-            font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7d77b;
-            text-align: center; margin-bottom: 10px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6);
-            border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10; line-height: 1;
-        }
+        .modal-box { width: 90%; max-width: 500px; height: 80vh; background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(247, 215, 123, 0.4); border-radius: 25px; box-shadow: 0 0 50px rgba(255, 77, 133, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.05); position: relative; padding: 20px; display: flex; flex-direction: column; z-index: 10; }
+        .modal-close { position: absolute; top: -15px; right: -15px; width: 45px; height: 45px; background: linear-gradient(135deg, #ff4d85, #ff0040); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 20px #ff4d85; border: 2px solid #fff; -webkit-tap-highlight-color: transparent; z-index: 20; }
+        .modal-header { font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7d77b; text-align: center; margin-bottom: 10px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6); border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10; line-height: 1; }
         .modal-header span { font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; text-shadow: none; font-weight: 300; display: block; margin-top: 5px; }
-
         .modal-content { flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px; scrollbar-width: none; -ms-overflow-style: none; z-index: 10; }
         .modal-content::-webkit-scrollbar { display: none; }
 
-        /* ✨ 100 Languages Cards */
+        /* 🎂 3D CAKE & CUT ANIMATION */
+        .cake-scene { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; transition: opacity 0.5s; position: relative;}
+        .css-cake { position: relative; width: 180px; height: 90px; margin-top: 100px; margin-bottom: 50px; display: flex; z-index: 5; }
+        .cake-half { width: 50%; height: 100%; background: #ff4d85; position: relative; transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease; }
+        .cake-left { border-radius: 15px 0 0 15px; box-shadow: inset 5px -15px rgba(0,0,0,0.2), 0 15px 20px rgba(0,0,0,0.4); }
+        .cake-right { border-radius: 0 15px 15px 0; box-shadow: inset -5px -15px rgba(0,0,0,0.2), 0 15px 20px rgba(0,0,0,0.4); }
+        .cake-frosting-half { position: absolute; top: -5px; width: 105%; height: 40px; background: #fff; border-radius: 20px; box-shadow: 0 5px 5px rgba(0,0,0,0.1); }
+        .cake-left .cake-frosting-half { left: -5px; } .cake-right .cake-frosting-half { right: -5px; }
+        
+        .cake-candles { position: absolute; top: -50px; width: 100%; left: 0; pointer-events: none; transition: opacity 0.5s; z-index: 10;}
+        .cake-candle { width: 14px; height: 45px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: absolute; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+        .cake-flame { position: absolute; top: -28px; left: -2px; width: 18px; height: 28px; background: radial-gradient(ellipse at bottom, #f7d77b, #ff4d85, transparent); border-radius: 50% 50% 20% 20%; animation: flickerFlame 0.15s infinite alternate; box-shadow: 0 0 15px #f7d77b; transform-origin: bottom center; }
+        
+        /* The "Cut" classes applied via JS */
+        .cake-left.cut { transform: translateX(-60px) rotate(-15deg); opacity: 0; }
+        .cake-right.cut { transform: translateX(60px) rotate(15deg); opacity: 0; }
+
+        /* 🎉 ANNIVERSARY BANNER */
+        .anniversary-banner {
+            position: absolute; top: -40px; left: 50%; transform: translateX(-50%) scale(0.5);
+            opacity: 0; pointer-events: none; z-index: 100; width: 120%;
+            font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ffebf0;
+            text-align: center; text-shadow: 0 0 20px #ff4d85, 0 0 30px #f7d77b, 0 5px 5px rgba(0,0,0,0.8);
+            line-height: 1.1; transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .anniversary-banner.show { transform: translateX(-50%) scale(1); opacity: 1; top: 10%;}
+
+        .action-btn { background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; box-shadow: 0 5px 20px rgba(247, 215, 123, 0.5); transition: all 0.2s; z-index: 20;}
+        .action-btn:active { transform: scale(0.95); }
+
+        .paper-scene { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0; }
+        .paper-ui { background: #fdf5e6; border: 2px solid #d4a737; border-radius: 8px; padding: 25px; width: 90%; height: 250px; box-shadow: inset 0 0 50px rgba(212,167,55,0.2), 0 10px 20px rgba(0,0,0,0.5); position: relative; margin-bottom: 25px; }
+        .paper-ui textarea { width: 100%; height: 100%; background: transparent; border: none; outline: none; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #553a1f; resize: none; line-height: 1.5; }
+        .paper-ui textarea::placeholder { color: rgba(85, 58, 31, 0.5); }
+
+        /* Animation Keyframes */
+        @keyframes flickerFlame { 0% { transform: scale(1) skewX(1deg); opacity: 0.9; } 100% { transform: scale(1.05) skewX(-1deg); opacity: 1; } }
+        .anim-candle { display: inline-block; animation: flickerCandle 0.15s infinite alternate; } @keyframes flickerCandle { 0% { transform: scale(1) skewX(1deg); filter: drop-shadow(0 0 5px #f7d77b); opacity: 0.9; } 100% { transform: scale(1.05) skewX(-1deg); filter: drop-shadow(0 0 15px #ffaa00); opacity: 1; } }
+        .anim-globe { display: inline-block; animation: spinGlobe 6s linear infinite; } @keyframes spinGlobe { 100% { transform: rotate(360deg); } }
+        .anim-infinity { display: inline-block; animation: pulseInf 1.5s ease-in-out infinite; } @keyframes pulseInf { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); text-shadow: 0 0 15px #fff; } }
+        .anim-chem { display: inline-block; animation: wobbleChem 2s ease-in-out infinite; } @keyframes wobbleChem { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+        .anim-letter { display: inline-block; animation: glowLetter 2s ease-in-out infinite; } @keyframes glowLetter { 0%, 100% { filter: drop-shadow(0 0 5px #ff4d85); } 50% { filter: drop-shadow(0 0 15px #ff4d85); transform: scale(1.05); } }
+        .anim-time { display: inline-block; animation: tickTock 2s ease-in-out infinite; } @keyframes tickTock { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(15deg); } }
+
+        /* OTHER STYLES (Cards, Clocks, etc) - Same as before */
         .lang-card { position: relative; margin-bottom: 20px; padding: 15px 20px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)); border-radius: 15px; border-left: 4px solid #ff4d85; box-shadow: 0 10px 20px rgba(0,0,0,0.3); overflow: hidden; opacity: 0; transform: translateY(-30px); }
         .card-watermark { position: absolute; right: 10px; bottom: -5px; font-size: 3.5rem; opacity: 0.2; pointer-events: none; filter: grayscale(50%); z-index: -1; }
         .lang-card b { color: #f7d77b; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-shadow: 0 0 5px rgba(247, 215, 123, 0.3); }
         .lang-card p { margin: 5px 0 0 0; font-size: 1.05rem; color: #fff; line-height: 1.4; text-shadow: 0 1px 2px #000; }
         .lang-card span { display: block; font-size: 0.9rem; color: #ffb3c6; font-style: italic; margin-top: 8px; font-weight: 300; }
-        
-        /* 🚫 NEVER CONDITIONS */
-        .condition-card { padding: 15px 20px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f7d77b; border-radius: 10px; color: #fff; font-size: 1.1rem; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-family: 'Poppins', sans-serif; position: relative; overflow: hidden; }
+        .lang-special { text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px; font-size: 1.1rem; font-style: italic; }
+        .condition-card { padding: 15px 20px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f7d77b; border-radius: 10px; color: #fff; font-size: 1.1rem; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
         .special-cond { font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-align: center; border: 2px dashed; border-radius: 15px; padding: 20px; margin-top: 25px; margin-bottom: 25px; animation: pulseBox 2s infinite alternate; }
         .scold-cond { background: rgba(255, 77, 133, 0.15); border-color: #ff4d85; color: #ffebf0; text-shadow: 0 0 10px #ff4d85, 0 0 20px #ff4d85; box-shadow: 0 0 25px rgba(255, 77, 133, 0.3); }
         .irrit-cond { background: rgba(247, 215, 123, 0.15); border-color: #f7d77b; color: #fff; text-shadow: 0 0 10px #d4a737, 0 0 20px #f7d77b; box-shadow: 0 0 25px rgba(247, 215, 123, 0.3); }
         .never-conclusion { text-align: center; font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 20px rgba(255, 77, 133, 0.9); margin-top: 30px; margin-bottom: 20px; animation: vibePulse 2s infinite; }
-
-        /* 🎂 MAKE A WISH (CAKE & PAPER) */
-        .cake-scene { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; transition: opacity 0.5s; }
-        .css-cake { position: relative; width: 160px; height: 80px; background: #ff4d85; border-radius: 10px; box-shadow: inset 0 -15px rgba(0,0,0,0.2), 0 10px 15px rgba(0,0,0,0.5); margin-top: 50px; margin-bottom: 40px; }
-        .cake-frosting { position: absolute; top: -5px; left: -5px; width: 170px; height: 35px; background: #fff; border-radius: 20px; box-shadow: 0 5px 5px rgba(0,0,0,0.1); }
-        .cake-candles { display: flex; justify-content: space-evenly; width: 120px; position: absolute; top: -45px; left: 20px; }
-        .cake-candle { width: 12px; height: 40px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: relative; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
-        .cake-flame { position: absolute; top: -25px; left: -3px; width: 18px; height: 25px; background: radial-gradient(ellipse at bottom, #f7d77b, #ff4d85, transparent); border-radius: 50% 50% 20% 20%; animation: flickerFlame 0.15s infinite alternate; box-shadow: 0 0 15px #f7d77b; transform-origin: bottom center; }
-        
-        .action-btn { background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; box-shadow: 0 5px 15px rgba(247, 215, 123, 0.4); transition: transform 0.2s; }
-        .action-btn:active { transform: scale(0.95); }
-
-        .paper-scene { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0; }
-        .paper-ui { background: #fdf5e6; border: 2px solid #d4a737; border-radius: 5px; padding: 25px; width: 90%; height: 250px; box-shadow: inset 0 0 50px rgba(212,167,55,0.2), 0 10px 20px rgba(0,0,0,0.5); position: relative; margin-bottom: 25px; }
-        .paper-ui textarea { width: 100%; height: 100%; background: transparent; border: none; outline: none; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #553a1f; resize: none; line-height: 1.5; }
-        .paper-ui textarea::placeholder { color: rgba(85, 58, 31, 0.5); }
-
-        /* ⏳ LIVE TOTAL CLOCK STYLES */
         .time-grid { display: flex; flex-direction: column; gap: 15px; width: 100%; padding-top: 10px; }
         .t-box { background: rgba(255, 77, 133, 0.15); border: 1.5px solid rgba(255, 77, 133, 0.5); border-radius: 15px; width: 100%; min-height: 75px; padding: 10px 20px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 15px rgba(255, 77, 133, 0.2); animation: pulseBox 2s infinite alternate; }
         @keyframes pulseBox { 100% { box-shadow: 0 0 25px rgba(255, 77, 133, 0.5); } }
         .t-box span { font-size: 1.7rem; font-weight: bold; color: #f7d77b; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 10px rgba(247, 215, 123, 0.8); line-height: 1;}
-        .t-box small { font-size: 1rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-family: 'Poppins', sans-serif;}
+        .t-box small { font-size: 1rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Real Petals & Rain */
+        .real-petal { position: absolute; top: -30px; opacity: 0.9; animation: tumblePetal linear infinite; z-index: 0; box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3); }
+        @keyframes tumblePetal { 0% { transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; } 10% { opacity: 0.9; } 50% { transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); } 90% { opacity: 0.8; } 100% { transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); opacity: 0; } }
+        .raindrop { position: absolute; top: -50px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(200,230,255,0.7)); width: 2px; border-radius: 2px; animation: rainFall linear infinite; z-index: 0; }
+        @keyframes rainFall { 0% { transform: translateY(-50px); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
 
     </style>
 </head>
@@ -187,12 +167,12 @@
         <div class="wheel-wrapper">
             <div class="wheel-container" id="wheel-spin-box">
                 <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
-                <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon">🌍</div><div class="wheel-label">Love in Every Tongue</div></div></div>
-                <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('I will stop loving you-')"><div class="wheel-icon">🛑</div><div class="wheel-label">I will stop loving you-</div></div></div>
-                <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon">🧪</div><div class="wheel-label">Our Chemistry</div></div></div>
-                <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon">💌</div><div class="wheel-label">A Letter for You</div></div></div>
-                <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon">⏳</div><div class="wheel-label">Us Since</div></div></div>
-                <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon">🕯️</div><div class="wheel-label">Make a Wish</div></div></div>
+                <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon"><span class="anim-globe">🌍</span></div><div class="wheel-label">Love in Every Tongue</div></div></div>
+                <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('I will stop loving you-')"><div class="wheel-icon"><span class="anim-infinity">🛑</span></div><div class="wheel-label">I will stop loving you-</div></div></div>
+                <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon"><span class="anim-chem">🧪</span></div><div class="wheel-label">Our Chemistry</div></div></div>
+                <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon"><span class="anim-letter">💌</span></div><div class="wheel-label">A Letter for You</div></div></div>
+                <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon"><span class="anim-time">⏳</span></div><div class="wheel-label">Us Since</div></div></div>
+                <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon"><span class="anim-candle">🕯️</span></div><div class="wheel-label">Make a Wish</div></div></div>
                 <div class="wheel-item" style="--i:6;"><div class="item-inner" onclick="handleItemClick('Proposal')"><div class="wheel-icon">💍</div><div class="wheel-label">Proposal</div></div></div>
             </div>
         </div>
@@ -213,6 +193,7 @@
         let isScanning = false;
         let usSinceInterval; 
         let effectInterval;
+        let fireworksInterval;
 
         function updateClock() {
             if(!document.getElementById('t-y')) return; 
@@ -246,7 +227,6 @@
         
         function startUnlockSequence() {
             if(isScanning) return; isScanning = true;
-            for(let i=1; i<=15; i++) { let img = new Image(); img.src = `photo1-${i}.jpg`; }
             document.getElementById('instruction-text').innerText = "Scanning...";
             document.getElementById('face-id-icon').style.opacity = '0.3'; document.getElementById('scan-spinner').style.display = 'block';
             const logBox = document.getElementById('terminal-logs'); logBox.innerHTML = ""; let logIndex = 0;
@@ -273,7 +253,6 @@
             }});
         }
 
-        /* 🎡 WHEEL MENU (7 ITEMS SWIPE) */
         let menuOpen = false; let currentRot = 0;
         function toggleMagicMenu() {
             const triggerBtn = document.getElementById('menu-trigger'); const overlay = document.getElementById('magic-menu-overlay'); const wheel = document.getElementById('wheel-spin-box');
@@ -295,12 +274,10 @@
         overlay.addEventListener('touchmove', e => { isSwiping = true; });
         overlay.addEventListener('touchend', e => {
             let diff = e.changedTouches[0].clientX - touchStartX;
-            // UPDATE: 360 / 7 items = 51.428 degrees per swipe
             if(Math.abs(diff) > 40) { if(diff < 0) rotateWheel(-51.428); else rotateWheel(51.428); }
         });
         function rotateWheel(deg) { currentRot += deg; gsap.to("#wheel-spin-box", { rotation: currentRot, duration: 0.5, ease: "power2.out" }); gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5, ease: "power2.out" }); }
 
-        /* 🌸 REALISTIC 3D PETALS & RAIN */
         function startRealPetals() {
             const container = document.getElementById('effect-container'); container.innerHTML = ''; 
             const petalTypes = [
@@ -329,7 +306,26 @@
             }, 40); 
         }
 
-        function stopEffects() { clearInterval(effectInterval); document.getElementById('effect-container').innerHTML = ''; }
+        function launchFireworks() {
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            fireworksInterval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(fireworksInterval);
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        function stopEffects() { 
+            clearInterval(effectInterval); 
+            clearInterval(fireworksInterval);
+            document.getElementById('effect-container').innerHTML = ''; 
+        }
 
         function getDecoration(lang) {
             const l = lang.toLowerCase();
@@ -447,7 +443,6 @@
 100. Universal Language of My Heart: In every language, every country, every sky, it is only you — my Lovleen, meri jaan, meri Puchi, meri Gugiii 🌍👑❤️
 *(Happy 3rd Anniversary, my love. Three years down, a forever to go. Thank you for being my peace, my happiness, and the most beautiful part of my life.)`;
 
-        /* CLICK HANDLER FOR OPENING SECTIONS */
         function handleItemClick(sectionName) {
             if(isSwiping) return; 
             
@@ -457,7 +452,6 @@
 
             if(sectionName === 'Love in Every Tongue') {
                 modalTitle.innerHTML = "🌹 Happy 3rd Anniversary 🌹<br><span>100 Languages of Love</span>";
-                
                 let html = '';
                 const lines = languagesData.split('\n');
                 lines.forEach(line => {
@@ -479,7 +473,6 @@
 
             } 
             else if (sectionName === 'I will stop loving you-') {
-                // 🚫 NEVER CONDITIONS SECTION
                 modalTitle.innerHTML = "🛑 I will stop loving you... 🛑<br><span>Only when...</span>";
                 let html = `
                     <div class="condition-card">📅 When February has 30 days</div>
@@ -490,7 +483,7 @@
                     <div class="condition-card">🥀 When a fake flower dies</div>
                     <div class="condition-card">⏰ When each day has 25 hours</div>
                     <div class="special-cond scold-cond">😠 And when Lovleen will stop scolding me!</div>
-                    <div class="special-cond irrit-cond">🤪 When I will stop irritating her!</div>
+                    <div class="special-cond irrit-cond">😭 When I will stop irritating leenie !</div>
                     <div class="never-conclusion">Which means... NEVER! ❤️♾️</div>
                 `;
                 
@@ -534,27 +527,36 @@
                 stopEffects(); startRealPetals();
             } 
             else if (sectionName === 'Make a Wish') {
-                // 🎂 MAKE A WISH SECTION 🎂
+                // 🎂 NEW CAKE CUTTING & FIREWORKS SCENE 🎂
                 modalTitle.innerHTML = "🕯️ Make a Wish 🕯️<br><span>Close your eyes and blow...</span>";
                 
                 let html = `
                 <div id="cake-scene" class="cake-scene">
-                    <div class="css-cake">
-                        <div class="cake-candles">
-                            <div class="cake-candle"><div class="cake-flame flame-target"></div></div>
-                            <div class="cake-candle" style="height: 50px; top:-10px;"><div class="cake-flame flame-target"></div></div>
-                            <div class="cake-candle"><div class="cake-flame flame-target"></div></div>
+                    
+                    <div class="anniversary-banner" id="anni-banner">Happy 3 Years of Love and Togetherness my Puchi! ❤️</div>
+                    
+                    <div class="css-cake" id="the-cake">
+                        <div class="cake-half cake-left" id="cake-left">
+                            <div class="cake-frosting-half"></div>
                         </div>
-                        <div class="cake-frosting"></div>
+                        <div class="cake-half cake-right" id="cake-right">
+                            <div class="cake-frosting-half"></div>
+                        </div>
+                        <div class="cake-candles" id="cake-candles">
+                            <div class="cake-candle" style="left: 30px;"><div class="cake-flame flame-target"></div></div>
+                            <div class="cake-candle" style="left: 80px; height: 50px; top: -10px;"><div class="cake-flame flame-target"></div></div>
+                            <div class="cake-candle" style="left: 130px;"><div class="cake-flame flame-target"></div></div>
+                        </div>
                     </div>
-                    <button class="action-btn" onclick="blowCandles()">Blow the Candles 🌬️</button>
+                    
+                    <button class="action-btn" id="blow-btn" onclick="blowAndCutCake()">Blow the Candles 🌬️</button>
                 </div>
 
                 <div id="paper-scene" class="paper-scene">
                     <div class="paper-ui">
-                        <textarea placeholder="Write your secret wish here, my love..."></textarea>
+                        <textarea id="wish-input" placeholder="Write your secret wish here, my love..."></textarea>
                     </div>
-                    <button class="action-btn" onclick="saveWish()">Seal my Wish ✨</button>
+                    <button class="action-btn" id="seal-btn" onclick="sendWishToEmail()">Seal my Wish ✨</button>
                 </div>
                 `;
                 
@@ -565,9 +567,7 @@
                 stopEffects();
             }
             else if (sectionName === 'Proposal') {
-                // 💍 PROPOSAL SECTION 💍
                 modalTitle.innerHTML = "💍 My Question 💍<br><span>The ultimate one...</span>";
-                
                 let html = `
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
                     <div style="font-size: 6rem; margin-bottom: 20px; animation: pulseBox 2s infinite alternate;">💍</div>
@@ -576,44 +576,74 @@
                         <button class="action-btn" onclick="alert('I love you forever! ❤️')">Yes!</button>
                         <button class="action-btn" onclick="alert('That is the only right answer! 🥰')">Always Yes!</button>
                     </div>
-                </div>
-                `;
-                
-                modalBody.innerHTML = html;
-                modal.style.display = 'flex';
-                gsap.to(modal, { opacity: 1, duration: 0.4 });
-                stopEffects();
-                startRealPetals(); // Show petals for proposal
+                </div>`;
+                modalBody.innerHTML = html; modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
+                stopEffects(); startRealPetals(); 
             }
-            else {
-                alert('Yeh section abhi under construction hai: ' + sectionName);
-            }
+            else { alert('Yeh section abhi under construction hai: ' + sectionName); }
         }
 
-        /* 🌬️ BLOW CANDLES LOGIC */
-        function blowCandles() {
-            // Blow animation for flames
+        /* 🌬️ BLOW CANDLES & CUT CAKE LOGIC 🔪 */
+        function blowAndCutCake() {
+            const btn = document.getElementById('blow-btn');
+            btn.style.display = 'none'; 
+            
+            // 1. Blow Flames
             gsap.to('.flame-target', { scale: 0, opacity: 0, x: 20, y: -10, duration: 0.5, ease: "power2.in" });
             
-            // Show confetti for celebration
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 } });
-
-            // Transition to paper scene
             setTimeout(() => {
-                const cakeScene = document.getElementById('cake-scene');
-                const paperScene = document.getElementById('paper-scene');
+                // 2. Hide candles & Cut Cake
+                document.getElementById('cake-candles').style.opacity = 0;
+                document.getElementById('cake-left').classList.add('cut');
+                document.getElementById('cake-right').classList.add('cut');
                 
-                gsap.to(cakeScene, { opacity: 0, duration: 0.5, onComplete: () => {
-                    cakeScene.style.display = 'none';
-                    paperScene.style.display = 'flex';
-                    gsap.to(paperScene, { opacity: 1, duration: 0.8 });
-                }});
+                // 3. Drop Banner & Fireworks
+                document.getElementById('anni-banner').classList.add('show');
+                launchFireworks();
+
+                // 4. Wait 6 seconds, fade out cake scene, bring paper scene
+                setTimeout(() => {
+                    const cakeScene = document.getElementById('cake-scene');
+                    const paperScene = document.getElementById('paper-scene');
+                    
+                    gsap.to(cakeScene, { opacity: 0, duration: 0.8, onComplete: () => {
+                        cakeScene.style.display = 'none';
+                        paperScene.style.display = 'flex';
+                        gsap.to(paperScene, { opacity: 1, duration: 0.8 });
+                    }});
+                }, 6000);
             }, 800);
         }
 
-        function saveWish() {
-            alert("Your wish is sealed safely in my heart forever! ✨💖");
-            closeSectionModal();
+        /* 📧 SEND WISH TO YOUR EMAIL (Web3Forms) */
+        function sendWishToEmail() {
+            const wishText = document.getElementById('wish-input').value;
+            if(!wishText.trim()) { alert("Please likh toh de pehle kuch! 🥺"); return; }
+            
+            const btn = document.getElementById('seal-btn');
+            btn.innerText = "Sending... ✨";
+
+            // FREE EMAIL API FETCH CALL
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    /* ⚠️⚠️ BHAII YAHAN APNI KEY DAAL ⚠️⚠️ */
+                    access_key: 'e5de64f2-2464-402f-a760-a47f4c6a5171', 
+                    subject: 'New Secret Wish from Lovleen! ❤️',
+                    message: wishText
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Your wish is sealed safely in my heart forever! ✨💖");
+                closeSectionModal();
+            })
+            .catch(error => {
+                // If anything fails, still make it look successful for her
+                alert("Your wish is safely sealed! ❤️"); 
+                closeSectionModal();
+            });
         }
 
         function closeSectionModal() {
