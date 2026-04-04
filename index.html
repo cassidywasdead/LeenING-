@@ -93,33 +93,23 @@
         #section-modal {
             position: fixed; inset: 0; background: rgba(5, 0, 10, 0.95); backdrop-filter: blur(15px);
             z-index: 1000; display: none; opacity: 0; flex-direction: column; align-items: center; justify-content: center;
-            overflow: hidden; perspective: 1000px; /* Perspective needed for 3D tumbling petals */
+            overflow: hidden; perspective: 1000px;
         }
 
         /* 🌸 REALISTIC 3D FALLING PETALS */
         #petal-container { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-        
         .real-petal {
             position: absolute; top: -30px; opacity: 0.9;
-            /* 3D Tumble Animation */
             animation: tumblePetal linear infinite; z-index: 0;
             box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
         @keyframes tumblePetal {
-            0% { 
-                transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
-                opacity: 0; 
-            }
+            0% { transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; }
             10% { opacity: 0.9; }
-            50% { 
-                transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); 
-            }
+            50% { transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); }
             90% { opacity: 0.8; }
-            100% { 
-                transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); 
-                opacity: 0; 
-            }
+            100% { transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); opacity: 0; }
         }
 
         .modal-box {
@@ -154,25 +144,13 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
             border-radius: 15px; border-left: 4px solid #ff4d85;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3); overflow: hidden;
-            /* Animation hidden initially */
             opacity: 0; transform: translateY(-30px);
         }
-
-        /* Monument/Flower Watermark inside card */
-        .card-watermark {
-            position: absolute; right: 10px; bottom: -5px; font-size: 3.5rem; 
-            opacity: 0.2; pointer-events: none; filter: grayscale(50%); z-index: -1;
-        }
-
+        .card-watermark { position: absolute; right: 10px; bottom: -5px; font-size: 3.5rem; opacity: 0.2; pointer-events: none; filter: grayscale(50%); z-index: -1; }
         .lang-card b { color: #f7d77b; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-shadow: 0 0 5px rgba(247, 215, 123, 0.3); }
         .lang-card p { margin: 5px 0 0 0; font-size: 1.05rem; color: #fff; line-height: 1.4; text-shadow: 0 1px 2px #000; }
         .lang-card span { display: block; font-size: 0.9rem; color: #ffb3c6; font-style: italic; margin-top: 8px; font-weight: 300; }
-        
-        .lang-special { 
-            text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; 
-            background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 77, 133, 0.2); font-size: 1.1rem; font-style: italic;
-        }
+        .lang-special { text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px; box-shadow: 0 0 20px rgba(255, 77, 133, 0.2); font-size: 1.1rem; font-style: italic; }
 
     </style>
 </head>
@@ -221,7 +199,8 @@
     </div>
 
     <div id="section-modal">
-        <div id="petal-container"></div> <div class="modal-box">
+        <div id="petal-container"></div>
+        <div class="modal-box">
             <div class="modal-close" onclick="closeSectionModal()">×</div>
             <div class="modal-header" id="modal-title">Title Here</div>
             <div class="modal-content" id="modal-body">
@@ -289,62 +268,44 @@
         });
         function rotateWheel(deg) { currentRot += deg; gsap.to("#wheel-spin-box", { rotation: currentRot, duration: 0.5, ease: "power2.out" }); gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5, ease: "power2.out" }); }
 
-        /* 🌸 REALISTIC 3D PETAL GENERATOR (NO EMOJIS) */
+        /* 🌸 REALISTIC 3D PETAL GENERATOR */
         let petalInterval;
         function startRealPetals() {
             const container = document.getElementById('petal-container');
             container.innerHTML = ''; 
-            
-            // Gradients for different real petal types
             const petalTypes = [
-                { bg: 'radial-gradient(ellipse at bottom, #ff4d85, #ff0040)', radius: '50% 0 50% 50%', width: '18px', height: '22px' }, // Rose Petal
-                { bg: 'radial-gradient(ellipse at top, #ffb3c6, #ff7eb3)', radius: '50% 50% 50% 0', width: '15px', height: '20px' },   // Cherry Blossom
-                { bg: 'linear-gradient(135deg, #f7d77b, #d4a737)', radius: '0 50% 0 50%', width: '12px', height: '25px' }              // Golden Leaf
+                { bg: 'radial-gradient(ellipse at bottom, #ff4d85, #ff0040)', radius: '50% 0 50% 50%', width: '18px', height: '22px' },
+                { bg: 'radial-gradient(ellipse at top, #ffb3c6, #ff7eb3)', radius: '50% 50% 50% 0', width: '15px', height: '20px' },
+                { bg: 'linear-gradient(135deg, #f7d77b, #d4a737)', radius: '0 50% 0 50%', width: '12px', height: '25px' }
             ];
 
             petalInterval = setInterval(() => {
                 const petal = document.createElement('div');
                 petal.className = 'real-petal';
-                
-                // Randomize shape and color
                 const type = petalTypes[Math.floor(Math.random() * petalTypes.length)];
-                petal.style.background = type.bg;
-                petal.style.borderRadius = type.radius;
-                petal.style.width = type.width;
-                petal.style.height = type.height;
-
-                // Randomize position, duration, and sway (drift)
+                petal.style.background = type.bg; petal.style.borderRadius = type.radius;
+                petal.style.width = type.width; petal.style.height = type.height;
                 petal.style.left = (Math.random() * 100) + 'vw';
-                petal.style.animationDuration = (Math.random() * 4 + 4) + 's'; // 4-8s fall time
-                
-                // Set CSS variable for random left/right drift during tumbling
+                petal.style.animationDuration = (Math.random() * 4 + 4) + 's'; 
                 const driftAmount = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 100 + 50) + 'px';
                 petal.style.setProperty('--drift', driftAmount);
-
                 container.appendChild(petal);
-                setTimeout(() => { if(petal.parentNode) petal.remove(); }, 9000); // Cleanup
-            }, 250); // New real petal every 250ms
+                setTimeout(() => { if(petal.parentNode) petal.remove(); }, 9000); 
+            }, 250); 
         }
         function stopRealPetals() { clearInterval(petalInterval); document.getElementById('petal-container').innerHTML = ''; }
 
         /* 🌍 SMART DECORATOR FOR CARDS */
         function getDecoration(lang) {
             const l = lang.toLowerCase();
-            if(l.includes('french')) return '🗼';
-            if(l.includes('japanese')) return '🌸';
-            if(l.includes('italian')) return '🏛️';
-            if(l.includes('spanish')) return '💃';
+            if(l.includes('french')) return '🗼'; if(l.includes('japanese')) return '🌸';
+            if(l.includes('italian')) return '🏛️'; if(l.includes('spanish')) return '💃';
             if(l.includes('hindi') || l.includes('urdu') || l.includes('punjabi') || l.includes('sanskrit')) return '🪷';
-            if(l.includes('arabic')) return '🌙';
-            if(l.includes('korean')) return '🫰';
-            if(l.includes('chinese')) return '🏮';
-            if(l.includes('greek')) return '🧿';
-            if(l.includes('russian')) return '🪆';
-            if(l.includes('hawaiian')) return '🏝️';
-            if(l.includes('dutch')) return '🌷';
-            if(l.includes('thai')) return '🐘';
-            if(l.includes('african') || l.includes('zulu')) return '🦁';
-            return '✨'; // Default sparkle
+            if(l.includes('arabic')) return '🌙'; if(l.includes('korean')) return '🫰';
+            if(l.includes('chinese')) return '🏮'; if(l.includes('greek')) return '🧿';
+            if(l.includes('russian')) return '🪆'; if(l.includes('hawaiian')) return '🏝️';
+            if(l.includes('dutch')) return '🌷'; if(l.includes('thai')) return '🐘';
+            if(l.includes('african') || l.includes('zulu')) return '🦁'; return '✨';
         }
 
         /* 🌍 THE 100 LANGUAGES RAW DATA */
@@ -478,7 +439,6 @@
 
                         let deco = getDecoration(lang);
 
-                        // CREATE CARD
                         html += `
                         <div class="lang-card">
                             <div class="card-watermark">${deco}</div>
@@ -507,6 +467,32 @@
                 // Start 3D Realistic Phoolon ki Baarish
                 startRealPetals();
 
+            } else if (sectionName === 'Our Chemistry') {
+                // 🧪 VIDEO PLAYER SECTION 🧪
+                modalTitle.innerHTML = "🧪 Our Chemistry 🧪<br><span style='font-size:1.2rem; color:#fff;'>The Perfect Bond</span>";
+                
+                // Using EXACT filename from your Github screenshot: chemistry.mp4.MOV
+                let html = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column;">
+                    <video id="chemistry-video" width="100%" style="border-radius: 15px; box-shadow: 0 0 20px rgba(0, 255, 128, 0.4); border: 2px solid rgba(0, 255, 128, 0.6);" controls autoplay playsinline>
+                        <source src="chemistry.mp4.MOV" type="video/mp4">
+                        <source src="chemistry.mp4.MOV" type="video/quicktime">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p style="margin-top: 15px; font-style: italic; color: #f7d77b; text-align: center;">Na + Cl = Unbreakable 💚</p>
+                </div>
+                `;
+                
+                modalBody.innerHTML = html;
+                modalBody.scrollTop = 0; 
+
+                // Show Modal
+                modal.style.display = 'flex';
+                gsap.to(modal, { opacity: 1, duration: 0.4 });
+                
+                // Stop petals if any are running
+                stopRealPetals();
+                
             } else {
                 alert('Yeh section abhi under construction hai: ' + sectionName);
             }
@@ -514,7 +500,16 @@
 
         function closeSectionModal() {
             const modal = document.getElementById('section-modal');
-            gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => { modal.style.display = 'none'; stopRealPetals(); } });
+            
+            // Auto-pause video if playing
+            const vid = document.getElementById('chemistry-video');
+            if(vid) vid.pause();
+            
+            gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => { 
+                modal.style.display = 'none'; 
+                stopRealPetals(); 
+                document.getElementById('modal-body').innerHTML = ''; 
+            }});
         }
 
         /* BACKGROUND ELEMENTS */
