@@ -9,63 +9,206 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=JetBrains+Mono&family=Dancing+Script:wght@700&family=Great+Vibes&display=swap');
 
-        body { margin: 0; padding: 0; min-height: 100vh; background: #000; font-family: 'Poppins', sans-serif; overflow: hidden; position: relative; color: white; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: none; }
+        body { 
+            margin: 0; padding: 0; min-height: 100vh; 
+            background: #000; font-family: 'Poppins', sans-serif; 
+            overflow: hidden; position: relative; color: white; 
+            -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: none; 
+        }
 
-        /* 🔒 ENTRY SCREEN */
-        #entry-screen { position: fixed; inset: 0; background: #050505; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1s ease; }
-        #face-id-container { position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        #face-id-icon { width: 80px; height: 80px; stroke: #ff4d85; fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 10px rgba(255, 77, 133, 0.6)); transition: opacity 0.3s; }
-        #scan-spinner { position: absolute; inset: 0; width: 120px; height: 120px; animation: spin 1s linear infinite; display: none; }
-        #scan-spinner circle { fill: none; stroke: rgba(255, 77, 133, 0.8); stroke-width: 4; stroke-dasharray: 200; stroke-dashoffset: 50; stroke-linecap: round; }
+        /* 🔒 ENTRY SCREEN (APPLE FACE ID) */
+        #entry-screen { 
+            position: fixed; inset: 0; background: #050505; 
+            z-index: 1000; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; transition: opacity 1s ease; 
+        }
+        #face-id-container { 
+            position: relative; width: 120px; height: 120px; 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+        }
+        #face-id-icon { 
+            width: 80px; height: 80px; stroke: #ff4d85; fill: none; 
+            stroke-width: 4; stroke-linecap: round; 
+            filter: drop-shadow(0 0 10px rgba(255, 77, 133, 0.6)); transition: opacity 0.3s; 
+        }
+        #scan-spinner { 
+            position: absolute; inset: 0; width: 120px; height: 120px; 
+            animation: spin 1s linear infinite; display: none; 
+        }
+        #scan-spinner circle { 
+            fill: none; stroke: rgba(255, 77, 133, 0.8); stroke-width: 4; 
+            stroke-dasharray: 200; stroke-dashoffset: 50; stroke-linecap: round; 
+        }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        #apple-tick { position: absolute; width: 80px; height: 80px; display: none; }
-        .tick-path { fill: none; stroke: #4cd964; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; filter: drop-shadow(0 0 10px #4cd964); }
-        #instruction-text { margin-top: 25px; color: #ff4d85; font-size: 1.2rem; font-weight: 600; text-align: center; }
-        #terminal-logs { margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px; text-align: left; height: 160px; overflow: hidden; text-shadow: 0 0 5px rgba(0, 255, 0, 0.5); line-height: 1.5; }
+        
+        #apple-tick { 
+            position: absolute; width: 80px; height: 80px; display: none; 
+        }
+        .tick-path { 
+            fill: none; stroke: #4cd964; stroke-width: 8; stroke-linecap: round; 
+            stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; 
+            filter: drop-shadow(0 0 10px #4cd964); 
+        }
+        #instruction-text { 
+            margin-top: 25px; color: #ff4d85; font-size: 1.2rem; 
+            font-weight: 600; text-align: center; 
+        }
+        #terminal-logs { 
+            margin-top: 30px; font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px; 
+            text-align: left; height: 160px; overflow: hidden; 
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5); line-height: 1.5; 
+        }
 
         /* 🌊 MAIN WORLD */
-        #main-world { display: none; opacity: 0; background: url('Background.jpg') no-repeat center center fixed; background-size: cover; width: 100vw; height: 100vh; position: relative; }
+        #main-world { 
+            display: none; opacity: 0; 
+            background: url('Background.jpg') no-repeat center center fixed; 
+            background-size: cover; width: 100vw; height: 100vh; position: relative; 
+        }
         #heart-pool { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
         .heart-wrapper { position: absolute; bottom: -50px; will-change: transform; animation: floatHeartUp linear infinite; }
         .heart-inner { width: 100%; height: 100%; will-change: transform; animation: swayHeart ease-in-out infinite alternate; }
         .heart-svg { width: 100%; height: 100%; fill: url(#redGradient); filter: drop-shadow(0 5px 10px rgba(255, 0, 64, 0.5)); }
-        @keyframes floatHeartUp { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
+        
+        @keyframes floatHeartUp { 
+            0% { transform: translateY(0) scale(0.5); opacity: 0; } 
+            10% { opacity: 0.8; } 
+            90% { opacity: 0.8; } 
+            100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } 
+        }
         @keyframes swayHeart { 0% { transform: translateX(-20px) rotate(-15deg); } 100% { transform: translateX(20px) rotate(15deg); } }
 
         #photo-pool { position: absolute; inset: 0; z-index: 10; pointer-events: none; overflow: hidden; }
         .photo-rise { position: absolute; bottom: -150px; will-change: transform; animation: riseFromBottom linear infinite; }
         .photo-wobble { width: 110px; height: 110px; will-change: transform; animation: bobbingX ease-in-out infinite alternate; }
-        .photo-bubble { width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.6); box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.6), inset 10px 0 30px rgba(255, 77, 133, 0.3), inset -10px 0 30px rgba(0, 255, 255, 0.3), 0 10px 20px rgba(0,0,0,0.5); overflow: hidden; position: relative; }
+        .photo-bubble { 
+            width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.6); 
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.6), inset 10px 0 30px rgba(255, 77, 133, 0.3), inset -10px 0 30px rgba(0, 255, 255, 0.3), 0 10px 20px rgba(0,0,0,0.5); 
+            overflow: hidden; position: relative; 
+        }
         .photo-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.6s ease-in-out; will-change: opacity; }
         .photo-bubble::after { content: ''; position: absolute; top: 5%; left: 15%; width: 40%; height: 25%; border-radius: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent); transform: rotate(-30deg); z-index: 2; pointer-events: none; }
+        
         @keyframes riseFromBottom { 100% { transform: translateY(-125vh); } }
         @keyframes bobbingX { 0% { transform: translateX(-15px); } 100% { transform: translateX(15px); } }
 
-        /* 🎡 MAGIC MENU OVERLAY */
-        #menu-trigger { position: fixed; top: 25px; left: 25px; z-index: 500; cursor: pointer; width: 55px; height: 55px; background: rgba(255, 255, 255, 0.1); border: 2px solid #f7d77b; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 2rem; backdrop-filter: blur(5px); box-shadow: 0 0 15px rgba(247, 215, 123, 0.5); animation: vibePulse 2s infinite ease-in-out; transition: all 0.3s ease; }
+        /* 💌 VISIBLE ENVELOPE TRIGGER */
+        #menu-trigger { 
+            position: fixed; top: 25px; left: 25px; z-index: 500; cursor: pointer; 
+            width: 55px; height: 55px; background: rgba(255, 255, 255, 0.1); 
+            border: 2px solid #f7d77b; border-radius: 12px; display: flex; 
+            justify-content: center; align-items: center; font-size: 2rem; 
+            backdrop-filter: blur(5px); box-shadow: 0 0 15px rgba(247, 215, 123, 0.5); 
+            animation: vibePulse 2s infinite ease-in-out; transition: all 0.3s ease; 
+        }
         @keyframes vibePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
+        /* 🎡 MAGIC MENU OVERLAY */
         #magic-menu-overlay { position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px); z-index: 400; display: none; opacity: 0; }
-        .magic-title { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%; font-family: 'Great Vibes', cursive; font-size: 4rem; text-align: center; margin: 0; z-index: 10; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6)); }
+        .magic-title { 
+            position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%; 
+            font-family: 'Great Vibes', cursive; font-size: 4rem; text-align: center; 
+            margin: 0; z-index: 10; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6)); 
+        }
         
         .wheel-wrapper { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 20; }
         .wheel-container { position: relative; width: 300px; height: 300px; border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4); display: flex; justify-content: center; align-items: center; }
-        #home-btn { position: absolute; width: 65px; height: 65px; border-radius: 50%; background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6); }
+        #home-btn { 
+            position: absolute; width: 65px; height: 65px; border-radius: 50%; 
+            background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; 
+            display: flex; justify-content: center; align-items: center; font-size: 2rem; 
+            cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6); 
+        }
+        #home-btn:active { transform: scale(0.85); box-shadow: 0 0 40px #f7d77b; }
 
-        .wheel-item { position: absolute; width: 110px; text-align: center; transform: rotate(calc(51.428deg * var(--i))) translateY(-155px) rotate(calc(-51.428deg * var(--i))); z-index: 10; }
+        /* REVERTED TO 6 ITEMS MATH (60 DEGREES) */
+        .wheel-item { 
+            position: absolute; width: 110px; text-align: center; 
+            transform: rotate(calc(60deg * var(--i))) translateY(-155px) rotate(calc(-60deg * var(--i))); 
+            z-index: 10; 
+        }
+        
         .item-inner { cursor: pointer; transition: transform 0.1s; display: flex; flex-direction: column; align-items: center; }
-        .wheel-icon { font-size: 2.2rem; background: rgba(0,0,0,0.6); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(247, 215, 123, 0.8); box-shadow: 0 0 20px rgba(255, 77, 133, 0.5); position: relative; }
-        .wheel-label { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: #fff; margin-top: 6px; line-height: 1.1; font-weight: bold; text-shadow: 0 0 8px #ff4d85; }
-        .swipe-hint { position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; font-size: 0.95rem; color: #f7d77b; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+        .item-inner:active { transform: scale(0.9) !important; }
+        .wheel-icon { 
+            font-size: 2.2rem; background: rgba(0,0,0,0.6); width: 65px; height: 65px; 
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; 
+            border: 2px solid rgba(247, 215, 123, 0.8); box-shadow: 0 0 20px rgba(255, 77, 133, 0.5); position: relative; 
+        }
+        .wheel-label { 
+            font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: #fff; 
+            margin-top: 6px; line-height: 1.1; font-weight: bold; text-shadow: 0 0 8px #ff4d85; 
+        }
+        .swipe-hint { 
+            position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%); 
+            width: 100%; text-align: center; font-size: 0.95rem; color: #f7d77b; 
+            letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; 
+        }
 
         /* 📜 SECTION MODAL */
-        #section-modal { position: fixed; inset: 0; background: rgba(5, 0, 10, 0.95); backdrop-filter: blur(15px); z-index: 1000; display: none; opacity: 0; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; perspective: 1000px; }
+        #section-modal { 
+            position: fixed; inset: 0; background: rgba(5, 0, 10, 0.95); backdrop-filter: blur(15px); 
+            z-index: 1000; display: none; opacity: 0; flex-direction: column; 
+            align-items: center; justify-content: center; overflow: hidden; perspective: 1000px; 
+        }
         #effect-container { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-        .modal-box { width: 90%; max-width: 500px; height: 80vh; background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(247, 215, 123, 0.4); border-radius: 25px; box-shadow: 0 0 50px rgba(255, 77, 133, 0.2); position: relative; padding: 20px; display: flex; flex-direction: column; z-index: 10; }
-        .modal-close { position: absolute; top: -15px; right: -15px; width: 45px; height: 45px; background: linear-gradient(135deg, #ff4d85, #ff0040); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 20px #ff4d85; border: 2px solid #fff; z-index: 20; }
-        .modal-header { font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7d77b; text-align: center; margin-bottom: 10px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6); border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10; line-height: 1; }
-        .modal-header span { font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; text-shadow: none; font-weight: 300; display: block; margin-top: 5px; }
-        .modal-content { flex-grow: 1; overflow-y: auto; padding-right: 10px; scrollbar-width: none; z-index: 10; }
+        
+        .modal-box { 
+            width: 90%; max-width: 500px; height: 80vh; background: rgba(255, 255, 255, 0.03); 
+            border: 1.5px solid rgba(247, 215, 123, 0.4); border-radius: 25px; 
+            box-shadow: 0 0 50px rgba(255, 77, 133, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.05); 
+            position: relative; padding: 20px; display: flex; flex-direction: column; z-index: 10; 
+        }
+        
+        .modal-close { 
+            position: absolute; top: -15px; right: -15px; width: 45px; height: 45px; 
+            background: linear-gradient(135deg, #ff4d85, #ff0040); color: #fff; border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; font-size: 1.8rem; 
+            font-weight: bold; cursor: pointer; box-shadow: 0 0 20px #ff4d85; border: 2px solid #fff; z-index: 20; 
+        }
+        
+        .modal-header { 
+            font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7d77b; 
+            text-align: center; margin-bottom: 10px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6); 
+            border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10; line-height: 1; 
+        }
+        .modal-header span { 
+            font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; 
+            text-shadow: none; font-weight: 300; display: block; margin-top: 5px; 
+        }
+        
+        .modal-content { 
+            flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px; 
+            scrollbar-width: none; z-index: 10; 
+        }
+        .modal-content::-webkit-scrollbar { display: none; }
+
+        /* 📜 ANIMATED SCROLL STYLE */
+        .animated-scroll-container {
+            width: 100%; height: 100%; min-height: 60vh;
+            background: url('scroll.png') no-repeat center center;
+            background-size: 100% 100%;
+            position: relative;
+            padding: 70px 35px; /* Stay inside paper part */
+            box-sizing: border-box;
+            transform-origin: top center;
+            animation: unfurl 1.5s ease-in-out forwards;
+            display: flex; flex-direction: column;
+        }
+        @keyframes unfurl {
+            0% { transform: scaleY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scaleY(1); opacity: 1; }
+        }
+        .scroll-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem; color: #4a3018; 
+            text-align: center; line-height: 1.6; font-weight: bold;
+            overflow-y: auto; flex-grow: 1; padding-right: 5px;
+        }
+        .scroll-text::-webkit-scrollbar { display: none; }
 
         /* 🎂 CAKE SECTION */
         .cake-scene { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; position: relative;}
@@ -75,16 +218,27 @@
         .cake-frosting-half { position: absolute; top: -5px; width: 105%; height: 40px; background: #fff; border-radius: 20px; }
         .cake-left.cut { transform: translateX(-80px) rotate(-20deg); opacity: 0; }
         .cake-right.cut { transform: translateX(80px) rotate(20deg); opacity: 0; }
+        
         .cake-candles { position: absolute; top: -50px; width: 100%; left: 0; display: flex; justify-content: space-evenly; transition: opacity 0.5s;}
         .cake-candle { width: 14px; height: 45px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: relative; }
         .cake-flame { position: absolute; top: -28px; left: -2px; width: 18px; height: 28px; background: radial-gradient(ellipse at bottom, #f7d77b, #ff4d85, transparent); border-radius: 50% 50% 20% 20%; animation: flickerFlame 0.15s infinite alternate; box-shadow: 0 0 15px #f7d77b; transform-origin: bottom center; }
         @keyframes flickerFlame { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
         /* 🎉 ANNIVERSARY BANNER */
-        .anniversary-banner { position: absolute; top: 10%; left: 50%; transform: translateX(-50%) scale(0.5); opacity: 0; z-index: 100; width: 100%; font-family: 'Great Vibes', cursive; font-size: 3rem; color: #ffebf0; text-align: center; text-shadow: 0 0 20px #ff4d85; line-height: 1.1; transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .anniversary-banner { 
+            position: absolute; top: 10%; left: 50%; transform: translateX(-50%) scale(0.5); 
+            opacity: 0; z-index: 100; width: 100%; font-family: 'Great Vibes', cursive; 
+            font-size: 3rem; color: #ffebf0; text-align: center; text-shadow: 0 0 20px #ff4d85; 
+            line-height: 1.1; transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
         .anniversary-banner.show { transform: translateX(-50%) scale(1); opacity: 1; }
 
-        .action-btn { background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; box-shadow: 0 5px 20px rgba(247, 215, 123, 0.5); margin-top: 20px;}
+        .action-btn { 
+            background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; 
+            font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; 
+            border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; 
+            box-shadow: 0 5px 20px rgba(247, 215, 123, 0.5); margin-top: 20px;
+        }
 
         /* 📜 WISH PAPER (Used in Make a Wish) */
         .paper-scene { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0; }
@@ -106,42 +260,18 @@
         .lang-card b { color: #f7d77b; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-shadow: 0 0 5px rgba(247, 215, 123, 0.3); }
         .lang-card p { margin: 5px 0 0 0; font-size: 1.05rem; color: #fff; line-height: 1.4; }
         .lang-card span { display: block; font-size: 0.9rem; color: #ffb3c6; font-style: italic; margin-top: 8px; }
+        
         .lang-special { text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px; font-size: 1.1rem; font-style: italic; }
+        
         .condition-card { padding: 15px 20px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f7d77b; border-radius: 10px; color: #fff; font-size: 1.1rem; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
         .special-cond { font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-align: center; border: 2px dashed; border-radius: 15px; padding: 20px; margin-top: 25px; margin-bottom: 25px; animation: pulseBox 2s infinite alternate; }
         .scold-cond { background: rgba(255, 77, 133, 0.15); border-color: #ff4d85; color: #ffebf0; text-shadow: 0 0 10px #ff4d85; }
         .irrit-cond { background: rgba(247, 215, 123, 0.15); border-color: #f7d77b; color: #fff; text-shadow: 0 0 10px #d4a737; }
         
-        /* 📜 ANIMATED SCROLL STYLE */
-        .animated-scroll-container {
-            width: 100%; height: 100%; min-height: 60vh;
-            background: url('scroll.png') no-repeat center center;
-            background-size: 100% 100%;
-            position: relative;
-            padding: 70px 35px; /* Adjust padding to stay inside the paper part */
-            box-sizing: border-box;
-            transform-origin: top center;
-            animation: unfurl 1.5s ease-in-out forwards;
-            display: flex; flex-direction: column;
-        }
-
-        @keyframes unfurl {
-            0% { transform: scaleY(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: scaleY(1); opacity: 1; }
-        }
-
-        .scroll-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.4rem; color: #4a3018; /* Dark ink color */
-            text-align: center; line-height: 1.6; font-weight: bold;
-            overflow-y: auto; flex-grow: 1; padding-right: 5px;
-        }
-        .scroll-text::-webkit-scrollbar { display: none; }
-
         /* Effects */
         .real-petal { position: absolute; top: -30px; opacity: 0.9; animation: tumblePetal linear infinite; z-index: 0; }
         @keyframes tumblePetal { 0% { transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; } 10% { opacity: 0.9; } 50% { transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); } 90% { opacity: 0.8; } 100% { transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); opacity: 0; } }
+        
         .raindrop { position: absolute; top: -50px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(200,230,255,0.7)); width: 2px; border-radius: 2px; animation: rainFall linear infinite; z-index: 0; }
         @keyframes rainFall { 0% { transform: translateY(-50px); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
 
@@ -151,7 +281,11 @@
 
     <div id="entry-screen">
         <div id="face-id-container" onclick="startUnlockSequence()">
-            <svg id="face-id-icon" viewBox="0 0 100 100"><path d="M 30,20 Q 20,20 20,30 L 20,40 M 70,20 Q 80,20 80,30 L 80,40 M 20,60 L 20,70 Q 20,80 30,80 M 80,60 L 80,70 Q 80,80 70,80" /><path d="M 40,40 L 40,50 M 60,40 L 60,50" /><path d="M 50,45 L 50,60 M 40,65 Q 50,75 60,65" /></svg>
+            <svg id="face-id-icon" viewBox="0 0 100 100">
+                <path d="M 30,20 Q 20,20 20,30 L 20,40 M 70,20 Q 80,20 80,30 L 80,40 M 20,60 L 20,70 Q 20,80 30,80 M 80,60 L 80,70 Q 80,80 70,80" />
+                <path d="M 40,40 L 40,50 M 60,40 L 60,50" />
+                <path d="M 50,45 L 50,60 M 40,65 Q 50,75 60,65" />
+            </svg>
             <svg id="scan-spinner" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" /></svg>
             <svg id="apple-tick" viewBox="0 0 100 100"><path class="tick-path" id="tick-mark" d="M 25,50 L 45,70 L 75,30" /></svg>
         </div>
@@ -170,13 +304,13 @@
         <div class="wheel-wrapper">
             <div class="wheel-container" id="wheel-spin-box">
                 <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
+                
                 <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon">🌍</div><div class="wheel-label">Love in Every Tongue</div></div></div>
                 <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('I will stop loving you-')"><div class="wheel-icon">🛑</div><div class="wheel-label">I will stop loving you-</div></div></div>
                 <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon">🧪</div><div class="wheel-label">Our Chemistry</div></div></div>
                 <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon">💌</div><div class="wheel-label">A Letter for You</div></div></div>
                 <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon">⏳</div><div class="wheel-label">Us Since</div></div></div>
                 <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon">🕯️</div><div class="wheel-label">Make a Wish</div></div></div>
-                <div class="wheel-item" style="--i:6;"><div class="item-inner" onclick="handleItemClick('Proposal')"><div class="wheel-icon">💍</div><div class="wheel-label">Proposal</div></div></div>
             </div>
         </div>
         <div class="swipe-hint">&lt; SWIPE TO SPIN &gt;</div>
@@ -236,7 +370,8 @@
         document.getElementById('magic-menu-overlay').addEventListener('touchstart', e => touchStartX = e.changedTouches[0].clientX);
         document.getElementById('magic-menu-overlay').addEventListener('touchend', e => {
             let diff = e.changedTouches[0].clientX - touchStartX;
-            if(Math.abs(diff) > 40) { currentRot += (diff < 0 ? -51.428 : 51.428); gsap.to("#wheel-spin-box", { rotation: currentRot, duration: 0.5 }); gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5 }); }
+            // UPDATE BACK TO 60 DEG FOR 6 ITEMS
+            if(Math.abs(diff) > 40) { currentRot += (diff < 0 ? -60 : 60); gsap.to("#wheel-spin-box", { rotation: currentRot, duration: 0.5 }); gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5 }); }
         });
 
         function updateClock() {
@@ -402,7 +537,17 @@
             } 
             else if (sectionName === 'I will stop loving you-') {
                 modalTitle.innerHTML = "🛑 I will stop loving you... 🛑<br><span>Only when...</span>";
-                modalBody.innerHTML = `<div class="condition-card">📅 When February has 30 days</div><div class="condition-card">📏 When my dihh will size 1mm</div><div class="condition-card">🔋 When a battery reaches 101%</div><div class="condition-card">🐱 When Tom eats Jerry 🐭</div><div class="condition-card">👑 Maharaj Inderverma no longer relies on Chhota Bheem</div><div class="condition-card">🥀 When a fake flower dies</div><div class="condition-card">⏰ When each day has 25 hours</div><div class="special-cond scold-cond">😠 When Lovleen stops scolding me!</div><div class="special-cond irrit-cond">🤪 When I stop irritating her!</div><div class="never-conclusion">Which means... NEVER! ❤️♾️</div>`;
+                modalBody.innerHTML = `
+                <div class="condition-card">📅 When February has 30 days</div>
+                <div class="condition-card">📏 When my dihh will size 1mm</div>
+                <div class="condition-card">🔋 When a battery reaches 101%</div>
+                <div class="condition-card">🐱 When Tom eats Jerry 🐭</div>
+                <div class="condition-card">👑 Maharaj Inderverma no longer relies on Chhota Bheem</div>
+                <div class="condition-card">🥀 When a fake flower dies</div>
+                <div class="condition-card">⏰ When each day has 25 hours</div>
+                <div class="special-cond scold-cond">😠 When Lovleen stops scolding me!</div>
+                <div class="special-cond irrit-cond">🤪 When I stop irritating her!</div>
+                <div class="never-conclusion">Which means... NEVER! ❤️♾️</div>`;
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 gsap.fromTo('.condition-card', { x: -50, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.15, duration: 0.5 });
                 startRain();
@@ -414,7 +559,17 @@
             }
             else if (sectionName === 'Us Since') {
                 modalTitle.innerHTML = "⏳ Total Time Together ⏳";
-                modalBody.innerHTML = `<div class="time-grid"><div class="t-box"><small>Total Years</small><span id="t-y">0</span></div><div class="t-box"><small>Total Months</small><span id="t-m">0</span></div><div class="t-box"><small>Total Weeks</small><span id="t-w">0</span></div><div class="t-box"><small>Total Days</small><span id="t-d">0</span></div><div class="t-box"><small>Total Hours</small><span id="t-h">0</span></div><div class="t-box"><small>Total Mins</small><span id="t-min">0</span></div><div class="t-box"><small>Total Secs</small><span id="t-s">0</span></div></div><p class="never-conclusion" style="font-size:2.5rem">...and counting ❤️</p>`;
+                modalBody.innerHTML = `
+                <div class="time-grid">
+                    <div class="t-box"><small>Total Years</small><span id="t-y">0</span></div>
+                    <div class="t-box"><small>Total Months</small><span id="t-m">0</span></div>
+                    <div class="t-box"><small>Total Weeks</small><span id="t-w">0</span></div>
+                    <div class="t-box"><small>Total Days</small><span id="t-d">0</span></div>
+                    <div class="t-box"><small>Total Hours</small><span id="t-h">0</span></div>
+                    <div class="t-box"><small>Total Mins</small><span id="t-min">0</span></div>
+                    <div class="t-box"><small>Total Secs</small><span id="t-s">0</span></div>
+                </div>
+                <p class="never-conclusion" style="font-size:2.5rem">...and counting ❤️</p>`;
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 usSinceInterval = setInterval(updateClock, 1000); updateClock(); startRealPetals();
             }
@@ -441,6 +596,7 @@
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
             }
             else if (sectionName === 'A Letter for You') {
+                // 📜 SCROLL ANIMATION & TEXT SECTION
                 modalTitle.innerHTML = "💌 A Letter for You 💌<br><span>Unfolding my heart...</span>";
                 modalBody.innerHTML = `
                 <div class="animated-scroll-container">
@@ -465,12 +621,6 @@
                 `;
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 startRealPetals();
-            }
-            else if (sectionName === 'Proposal') {
-                modalTitle.innerHTML = "💍 My Question 💍<br><span>The ultimate one...</span>";
-                modalBody.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;"><div style="font-size: 6rem; margin-bottom: 20px; animation: pulseBox 2s infinite alternate;">💍</div><h2 style="font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #f7d77b; text-shadow: 0 0 15px rgba(247,215,123,0.8); margin: 0 0 30px 0;">Will you be mine forever?</h2><div style="display: flex; gap: 20px;"><button class="action-btn" onclick="alert('I love you forever! ❤️')">Yes!</button><button class="action-btn" onclick="alert('That is the only right answer! 🥰')">Always Yes!</button></div></div>`;
-                modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
-                startRealPetals(); 
             }
             else { alert("Section ready! Add content for: " + sectionName); }
         }
@@ -498,6 +648,8 @@
             const wish = document.getElementById('wish-input').value;
             if(!wish.trim()) return alert("Wish toh likhdo puchi! 🥺");
             document.getElementById('seal-btn').innerText = "Sending...";
+            
+            // 📧 YOUR API KEY INTEGRATED BELOW 📧
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
