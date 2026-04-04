@@ -46,11 +46,11 @@
         @keyframes vibePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
         #magic-menu-overlay { position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px); z-index: 400; display: none; opacity: 0; }
-        .magic-title { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%; font-family: 'Great Vibes', cursive; font-size: 4rem; text-align: center; margin: 0; z-index: 10; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6)); line-height: 1.2;}
+        .magic-title { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%; font-family: 'Great Vibes', cursive; font-size: 4rem; text-align: center; margin: 0; z-index: 10; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6)); }
+        
         .wheel-wrapper { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 20; }
         .wheel-container { position: relative; width: 300px; height: 300px; border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4); display: flex; justify-content: center; align-items: center; }
-        #home-btn { position: absolute; width: 65px; height: 65px; border-radius: 50%; background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6); transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
-        #home-btn:active { transform: scale(0.85); box-shadow: 0 0 40px #f7d77b; }
+        #home-btn { position: absolute; width: 65px; height: 65px; border-radius: 50%; background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6); }
 
         .wheel-item { position: absolute; width: 110px; text-align: center; transform: rotate(calc(60deg * var(--i))) translateY(-155px) rotate(calc(-60deg * var(--i))); z-index: 10; }
         .item-inner { cursor: pointer; transition: transform 0.1s; display: flex; flex-direction: column; align-items: center; }
@@ -65,31 +65,10 @@
         .modal-close { position: absolute; top: -15px; right: -15px; width: 45px; height: 45px; background: linear-gradient(135deg, #ff4d85, #ff0040); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 20px #ff4d85; border: 2px solid #fff; z-index: 20; }
         .modal-header { font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7d77b; text-align: center; margin-bottom: 10px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6); border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10; line-height: 1; }
         .modal-header span { font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; text-shadow: none; font-weight: 300; display: block; margin-top: 5px; }
-        .modal-content { flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px; scrollbar-width: none; z-index: 10; }
+        .modal-content { flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px; scrollbar-width: none; -ms-overflow-style: none; z-index: 10; }
         .modal-content::-webkit-scrollbar { display: none; }
 
-        /* 📜 ANIMATED SCROLL STYLE */
-        .animated-scroll-container {
-            width: 100%; height: 100%; min-height: 60vh;
-            background: url('scroll.png') no-repeat center center;
-            background-size: 100% 100%;
-            position: relative;
-            padding: 70px 35px; /* Stay inside paper part */
-            box-sizing: border-box;
-            transform-origin: top center;
-            animation: unfurl 1.5s ease-in-out forwards;
-            display: flex; flex-direction: column;
-        }
-        @keyframes unfurl { 0% { transform: scaleY(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: scaleY(1); opacity: 1; } }
-        .scroll-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.4rem; color: #4a3018; 
-            text-align: center; line-height: 1.6; font-weight: bold;
-            overflow-y: auto; flex-grow: 1; padding-right: 5px;
-        }
-        .scroll-text::-webkit-scrollbar { display: none; }
-
-        /* 🎂 CAKE SECTION & CANDLES FIXED */
+        /* 🎂 CAKE SECTION */
         .cake-scene { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; position: relative;}
         .css-cake { position: relative; width: 180px; height: 90px; margin-top: 100px; margin-bottom: 50px; display: flex; z-index: 5; }
         .cake-half { width: 50%; height: 100%; background: #ff4d85; position: relative; transition: transform 1.5s ease, opacity 1.5s ease; border-radius: 15px 0 0 15px; box-shadow: 0 15px 20px rgba(0,0,0,0.4); }
@@ -98,9 +77,7 @@
         .cake-left.cut { transform: translateX(-80px) rotate(-20deg); opacity: 0; }
         .cake-right.cut { transform: translateX(80px) rotate(20deg); opacity: 0; }
         
-        /* Flexbox for Candles so they auto align perfectly */
-        .cake-candles { position: absolute; top: -50px; width: 100%; height: 50px; left: 0; display: flex; justify-content: space-evenly; align-items: flex-end; transition: opacity 0.5s; z-index: 10; pointer-events: none;}
-        .cake-candle { width: 14px; height: 45px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: relative; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+        .cake-candle { width: 14px; height: 45px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: relative; }
         .cake-flame { position: absolute; top: -28px; left: -2px; width: 18px; height: 28px; background: radial-gradient(ellipse at bottom, #f7d77b, #ff4d85, transparent); border-radius: 50% 50% 20% 20%; animation: flickerFlame 0.15s infinite alternate; box-shadow: 0 0 15px #f7d77b; transform-origin: bottom center; }
         @keyframes flickerFlame { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
@@ -110,7 +87,7 @@
 
         .action-btn { background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; box-shadow: 0 5px 20px rgba(247, 215, 123, 0.5); margin-top: 20px;}
 
-        /* 📜 WISH PAPER */
+        /* 📜 WISH PAPER (Used in Make a Wish) */
         .paper-scene { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0; }
         .paper-ui { background: #fdf5e6; border: 2px solid #d4a737; border-radius: 8px; padding: 25px; width: 90%; height: 250px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .paper-ui textarea { width: 100%; height: 100%; background: transparent; border: none; outline: none; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #553a1f; resize: none; }
@@ -142,13 +119,37 @@
         .raindrop { position: absolute; top: -50px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(200,230,255,0.7)); width: 2px; border-radius: 2px; animation: rainFall linear infinite; z-index: 0; }
         @keyframes rainFall { 0% { transform: translateY(-50px); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
 
+        /* 📜 ADDED PURELY FOR THE SCROLL - NOTHING ELSE TOUCHED */
+        .animated-scroll-container {
+            width: 100%; height: 100%; min-height: 60vh;
+            background: url('scroll.png') no-repeat center center;
+            background-size: 100% 100%;
+            position: relative;
+            padding: 70px 35px;
+            box-sizing: border-box;
+            transform-origin: top center;
+            animation: unfurl 1.5s ease-in-out forwards;
+            display: flex; flex-direction: column;
+        }
+        @keyframes unfurl { 0% { transform: scaleY(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: scaleY(1); opacity: 1; } }
+        .scroll-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem; color: #4a3018; 
+            text-align: center; line-height: 1.6; font-weight: bold;
+            overflow-y: auto; flex-grow: 1; padding-right: 5px;
+        }
+        .scroll-text::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
 
     <div id="entry-screen">
         <div id="face-id-container" onclick="startUnlockSequence()">
-            <svg id="face-id-icon" viewBox="0 0 100 100"><path d="M 30,20 Q 20,20 20,30 L 20,40 M 70,20 Q 80,20 80,30 L 80,40 M 20,60 L 20,70 Q 20,80 30,80 M 80,60 L 80,70 Q 80,80 70,80" /><path d="M 40,40 L 40,50 M 60,40 L 60,50" /><path d="M 50,45 L 50,60 M 40,65 Q 50,75 60,65" /></svg>
+            <svg id="face-id-icon" viewBox="0 0 100 100">
+                <path d="M 30,20 Q 20,20 20,30 L 20,40 M 70,20 Q 80,20 80,30 L 80,40 M 20,60 L 20,70 Q 20,80 30,80 M 80,60 L 80,70 Q 80,80 70,80" />
+                <path d="M 40,40 L 40,50 M 60,40 L 60,50" />
+                <path d="M 50,45 L 50,60 M 40,65 Q 50,75 60,65" />
+            </svg>
             <svg id="scan-spinner" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" /></svg>
             <svg id="apple-tick" viewBox="0 0 100 100"><path class="tick-path" id="tick-mark" d="M 25,50 L 45,70 L 75,30" /></svg>
         </div>
@@ -167,12 +168,12 @@
         <div class="wheel-wrapper">
             <div class="wheel-container" id="wheel-spin-box">
                 <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
-                <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon">🌍</div><div class="wheel-label">Love in Every Tongue</div></div></div>
-                <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('I will stop loving you-')"><div class="wheel-icon">🛑</div><div class="wheel-label">I will stop loving you-</div></div></div>
-                <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon">🧪</div><div class="wheel-label">Our Chemistry</div></div></div>
-                <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon">💌</div><div class="wheel-label">A Letter for You</div></div></div>
-                <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon">⏳</div><div class="wheel-label">Us Since</div></div></div>
-                <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon">🕯️</div><div class="wheel-label">Make a Wish</div></div></div>
+                <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon"><span class="anim-globe">🌍</span></div><div class="wheel-label">Love in Every Tongue</div></div></div>
+                <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('I will stop loving you-')"><div class="wheel-icon"><span class="anim-infinity">🛑</span></div><div class="wheel-label">I will stop loving you-</div></div></div>
+                <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon"><span class="anim-chem">🧪</span></div><div class="wheel-label">Our Chemistry</div></div></div>
+                <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon"><span class="anim-letter">💌</span></div><div class="wheel-label">A Letter for You</div></div></div>
+                <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon"><span class="anim-time">⏳</span></div><div class="wheel-label">Us Since</div></div></div>
+                <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon"><span class="anim-candle">🕯️</span></div><div class="wheel-label">Make a Wish</div></div></div>
             </div>
         </div>
         <div class="swipe-hint">&lt; SWIPE TO SPIN &gt;</div>
@@ -190,46 +191,74 @@
     <script>
         let isScanning = false, usSinceInterval, fireworksInterval, effectInterval;
 
+        // EXACT ORIGINAL HACK LOGS
+        const hackLogs = [
+            "> Running DNA analysis...", 
+            "> Consulting Elon Musk...", 
+            "> Verifying Ahrnav’s haemoglobin...", 
+            "> Peeking Ahrnav’s heart...", 
+            "> Calling Stephen Hawking...", 
+            "> Hacking Ahrnav's mind...", 
+            "> Stole data from NASA...", 
+            "> Missed call rcvd from Jaadu...", 
+            "> Using Doraemon’s gadget...", 
+            `<div style="text-align: center; font-size: 1.8rem; color: #ff4d85; text-shadow: 0 0 15px #ff4d85; margin-top: 15px; font-weight: bold; font-family: 'Poppins', sans-serif;">Welcome Lovleen</div>`
+        ];
+
         function startUnlockSequence() {
             if(isScanning) return; isScanning = true;
             document.getElementById('instruction-text').innerText = "Scanning...";
+            document.getElementById('face-id-icon').style.opacity = '0.3'; 
             document.getElementById('scan-spinner').style.display = 'block';
-            const logBox = document.getElementById('terminal-logs'); let logIndex = 0;
-            const hackLogs = ["> Analyzing DNA...", "> Consulting Stars...", "> Hacking Ahrnav's mind...", "> Stole data from NASA...", `<div style="text-align: center; font-size: 1.8rem; color: #ff4d85;">Welcome Lovleen</div>`];
+            const logBox = document.getElementById('terminal-logs'); 
+            logBox.innerHTML = ""; let logIndex = 0;
             const logInterval = setInterval(() => {
                 if (logIndex < hackLogs.length) {
-                    logBox.innerHTML += hackLogs[logIndex] + "<br>"; logBox.scrollTop = logBox.scrollHeight;
+                    logBox.innerHTML += hackLogs[logIndex] + "<br>"; 
+                    logBox.scrollTop = logBox.scrollHeight;
+                    if (logIndex === hackLogs.length - 1) { 
+                        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#ff4d85', '#00ff00', '#ffffff'], zIndex: 9999 }); 
+                    }
                     logIndex++;
                 } else { clearInterval(logInterval); setTimeout(showGreenTick, 1500); }
             }, 1200); 
         }
 
         function showGreenTick() {
-            document.getElementById('scan-spinner').style.display = 'none'; document.getElementById('instruction-text').innerText = "Access Granted.";
+            document.getElementById('face-id-icon').style.display = 'none'; 
+            document.getElementById('scan-spinner').style.display = 'none';
+            document.getElementById('instruction-text').innerText = "Access Granted."; 
+            document.getElementById('instruction-text').style.color = "#4cd964";
             document.getElementById('apple-tick').style.display = 'block';
-            gsap.to("#tick-mark", { strokeDashoffset: 0, duration: 0.6, onComplete: () => setTimeout(launchWorld, 1000) });
+            gsap.to("#tick-mark", { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", onComplete: () => setTimeout(launchWorld, 1000) });
         }
 
         function launchWorld() {
             gsap.to("#entry-screen", { opacity: 0, duration: 1, onComplete: () => {
-                document.getElementById('entry-screen').style.display = 'none'; document.getElementById('main-world').style.display = 'block';
-                gsap.to("#main-world", { opacity: 1, duration: 1 }); spawnHearts(); spawnFishes();
+                document.getElementById('entry-screen').style.display = 'none'; 
+                document.getElementById('main-world').style.display = 'block';
+                gsap.to("#main-world", { opacity: 1, duration: 1 }); 
+                spawnHearts(); 
+                spawnFishes(); 
             }});
         }
 
         function toggleMagicMenu() {
             const triggerBtn = document.getElementById('menu-trigger'), overlay = document.getElementById('magic-menu-overlay'), wheel = document.getElementById('wheel-spin-box');
-            if(!overlay.style.display || overlay.style.display === 'none') {
-                document.getElementById('trigger-icon').innerText = "💌"; overlay.style.display = 'block';
-                gsap.to(overlay, { opacity: 1, duration: 0.5 });
+            if(!menuOpen) {
+                document.getElementById('trigger-icon').innerText = "💌"; triggerBtn.style.animation = "none"; 
+                gsap.fromTo(triggerBtn, {scale: 1.5, rotation: -10}, {scale: 1, rotation: 0, duration: 0.5, ease: "elastic.out(1, 0.3)"});
+                overlay.style.display = 'block'; gsap.to(overlay, { opacity: 1, duration: 0.5 });
+                currentRot = 0; gsap.set(wheel, { rotation: currentRot }); gsap.set('.item-inner', { rotation: -currentRot });
                 gsap.fromTo(wheel, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.2)" });
+                menuOpen = true;
             } else {
-                document.getElementById('trigger-icon').innerText = "✉️";
-                gsap.to(overlay, { opacity: 0, duration: 0.4, onComplete: () => overlay.style.display = 'none' });
+                document.getElementById('trigger-icon').innerText = "✉️"; triggerBtn.style.animation = "vibePulse 2s infinite ease-in-out";
+                gsap.to(overlay, { opacity: 0, duration: 0.4, onComplete: () => { overlay.style.display = 'none'; }}); menuOpen = false;
             }
         }
 
-        let touchStartX = 0, currentRot = 0;
+        let touchStartX = 0, currentRot = 0; let menuOpen = false;
         document.getElementById('magic-menu-overlay').addEventListener('touchstart', e => touchStartX = e.changedTouches[0].clientX);
         document.getElementById('magic-menu-overlay').addEventListener('touchend', e => {
             let diff = e.changedTouches[0].clientX - touchStartX;
@@ -341,7 +370,7 @@
 79. Bosnian: Volim te ❤️ (You are my comfort place.)
 80. Montenegrin: Волим те 💓 (Forever my person.)
 81. Urdu: میں تم سے محبت کرتا ہوں 💖 (Meri Lovleen, meri duniya.)
-82. Hindi: मैं तुमसे प्यार करता हूँ ❤️ (My forever Leenu.)
+82. Hindi: मैं तुमसे प्यार کرتا हूँ ❤️ (My forever Leenu.)
 83. Punjabi: ਮੈਂ ਤੈਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ 💕 (Meri sohni Gugiii.)
 84. Bengali: আমি তোমায় ভালোবাসি 💞 (Sweetest forever.)
 85. Gujarati: હું તને પ્રેમ કરું છું 💗 (My heart’s smile.)
@@ -399,7 +428,17 @@
             } 
             else if (sectionName === 'I will stop loving you-') {
                 modalTitle.innerHTML = "🛑 I will stop loving you... 🛑<br><span>Only when...</span>";
-                modalBody.innerHTML = `<div class="condition-card">📅 When February has 30 days</div><div class="condition-card">📏 When my dihh will size 1mm</div><div class="condition-card">🔋 When a battery reaches 101%</div><div class="condition-card">🐱 When Tom eats Jerry 🐭</div><div class="condition-card">👑 Maharaj Inderverma no longer relies on Chhota Bheem</div><div class="condition-card">🥀 When a fake flower dies</div><div class="condition-card">⏰ When each day has 25 hours</div><div class="special-cond scold-cond">😠 When Lovleen stops scolding me!</div><div class="special-cond irrit-cond">🤪 When I stop irritating her!</div><div class="never-conclusion">Which means... NEVER! ❤️♾️</div>`;
+                modalBody.innerHTML = `
+                <div class="condition-card">📅 When February has 30 days</div>
+                <div class="condition-card">📏 When my dihh will size 1mm</div>
+                <div class="condition-card">🔋 When a battery reaches 101%</div>
+                <div class="condition-card">🐱 When Tom eats Jerry 🐭</div>
+                <div class="condition-card">👑 Maharaj Inderverma no longer relies on Chhota Bheem</div>
+                <div class="condition-card">🥀 When a fake flower dies</div>
+                <div class="condition-card">⏰ When each day has 25 hours</div>
+                <div class="special-cond scold-cond">😠 When Lovleen stops scolding me!</div>
+                <div class="special-cond irrit-cond">🤪 When I stop irritating her!</div>
+                <div class="never-conclusion">Which means... NEVER! ❤️♾️</div>`;
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 gsap.fromTo('.condition-card', { x: -50, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.15, duration: 0.5 });
                 startRain();
@@ -411,23 +450,37 @@
             }
             else if (sectionName === 'Us Since') {
                 modalTitle.innerHTML = "⏳ Total Time Together ⏳";
-                modalBody.innerHTML = `<div class="time-grid"><div class="t-box"><small>Total Years</small><span id="t-y">0</span></div><div class="t-box"><small>Total Months</small><span id="t-m">0</span></div><div class="t-box"><small>Total Weeks</small><span id="t-w">0</span></div><div class="t-box"><small>Total Days</small><span id="t-d">0</span></div><div class="t-box"><small>Total Hours</small><span id="t-h">0</span></div><div class="t-box"><small>Total Mins</small><span id="t-min">0</span></div><div class="t-box"><small>Total Secs</small><span id="t-s">0</span></div></div><p class="never-conclusion" style="font-size:2.5rem">...and counting ❤️</p>`;
+                modalBody.innerHTML = `
+                <div class="time-grid">
+                    <div class="t-box"><small>Total Years</small><span id="t-y">0</span></div>
+                    <div class="t-box"><small>Total Months</small><span id="t-m">0</span></div>
+                    <div class="t-box"><small>Total Weeks</small><span id="t-w">0</span></div>
+                    <div class="t-box"><small>Total Days</small><span id="t-d">0</span></div>
+                    <div class="t-box"><small>Total Hours</small><span id="t-h">0</span></div>
+                    <div class="t-box"><small>Total Mins</small><span id="t-min">0</span></div>
+                    <div class="t-box"><small>Total Secs</small><span id="t-s">0</span></div>
+                </div>
+                <p class="never-conclusion" style="font-size:2.5rem">...and counting ❤️</p>`;
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 usSinceInterval = setInterval(updateClock, 1000); updateClock(); startRealPetals();
             }
             else if (sectionName === 'Make a Wish') {
                 modalTitle.innerHTML = "🕯️ Make a Wish 🕯️<br><span>Close your eyes and blow...</span>";
+                
+                // ✨ CANDLE FIX: Replaced absolute 'left' with Flexbox ✨
                 modalBody.innerHTML = `
                 <div id="cake-scene" class="cake-scene">
                     <div class="anniversary-banner" id="anni-banner">Happy 3 Years of Love and Togetherness my Puchi! ❤️</div>
                     <div class="css-cake" id="the-cake">
                         <div class="cake-half cake-left" id="cake-left"><div class="cake-frosting-half"></div></div>
                         <div class="cake-half cake-right" id="cake-right"><div class="cake-frosting-half"></div></div>
-                        <div class="cake-candles" id="cake-candles" style="display: flex; justify-content: space-evenly; align-items: flex-end; width: 100%; height: 50px; position: absolute; top: -50px;">
-                            <div class="cake-candle"><div class="cake-flame flame-target"></div></div>
-                            <div class="cake-candle" style="height: 55px; margin-bottom: 5px;"><div class="cake-flame flame-target"></div></div>
-                            <div class="cake-candle"><div class="cake-flame flame-target"></div></div>
+                        
+                        <div class="cake-candles" id="cake-candles" style="display: flex; justify-content: center; align-items: flex-end; gap: 25px; width: 100%; height: 50px; position: absolute; top: -50px; left: 0;">
+                            <div class="cake-candle" style="height: 45px; position: relative;"><div class="cake-flame flame-target"></div></div>
+                            <div class="cake-candle" style="height: 55px; position: relative; margin-bottom: 5px;"><div class="cake-flame flame-target"></div></div>
+                            <div class="cake-candle" style="height: 45px; position: relative;"><div class="cake-flame flame-target"></div></div>
                         </div>
+
                     </div>
                     <button class="action-btn" id="blow-btn" onclick="blowAndCutCake()">Blow the Candles 🌬️</button>
                 </div>
@@ -463,7 +516,6 @@
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 startRealPetals();
             }
-            else { alert("Section ready! Add content for: " + sectionName); }
         }
 
         function blowAndCutCake() {
@@ -475,15 +527,13 @@
                 document.getElementById('cake-right').classList.add('cut');
                 document.getElementById('anni-banner').classList.add('show');
                 launchFireworks();
-                
-                // Make wait time 2.5 seconds instead of 5
                 setTimeout(() => {
-                    gsap.to('#cake-scene', { opacity: 0, duration: 0.5, onComplete: () => {
+                    gsap.to('#cake-scene', { opacity: 0, duration: 0.8, onComplete: () => {
                         document.getElementById('cake-scene').style.display = 'none';
                         document.getElementById('paper-scene').style.display = 'flex';
                         gsap.to('#paper-scene', { opacity: 1, duration: 0.8 });
                     }});
-                }, 2500); 
+                }, 5000);
             }, 800);
         }
 
