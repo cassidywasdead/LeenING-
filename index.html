@@ -57,35 +57,28 @@
         }
         @keyframes vibePulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(247, 215, 123, 0.5); } 50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(247, 215, 123, 0.9); } }
 
-        /* 🎡 MAGIC MENU OVERLAY (WHEEL) */
-        #magic-menu-overlay {
-            position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px);
-            z-index: 400; display: none; opacity: 0; 
-        }
-
+        /* 🎡 MAGIC MENU OVERLAY */
+        #magic-menu-overlay { position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px); z-index: 400; display: none; opacity: 0; }
         .magic-title {
             position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%;
             font-family: 'Dancing Script', cursive; font-size: 3.2rem; font-weight: bold; text-align: center; margin: 0; z-index: 10; line-height: 1.2;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6));
         }
-
         .wheel-wrapper { position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 20; }
         .wheel-container { position: relative; width: 280px; height: 280px; border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4); display: flex; justify-content: center; align-items: center; }
 
+        /* 🏠 CENTER HOME BUTTON */
         #home-btn {
-            position: absolute; width: 65px; height: 65px; border-radius: 50%;
-            background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center;
-            font-size: 2rem; cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6), inset 0 0 15px rgba(247, 215, 123, 0.4); transition: all 0.2s; -webkit-tap-highlight-color: transparent;
+            position: absolute; width: 65px; height: 65px; border-radius: 50%; background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; z-index: 50; box-shadow: 0 0 25px rgba(247, 215, 123, 0.6), inset 0 0 15px rgba(247, 215, 123, 0.4); transition: all 0.2s; -webkit-tap-highlight-color: transparent;
         }
         #home-btn:active { transform: scale(0.85); box-shadow: 0 0 40px #f7d77b; }
 
         .wheel-item { position: absolute; width: 110px; text-align: center; transform: rotate(calc(60deg * var(--i))) translateY(-145px) rotate(calc(-60deg * var(--i))); z-index: 10; }
         .item-inner { cursor: pointer; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; align-items: center; }
         .item-inner:active { transform: scale(0.9) !important; }
-
         .wheel-icon { font-size: 2.2rem; background: rgba(0,0,0,0.6); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(247, 215, 123, 0.8); box-shadow: 0 0 20px rgba(255, 77, 133, 0.5); position: relative; }
-        .wheel-label { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #fff; margin-top: 6px; line-height: 1.1; font-weight: bold; letter-spacing: 0.5px; text-shadow: 0 0 8px #ff4d85, 0 0 15px rgba(255, 77, 133, 0.8), 0 2px 2px rgba(0,0,0,0.9); }
+        .wheel-label { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #fff; margin-top: 6px; line-height: 1.1; font-weight: bold; text-shadow: 0 0 8px #ff4d85, 0 0 15px rgba(255, 77, 133, 0.8), 0 2px 2px rgba(0,0,0,0.9); }
         .swipe-hint { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; font-size: 0.95rem; color: #f7d77b; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 15px rgba(247, 215, 123, 0.8); z-index: 10; }
 
         /* EMOJI ANIMATIONS */
@@ -96,70 +89,76 @@
         .anim-time { display: inline-block; animation: tickTock 2s ease-in-out infinite; } @keyframes tickTock { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(15deg); } }
         .anim-candle { display: inline-block; animation: flickerCandle 0.15s infinite alternate; } @keyframes flickerCandle { 0% { transform: scale(1) skewX(1deg); filter: drop-shadow(0 0 5px #f7d77b); opacity: 0.9; } 100% { transform: scale(1.05) skewX(-1deg); filter: drop-shadow(0 0 15px #ffaa00); opacity: 1; } }
 
-        /* 🌧️ THE RAIN OF LOVE CONTAINER */
-        #rain-container {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-            z-index: 1000; display: none; opacity: 0; flex-direction: column; overflow: hidden;
+        /* 📜 DYNAMIC SECTION MODAL (WITH PETALS & DROPS) */
+        #section-modal {
+            position: fixed; inset: 0; background: rgba(5, 0, 10, 0.95); backdrop-filter: blur(15px);
+            z-index: 1000; display: none; opacity: 0; flex-direction: column; align-items: center; justify-content: center;
+            overflow: hidden; /* For falling petals */
         }
 
-        .rain-header {
-            padding: 20px; text-align: center; z-index: 10; position: relative;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+        /* Falling Petals Container */
+        #petal-container { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .petal {
+            position: absolute; top: -20px; font-size: 1.5rem; filter: drop-shadow(0 2px 4px rgba(255,0,0,0.5));
+            animation: fallPetal linear infinite; z-index: 0;
         }
+        @keyframes fallPetal {
+            0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(50px); opacity: 0; }
+        }
+
+        .modal-box {
+            width: 90%; max-width: 500px; height: 80vh;
+            background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(247, 215, 123, 0.4);
+            border-radius: 25px; box-shadow: 0 0 50px rgba(255, 77, 133, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.05);
+            position: relative; padding: 20px; display: flex; flex-direction: column; z-index: 10;
+        }
+
+        .modal-close {
+            position: absolute; top: -15px; right: -15px; width: 45px; height: 45px;
+            background: linear-gradient(135deg, #ff4d85, #ff0040); color: #fff; border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: bold; 
+            cursor: pointer; box-shadow: 0 0 20px #ff4d85; border: 2px solid #fff; -webkit-tap-highlight-color: transparent; z-index: 20;
+        }
+
+        .modal-header {
+            font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #f7d77b;
+            text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6);
+            border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10;
+        }
+
+        .modal-content {
+            flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px;
+            scrollbar-width: none; -ms-overflow-style: none; z-index: 10;
+        }
+        .modal-content::-webkit-scrollbar { display: none; }
+
+        /* ✨ Beautiful Dropping Cards */
+        .lang-card {
+            position: relative; margin-bottom: 20px; padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border-radius: 15px; border-left: 4px solid #ff4d85;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); overflow: hidden;
+            /* Animation hidden initially */
+            opacity: 0; transform: translateY(-30px);
+        }
+
+        /* Monument/Flower Watermark inside card */
+        .card-watermark {
+            position: absolute; right: 10px; bottom: -5px; font-size: 3.5rem; 
+            opacity: 0.2; pointer-events: none; filter: grayscale(50%); z-index: -1;
+        }
+
+        .lang-card b { color: #f7d77b; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-shadow: 0 0 5px rgba(247, 215, 123, 0.3); }
+        .lang-card p { margin: 5px 0 0 0; font-size: 1.05rem; color: #fff; line-height: 1.4; text-shadow: 0 1px 2px #000; }
+        .lang-card span { display: block; font-size: 0.9rem; color: #ffb3c6; font-style: italic; margin-top: 8px; font-weight: 300; }
         
-        .rain-title {
-            font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #fff;
-            text-shadow: 0 0 15px #ff4d85, 0 0 30px #f7d77b;
+        .lang-special { 
+            text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; 
+            background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 77, 133, 0.2); font-size: 1.1rem; font-style: italic;
+            opacity: 0; transform: scale(0.8);
         }
-
-        .close-rain-btn {
-            position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;
-            background: rgba(255,255,255,0.1); border: 1.5px solid #ff4d85; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; color: #ff4d85;
-            font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(5px);
-        }
-
-        .rain-scroll-area {
-            flex-grow: 1; overflow-y: auto; overflow-x: hidden;
-            padding: 10px 20px 100px 20px; display: flex; flex-direction: column; align-items: center;
-            /* Hide scrollbar */
-            scrollbar-width: none; -ms-overflow-style: none;
-        }
-        .rain-scroll-area::-webkit-scrollbar { display: none; }
-
-        /* 💌 LOVE CARDS (Physics & Swaying) */
-        .love-card {
-            width: 90%; max-width: 400px; padding: 18px 20px; margin-bottom: 20px;
-            border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            color: #222; font-family: 'Poppins', sans-serif; position: relative;
-            /* Will be animated by GSAP but continuous sway added via CSS */
-            animation: cardSway 4s ease-in-out infinite alternate;
-        }
-        
-        /* Alternating sway to look natural */
-        .love-card:nth-child(even) { animation-direction: alternate-reverse; animation-duration: 5s; }
-        
-        @keyframes cardSway {
-            0% { transform: translateX(-3px) rotate(-1deg); }
-            100% { transform: translateX(3px) rotate(1deg); }
-        }
-
-        .love-card .lang-name { font-weight: 600; font-size: 1.1rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 5px; margin-bottom: 8px; }
-        .love-card .msg-text { font-size: 1rem; font-weight: bold; line-height: 1.4; color: #111; }
-        .love-card .meaning { font-size: 0.85rem; font-style: italic; color: #444; margin-top: 5px; }
-
-        /* 👑 The 100th Special Card */
-        .card-special {
-            background: linear-gradient(135deg, #ffd700, #ff4d85) !important;
-            color: #fff !important; text-align: center; border: 2px solid #fff;
-            box-shadow: 0 0 30px rgba(255, 77, 133, 0.8); transform: scale(1.05); margin-top: 30px;
-            animation: heartbeat 1.5s infinite !important;
-        }
-        .card-special .lang-name { border-bottom: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 1.3rem;}
-        .card-special .msg-text { color: #fff; font-size: 1.2rem; }
-        .card-special .meaning { color: rgba(255,255,255,0.9); font-size: 0.95rem;}
-        
-        @keyframes heartbeat { 0%, 100% { transform: scale(1.05); } 50% { transform: scale(1.1); } }
 
     </style>
 </head>
@@ -196,72 +195,37 @@
         <div class="wheel-wrapper">
             <div class="wheel-container" id="wheel-spin-box">
                 <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
-
-                <div class="wheel-item" style="--i:0;">
-                    <div class="item-inner" onclick="openRainOfLove()">
-                        <div class="wheel-icon"><span class="anim-globe">🌍</span></div>
-                        <div class="wheel-label">Love in Every Tongue</div>
-                    </div>
-                </div>
-                <div class="wheel-item" style="--i:1;">
-                    <div class="item-inner" onclick="alert('Under Construction')">
-                        <div class="wheel-icon"><span class="anim-infinity">♾️</span></div>
-                        <div class="wheel-label">Never Conditions</div>
-                    </div>
-                </div>
-                <div class="wheel-item" style="--i:2;">
-                    <div class="item-inner" onclick="alert('Under Construction')">
-                        <div class="wheel-icon"><span class="anim-chem">🧪</span></div>
-                        <div class="wheel-label">Our Chemistry</div>
-                    </div>
-                </div>
-                <div class="wheel-item" style="--i:3;">
-                    <div class="item-inner" onclick="alert('Under Construction')">
-                        <div class="wheel-icon"><span class="anim-letter">💌</span></div>
-                        <div class="wheel-label">A Letter for You</div>
-                    </div>
-                </div>
-                <div class="wheel-item" style="--i:4;">
-                    <div class="item-inner" onclick="alert('Under Construction')">
-                        <div class="wheel-icon"><span class="anim-time">⏳</span></div>
-                        <div class="wheel-label">Us Since</div>
-                    </div>
-                </div>
-                <div class="wheel-item" style="--i:5;">
-                    <div class="item-inner" onclick="alert('Under Construction')">
-                        <div class="wheel-icon"><span class="anim-candle">🕯️</span></div>
-                        <div class="wheel-label">Make a Wish</div>
-                    </div>
-                </div>
+                <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon"><span class="anim-globe">🌍</span></div><div class="wheel-label">Love in Every Tongue</div></div></div>
+                <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('Never Conditions')"><div class="wheel-icon"><span class="anim-infinity">♾️</span></div><div class="wheel-label">Never Conditions</div></div></div>
+                <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon"><span class="anim-chem">🧪</span></div><div class="wheel-label">Our Chemistry</div></div></div>
+                <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon"><span class="anim-letter">💌</span></div><div class="wheel-label">A Letter for You</div></div></div>
+                <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon"><span class="anim-time">⏳</span></div><div class="wheel-label">Us Since</div></div></div>
+                <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon"><span class="anim-candle">🕯️</span></div><div class="wheel-label">Make a Wish</div></div></div>
             </div>
         </div>
         <div class="swipe-hint">&lt; SWIPE TO SPIN &gt;</div>
     </div>
 
-    <div id="rain-container">
-        <div class="rain-header">
-            <div class="rain-title">100 Languages of Love</div>
-            <div class="close-rain-btn" onclick="closeRainOfLove()">×</div>
+    <div id="section-modal">
+        <div id="petal-container"></div> <div class="modal-box">
+            <div class="modal-close" onclick="closeSectionModal()">×</div>
+            <div class="modal-header" id="modal-title">Title Here</div>
+            <div class="modal-content" id="modal-body">
+                </div>
         </div>
-        <div class="rain-scroll-area" id="rain-scroll-area">
-            </div>
     </div>
 
     <script>
+        /* SETUP & PRELOADER */
         const hackLogs = ["> Running DNA analysis...", "> Consulting Elon Musk...", "> Verifying Ahrnav’s haemoglobin...", "> Peeking Ahrnav’s heart...", "> Calling Stephen Hawking...", "> Hacking Ahrnav's mind...", "> Stole data from NASA...", "> Missed call rcvd from Jaadu...", "> Using Doraemon’s gadget...", `<div style="text-align: center; font-size: 1.8rem; color: #ff4d85; text-shadow: 0 0 15px #ff4d85; margin-top: 15px; font-weight: bold; font-family: 'Poppins', sans-serif;">Welcome Lovleen</div>`];
         let isScanning = false;
 
         function startUnlockSequence() {
             if(isScanning) return; isScanning = true;
             for(let i=1; i<=15; i++) { let img = new Image(); img.src = `photo1-${i}.jpg`; }
-
             document.getElementById('instruction-text').innerText = "Scanning...";
-            document.getElementById('face-id-icon').style.opacity = '0.3'; 
-            document.getElementById('scan-spinner').style.display = 'block';
-            
-            const logBox = document.getElementById('terminal-logs');
-            logBox.innerHTML = ""; let logIndex = 0;
-            
+            document.getElementById('face-id-icon').style.opacity = '0.3'; document.getElementById('scan-spinner').style.display = 'block';
+            const logBox = document.getElementById('terminal-logs'); logBox.innerHTML = ""; let logIndex = 0;
             const logInterval = setInterval(() => {
                 if (logIndex < hackLogs.length) {
                     logBox.innerHTML += hackLogs[logIndex] + "<br>"; logBox.scrollTop = logBox.scrollHeight;
@@ -274,62 +238,83 @@
         function showGreenTick() {
             document.getElementById('face-id-icon').style.display = 'none'; document.getElementById('scan-spinner').style.display = 'none';
             document.getElementById('instruction-text').innerText = "Access Granted."; document.getElementById('instruction-text').style.color = "#4cd964";
-            const tickSvg = document.getElementById('apple-tick'); tickSvg.style.display = 'block';
+            document.getElementById('apple-tick').style.display = 'block';
             gsap.to("#tick-mark", { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", onComplete: () => { setTimeout(launchWorld, 1000); } });
         }
 
         function launchWorld() {
             gsap.to("#entry-screen", { opacity: 0, duration: 1, onComplete: () => {
-                document.getElementById('entry-screen').style.display = 'none';
-                const world = document.getElementById('main-world'); world.style.display = 'block';
-                gsap.to(world, { opacity: 1, duration: 1 });
-                spawnHearts(); spawnFishes();
+                document.getElementById('entry-screen').style.display = 'none'; document.getElementById('main-world').style.display = 'block';
+                gsap.to("#main-world", { opacity: 1, duration: 1 }); spawnHearts(); spawnFishes();
             }});
         }
 
-        /* 🎡 WHEEL MENU TOGGLE & SPIN LOGIC */
-        let menuOpen = false;
-        let currentRot = 0;
-
+        /* 🎡 WHEEL MENU & SWIPE */
+        let menuOpen = false; let currentRot = 0;
         function toggleMagicMenu() {
-            const triggerIcon = document.getElementById('trigger-icon');
-            const triggerBtn = document.getElementById('menu-trigger');
-            const overlay = document.getElementById('magic-menu-overlay');
-            const wheel = document.getElementById('wheel-spin-box');
-
+            const triggerBtn = document.getElementById('menu-trigger'); const overlay = document.getElementById('magic-menu-overlay'); const wheel = document.getElementById('wheel-spin-box');
             if(!menuOpen) {
-                triggerIcon.innerText = "💌"; triggerBtn.style.animation = "none"; 
+                document.getElementById('trigger-icon').innerText = "💌"; triggerBtn.style.animation = "none"; 
                 gsap.fromTo(triggerBtn, {scale: 1.5, rotation: -10}, {scale: 1, rotation: 0, duration: 0.5, ease: "elastic.out(1, 0.3)"});
-                overlay.style.display = 'block'; 
-                gsap.to(overlay, { opacity: 1, duration: 0.5 });
+                overlay.style.display = 'block'; gsap.to(overlay, { opacity: 1, duration: 0.5 });
                 currentRot = 0; gsap.set(wheel, { rotation: currentRot }); gsap.set('.item-inner', { rotation: -currentRot });
                 gsap.fromTo(wheel, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.2)" });
                 menuOpen = true;
             } else {
-                triggerIcon.innerText = "✉️"; triggerBtn.style.animation = "vibePulse 2s infinite ease-in-out";
-                gsap.to(overlay, { opacity: 0, duration: 0.4, onComplete: () => { overlay.style.display = 'none'; }});
-                menuOpen = false;
+                document.getElementById('trigger-icon').innerText = "✉️"; triggerBtn.style.animation = "vibePulse 2s infinite ease-in-out";
+                gsap.to(overlay, { opacity: 0, duration: 0.4, onComplete: () => { overlay.style.display = 'none'; }}); menuOpen = false;
             }
         }
 
-        /* 👆 SWIPE LOGIC */
-        let touchStartX = 0; let isSwiping = false;
-        const overlay = document.getElementById('magic-menu-overlay');
-
+        let touchStartX = 0; let isSwiping = false; const overlay = document.getElementById('magic-menu-overlay');
         overlay.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; isSwiping = false; });
         overlay.addEventListener('touchmove', e => { isSwiping = true; });
         overlay.addEventListener('touchend', e => {
             let diff = e.changedTouches[0].clientX - touchStartX;
             if(Math.abs(diff) > 40) { if(diff < 0) rotateWheel(-60); else rotateWheel(60); }
         });
+        function rotateWheel(deg) { currentRot += deg; gsap.to("#wheel-spin-box", { rotation: currentRot, duration: 0.5, ease: "power2.out" }); gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5, ease: "power2.out" }); }
 
-        function rotateWheel(deg) {
-            currentRot += deg;
-            gsap.to("#wheel-spin-box", { rotation: currentRot, duration: 0.5, ease: "power2.out" });
-            gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5, ease: "power2.out" });
+        /* 🌸 PETAL GENERATOR */
+        let petalInterval;
+        function startPetals() {
+            const container = document.getElementById('petal-container');
+            container.innerHTML = ''; // Clear old
+            const emojis = ['🌹', '🌸', '💮', '💖', '✨'];
+            petalInterval = setInterval(() => {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 5 + 4) + 's'; // 4-9s fall
+                petal.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                container.appendChild(petal);
+                setTimeout(() => { if(petal.parentNode) petal.remove(); }, 10000); // Cleanup
+            }, 300); // New petal every 300ms
+        }
+        function stopPetals() { clearInterval(petalInterval); document.getElementById('petal-container').innerHTML = ''; }
+
+        /* 🌍 SMART DECORATOR FOR CARDS */
+        function getDecoration(lang) {
+            const l = lang.toLowerCase();
+            if(l.includes('french')) return '🗼';
+            if(l.includes('japanese')) return '🌸';
+            if(l.includes('italian')) return '🏛️';
+            if(l.includes('spanish')) return '💃';
+            if(l.includes('hindi') || l.includes('urdu') || l.includes('punjabi') || l.includes('sanskrit')) return '🪷';
+            if(l.includes('arabic')) return '🌙';
+            if(l.includes('korean')) return '🫰';
+            if(l.includes('chinese')) return '🏮';
+            if(l.includes('greek')) return '🧿';
+            if(l.includes('russian')) return '🪆';
+            if(l.includes('hawaiian')) return '🏝️';
+            if(l.includes('dutch')) return '🌷';
+            if(l.includes('thai')) return '🐘';
+            if(l.includes('african') || l.includes('zulu')) return '🦁';
+            return '✨'; // Default sparkle
         }
 
-        /* 🌍 THE 100 LANGUAGES RAW DATA (Cleaned for perfect drops) */
+        /* 🌍 THE 100 LANGUAGES RAW DATA */
         const languagesData = `1. English: I love you, my Leenie 💖 (You are my forever happiness.)
 2. French: Je t’aime, ma Leenu 🇫🇷💕 (I love you, my sweetest forever.)
 3. Spanish: Te amo, meri jaan 🇪🇸❤️ (My heart beats only for you.)
@@ -427,72 +412,76 @@
 95. Tibetan: ང་ཁྱོད་ལ་དགའ་པོ་ཡོད། 🏔️💖 (Peaceful forever.)
 96. Kurdish: Ez te hez dikim 💕 (My brave heart.)
 97. Tatar: Мин сине яратам 💞 (Across all time.)
-98. Chechen: Со хьо йоьзна, meri Gugiii ❤️‍🔥 (No matter where life takes us, my heart will always return to you, my forever safe place.)
-99. Uyghur: مەن سىزنى سۆيىمەن, meri Leenie Leenu 💞 (In every lifetime, every universe, and every dream, I would still choose only you.)
-100. Universal Language of My Heart: In every language, every country, every sky, it is only you — my Lovleen, meri jaan, meri Puchi, meri Gugiii 🌍👑❤️ (Happy 3rd Anniversary, my love. Three years down, a forever to go. Thank you for being my peace, my happiness, and the most beautiful part of my life.)`;
+98. Chechen: Со хьо йоьзна, meri Gugiii ❤️‍🔥
+(No matter where life takes us, my heart will always return to you, my forever safe place.) 🌍💖
+99. Uyghur: مەن سىزنى سۆيىمەن, meri Leenie Leenu 💞
+(In every lifetime, every universe, and every dream, I would still choose only you.) ✨🌙❤️
+100. Universal Language of My Heart: In every language, every country, every sky, it is only you — my Lovleen, meri jaan, meri Puchi, meri Gugiii 🌍👑❤️
+*(Happy 3rd Anniversary, my love. Three years down, a forever to go. Thank you for being my peace, my happiness, and the most beautiful part of my life.)`;
 
-        /* 🌧️ RAIN OF LOVE LOGIC */
-        function openRainOfLove() {
-            if(isSwiping) return;
+        /* CLICK HANDLER FOR OPENING SECTIONS */
+        function handleItemClick(sectionName) {
+            if(isSwiping) return; 
             
-            // Hide the Magic Wheel
-            document.getElementById('magic-menu-overlay').style.display = 'none';
-            menuOpen = false;
+            const modal = document.getElementById('section-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
 
-            const rainContainer = document.getElementById('rain-container');
-            const scrollArea = document.getElementById('rain-scroll-area');
-            
-            rainContainer.style.display = 'flex';
-            gsap.to(rainContainer, { opacity: 1, duration: 0.5 });
-
-            // Generate Cards
-            const pastels = ['#ffe1e8', '#e2f0cb', '#fde2e4', '#fff1e6', '#e2ece9', '#dfe7fd', '#f0efeb', '#ffeebb', '#d4f0f0'];
-            let html = '';
-            
-            const lines = languagesData.split('\n');
-            lines.forEach((line, index) => {
-                if(!line.trim()) return;
+            if(sectionName === 'Love in Every Tongue') {
+                modalTitle.innerHTML = "🌹 Happy 3rd Anniversary 🌹<br><span style='font-size:1.2rem; color:#fff;'>100 Languages of Love</span>";
                 
-                let parts = line.split(':');
-                let lang = parts[0].trim();
-                let rest = parts.slice(1).join(':').trim();
+                let html = '';
+                const lines = languagesData.split('\n');
+                lines.forEach(line => {
+                    if(!line.trim()) return;
+                    if(line.includes(':') && line.match(/^\d+\./)) {
+                        let parts = line.split(':');
+                        let lang = parts[0].trim();
+                        let rest = parts.slice(1).join(':').trim();
+                        
+                        let msgParts = rest.split('(');
+                        let message = msgParts[0].trim();
+                        let meaning = msgParts.length > 1 ? '(' + msgParts[1].trim() : '';
+
+                        let deco = getDecoration(lang);
+
+                        // CREATE CARD
+                        html += `
+                        <div class="lang-card">
+                            <div class="card-watermark">${deco}</div>
+                            <b>${lang}</b>
+                            <p>${message}</p>
+                            <span>${meaning}</span>
+                        </div>`;
+                    } else {
+                        html += `<div class="lang-special lang-card">${line}</div>`;
+                    }
+                });
                 
-                let msgParts = rest.split('(');
-                let message = msgParts[0].trim();
-                let meaning = msgParts.length > 1 ? '(' + msgParts[1].trim() : '';
+                modalBody.innerHTML = html;
+                modalBody.scrollTop = 0; 
 
-                // If it's the 100th message, give it the special class
-                let isSpecial = index === 99 ? 'card-special' : '';
-                let bgColor = isSpecial ? '' : `background-color: ${pastels[index % pastels.length]};`;
+                // Show Modal
+                modal.style.display = 'flex';
+                gsap.to(modal, { opacity: 1, duration: 0.4 });
 
-                html += `
-                <div class="love-card ${isSpecial}" style="${bgColor}">
-                    <div class="lang-name">${lang}</div>
-                    <div class="msg-text">${message}</div>
-                    <div class="meaning">${meaning}</div>
-                </div>`;
-            });
+                // 🚀 TRIGGER DROPPING ANIMATION (Staggered Waterfall)
+                gsap.fromTo('.lang-card', 
+                    { y: -80, opacity: 0, scale: 0.9 }, 
+                    { y: 0, opacity: 1, scale: 1, stagger: 0.1, duration: 0.6, ease: "back.out(1.2)" }
+                );
 
-            scrollArea.innerHTML = html;
-            scrollArea.scrollTop = 0;
+                // Start Phoolon ki Baarish
+                startPetals();
 
-            // 🌟 GSAP RAIN PHYSICS (Staggered Drop)
-            gsap.from(".love-card", {
-                y: -1000, 
-                rotation: () => gsap.utils.random(-15, 15),
-                opacity: 0,
-                duration: 1.2,
-                stagger: 0.08, // Cards fall one by one
-                ease: "bounce.out"
-            });
+            } else {
+                alert('Yeh section abhi under construction hai: ' + sectionName);
+            }
         }
 
-        function closeRainOfLove() {
-            const rainContainer = document.getElementById('rain-container');
-            gsap.to(rainContainer, { opacity: 0, duration: 0.4, onComplete: () => { 
-                rainContainer.style.display = 'none'; 
-                document.getElementById('rain-scroll-area').innerHTML = ''; // Clear DOM to reset animation next time
-            }});
+        function closeSectionModal() {
+            const modal = document.getElementById('section-modal');
+            gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => { modal.style.display = 'none'; stopPetals(); } });
         }
 
         /* BACKGROUND ELEMENTS */
@@ -508,17 +497,13 @@
                 svg.appendChild(path); inner.appendChild(svg); wrapper.appendChild(inner); hp.appendChild(wrapper);
             }
         }
-
         function spawnFishes() {
             const pp = document.getElementById('photo-pool');
             for(let i=1; i<=15; i++) {
-                const riseWrap = document.createElement('div'); riseWrap.className = 'photo-rise';
-                riseWrap.style.left = 'calc(' + (Math.random() * 60 + 20) + 'vw - 55px)'; 
+                const riseWrap = document.createElement('div'); riseWrap.className = 'photo-rise'; riseWrap.style.left = 'calc(' + (Math.random() * 60 + 20) + 'vw - 55px)'; 
                 riseWrap.style.animationDuration = (Math.random() * 8 + 10) + 's'; riseWrap.style.animationDelay = (Math.random() * -20) + 's';
-                const wobbleWrap = document.createElement('div'); wobbleWrap.className = 'photo-wobble';
-                wobbleWrap.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
+                const wobbleWrap = document.createElement('div'); wobbleWrap.className = 'photo-wobble'; wobbleWrap.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
                 const pBubble = document.createElement('div'); pBubble.className = 'photo-bubble';
-                
                 const img = document.createElement('img'); img.src = `photo1-${i}.jpg`; 
                 img.onload = function() { this.style.opacity = '0.9'; }; img.onerror = function() { riseWrap.style.display = 'none'; };
                 pBubble.appendChild(img); wobbleWrap.appendChild(pBubble); riseWrap.appendChild(wobbleWrap); pp.appendChild(riseWrap);
