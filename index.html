@@ -7,7 +7,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=JetBrains+Mono&family=Dancing+Script:wght@700&display=swap');
+        /* ADDED 'Great Vibes' FOR ULTRA AESTHETIC TEXT */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=JetBrains+Mono&family=Dancing+Script:wght@700&family=Great+Vibes&display=swap');
 
         body {
             margin: 0; padding: 0; min-height: 100vh;
@@ -57,16 +58,16 @@
         }
         @keyframes vibePulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(247, 215, 123, 0.5); } 50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(247, 215, 123, 0.9); } }
 
-        /* 🎡 MAGIC MENU OVERLAY */
+        /* 🎡 MAGIC MENU OVERLAY (UPDATED FOR 7 ITEMS) */
         #magic-menu-overlay { position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px); z-index: 400; display: none; opacity: 0; }
         .magic-title {
             position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: 100%;
-            font-family: 'Dancing Script', cursive; font-size: 3.2rem; font-weight: bold; text-align: center; margin: 0; z-index: 10; line-height: 1.2;
+            font-family: 'Great Vibes', cursive; font-size: 4rem; text-align: center; margin: 0; z-index: 10; line-height: 1.2;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #f6d365 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 10px rgba(255,105,180,0.6));
         }
-        .wheel-wrapper { position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 20; }
-        .wheel-container { position: relative; width: 280px; height: 280px; border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4); display: flex; justify-content: center; align-items: center; }
+        .wheel-wrapper { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 20; }
+        .wheel-container { position: relative; width: 300px; height: 300px; border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4); display: flex; justify-content: center; align-items: center; }
 
         /* 🏠 CENTER HOME BUTTON */
         #home-btn {
@@ -74,20 +75,14 @@
         }
         #home-btn:active { transform: scale(0.85); box-shadow: 0 0 40px #f7d77b; }
 
-        .wheel-item { position: absolute; width: 110px; text-align: center; transform: rotate(calc(60deg * var(--i))) translateY(-145px) rotate(calc(-60deg * var(--i))); z-index: 10; }
+        /* 7 ITEMS MATH: 360/7 = 51.428deg */
+        .wheel-item { position: absolute; width: 110px; text-align: center; transform: rotate(calc(51.428deg * var(--i))) translateY(-155px) rotate(calc(-51.428deg * var(--i))); z-index: 10; }
         .item-inner { cursor: pointer; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; align-items: center; }
         .item-inner:active { transform: scale(0.9) !important; }
         .wheel-icon { font-size: 2.2rem; background: rgba(0,0,0,0.6); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(247, 215, 123, 0.8); box-shadow: 0 0 20px rgba(255, 77, 133, 0.5); position: relative; }
-        .wheel-label { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #fff; margin-top: 6px; line-height: 1.1; font-weight: bold; text-shadow: 0 0 8px #ff4d85, 0 0 15px rgba(255, 77, 133, 0.8), 0 2px 2px rgba(0,0,0,0.9); }
-        .swipe-hint { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; font-size: 0.95rem; color: #f7d77b; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 15px rgba(247, 215, 123, 0.8); z-index: 10; }
-
-        /* EMOJI ANIMATIONS */
-        .anim-globe { display: inline-block; animation: spinGlobe 6s linear infinite; } @keyframes spinGlobe { 100% { transform: rotate(360deg); } }
-        .anim-infinity { display: inline-block; animation: pulseInf 1.5s ease-in-out infinite; } @keyframes pulseInf { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); text-shadow: 0 0 15px #fff; } }
-        .anim-chem { display: inline-block; animation: wobbleChem 2s ease-in-out infinite; } @keyframes wobbleChem { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
-        .anim-letter { display: inline-block; animation: glowLetter 2s ease-in-out infinite; } @keyframes glowLetter { 0%, 100% { filter: drop-shadow(0 0 5px #ff4d85); } 50% { filter: drop-shadow(0 0 15px #ff4d85); transform: scale(1.05); } }
-        .anim-time { display: inline-block; animation: tickTock 2s ease-in-out infinite; } @keyframes tickTock { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(15deg); } }
-        .anim-candle { display: inline-block; animation: flickerCandle 0.15s infinite alternate; } @keyframes flickerCandle { 0% { transform: scale(1) skewX(1deg); filter: drop-shadow(0 0 5px #f7d77b); opacity: 0.9; } 100% { transform: scale(1.05) skewX(-1deg); filter: drop-shadow(0 0 15px #ffaa00); opacity: 1; } }
+        .wheel-label { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: #fff; margin-top: 6px; line-height: 1.1; font-weight: bold; text-shadow: 0 0 8px #ff4d85, 0 0 15px rgba(255, 77, 133, 0.8), 0 2px 2px rgba(0,0,0,0.9); }
+        
+        .swipe-hint { position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; font-size: 0.95rem; color: #f7d77b; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 15px rgba(247, 215, 123, 0.8); z-index: 10; }
 
         /* 📜 DYNAMIC SECTION MODAL */
         #section-modal {
@@ -96,34 +91,13 @@
             overflow: hidden; perspective: 1000px;
         }
 
-        /* 🌸 REALISTIC 3D FALLING PETALS / 🌧️ RAINDROPS */
-        #petal-container { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        /* 🌸 PETALS & 🌧️ RAIN EFFECTS */
+        #effect-container { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .real-petal { position: absolute; top: -30px; opacity: 0.9; animation: tumblePetal linear infinite; z-index: 0; box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3); }
+        @keyframes tumblePetal { 0% { transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; } 10% { opacity: 0.9; } 50% { transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); } 90% { opacity: 0.8; } 100% { transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); opacity: 0; } }
         
-        .real-petal {
-            position: absolute; top: -30px; opacity: 0.9;
-            animation: tumblePetal linear infinite; z-index: 0;
-            box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-        @keyframes tumblePetal {
-            0% { transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; }
-            10% { opacity: 0.9; }
-            50% { transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); }
-            90% { opacity: 0.8; }
-            100% { transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); opacity: 0; }
-        }
-
-        /* Rain Animation */
-        .raindrop {
-            position: absolute; top: -50px;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(200,230,255,0.7));
-            width: 2px; border-radius: 2px;
-            animation: rainFall linear infinite; z-index: 0;
-        }
-        @keyframes rainFall {
-            0% { transform: translateY(-50px); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(110vh); opacity: 0; }
-        }
+        .raindrop { position: absolute; top: -50px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(200,230,255,0.7)); width: 2px; border-radius: 2px; animation: rainFall linear infinite; z-index: 0; }
+        @keyframes rainFall { 0% { transform: translateY(-50px); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
 
         .modal-box {
             width: 90%; max-width: 500px; height: 80vh;
@@ -140,66 +114,48 @@
         }
 
         .modal-header {
-            font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #f7d77b;
-            text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6);
-            border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10;
+            font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7d77b;
+            text-align: center; margin-bottom: 10px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6);
+            border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10; line-height: 1;
         }
+        .modal-header span { font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; text-shadow: none; font-weight: 300; display: block; margin-top: 5px; }
 
-        .modal-content {
-            flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px;
-            scrollbar-width: none; -ms-overflow-style: none; z-index: 10;
-        }
+        .modal-content { flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px; scrollbar-width: none; -ms-overflow-style: none; z-index: 10; }
         .modal-content::-webkit-scrollbar { display: none; }
 
-        /* ✨ Drop Cards for 100 Languages */
-        .lang-card {
-            position: relative; margin-bottom: 20px; padding: 15px 20px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-            border-radius: 15px; border-left: 4px solid #ff4d85;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); overflow: hidden; opacity: 0; transform: translateY(-30px);
-        }
+        /* ✨ 100 Languages Cards */
+        .lang-card { position: relative; margin-bottom: 20px; padding: 15px 20px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)); border-radius: 15px; border-left: 4px solid #ff4d85; box-shadow: 0 10px 20px rgba(0,0,0,0.3); overflow: hidden; opacity: 0; transform: translateY(-30px); }
         .card-watermark { position: absolute; right: 10px; bottom: -5px; font-size: 3.5rem; opacity: 0.2; pointer-events: none; filter: grayscale(50%); z-index: -1; }
         .lang-card b { color: #f7d77b; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-shadow: 0 0 5px rgba(247, 215, 123, 0.3); }
         .lang-card p { margin: 5px 0 0 0; font-size: 1.05rem; color: #fff; line-height: 1.4; text-shadow: 0 1px 2px #000; }
         .lang-card span { display: block; font-size: 0.9rem; color: #ffb3c6; font-style: italic; margin-top: 8px; font-weight: 300; }
-        .lang-special { text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px; box-shadow: 0 0 20px rgba(255, 77, 133, 0.2); font-size: 1.1rem; font-style: italic; }
+        
+        /* 🚫 NEVER CONDITIONS */
+        .condition-card { padding: 15px 20px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f7d77b; border-radius: 10px; color: #fff; font-size: 1.1rem; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-family: 'Poppins', sans-serif; position: relative; overflow: hidden; }
+        .special-cond { font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-align: center; border: 2px dashed; border-radius: 15px; padding: 20px; margin-top: 25px; margin-bottom: 25px; animation: pulseBox 2s infinite alternate; }
+        .scold-cond { background: rgba(255, 77, 133, 0.15); border-color: #ff4d85; color: #ffebf0; text-shadow: 0 0 10px #ff4d85, 0 0 20px #ff4d85; box-shadow: 0 0 25px rgba(255, 77, 133, 0.3); }
+        .irrit-cond { background: rgba(247, 215, 123, 0.15); border-color: #f7d77b; color: #fff; text-shadow: 0 0 10px #d4a737, 0 0 20px #f7d77b; box-shadow: 0 0 25px rgba(247, 215, 123, 0.3); }
+        .never-conclusion { text-align: center; font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 20px rgba(255, 77, 133, 0.9); margin-top: 30px; margin-bottom: 20px; animation: vibePulse 2s infinite; }
 
-        /* 🚫 NEVER CONDITIONS STYLES 🚫 */
-        .condition-card {
-            padding: 15px 20px; margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f7d77b;
-            border-radius: 10px; color: #fff; font-size: 1.1rem; line-height: 1.4;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-family: 'Poppins', sans-serif;
-            position: relative; overflow: hidden;
-        }
-        /* Special Formatting for Scolding/Irritating */
-        .special-cond {
-            font-family: 'Dancing Script', cursive; font-size: 1.8rem;
-            text-align: center; border: 2px dashed; border-radius: 15px; padding: 20px;
-            margin-top: 25px; margin-bottom: 25px; animation: pulseBox 2s infinite alternate;
-        }
-        .scold-cond {
-            background: rgba(255, 77, 133, 0.15); border-color: #ff4d85; color: #ffebf0;
-            text-shadow: 0 0 10px #ff4d85, 0 0 20px #ff4d85; box-shadow: 0 0 25px rgba(255, 77, 133, 0.3);
-        }
-        .irrit-cond {
-            background: rgba(247, 215, 123, 0.15); border-color: #f7d77b; color: #fff;
-            text-shadow: 0 0 10px #d4a737, 0 0 20px #f7d77b; box-shadow: 0 0 25px rgba(247, 215, 123, 0.3);
-        }
-        .never-conclusion {
-            text-align: center; font-family: 'Dancing Script', cursive; font-size: 2.8rem;
-            color: #ff4d85; text-shadow: 0 0 20px rgba(255, 77, 133, 0.9); margin-top: 30px; margin-bottom: 20px;
-            animation: vibePulse 2s infinite;
-        }
+        /* 🎂 MAKE A WISH (CAKE & PAPER) */
+        .cake-scene { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; transition: opacity 0.5s; }
+        .css-cake { position: relative; width: 160px; height: 80px; background: #ff4d85; border-radius: 10px; box-shadow: inset 0 -15px rgba(0,0,0,0.2), 0 10px 15px rgba(0,0,0,0.5); margin-top: 50px; margin-bottom: 40px; }
+        .cake-frosting { position: absolute; top: -5px; left: -5px; width: 170px; height: 35px; background: #fff; border-radius: 20px; box-shadow: 0 5px 5px rgba(0,0,0,0.1); }
+        .cake-candles { display: flex; justify-content: space-evenly; width: 120px; position: absolute; top: -45px; left: 20px; }
+        .cake-candle { width: 12px; height: 40px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: relative; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+        .cake-flame { position: absolute; top: -25px; left: -3px; width: 18px; height: 25px; background: radial-gradient(ellipse at bottom, #f7d77b, #ff4d85, transparent); border-radius: 50% 50% 20% 20%; animation: flickerFlame 0.15s infinite alternate; box-shadow: 0 0 15px #f7d77b; transform-origin: bottom center; }
+        
+        .action-btn { background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; box-shadow: 0 5px 15px rgba(247, 215, 123, 0.4); transition: transform 0.2s; }
+        .action-btn:active { transform: scale(0.95); }
+
+        .paper-scene { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0; }
+        .paper-ui { background: #fdf5e6; border: 2px solid #d4a737; border-radius: 5px; padding: 25px; width: 90%; height: 250px; box-shadow: inset 0 0 50px rgba(212,167,55,0.2), 0 10px 20px rgba(0,0,0,0.5); position: relative; margin-bottom: 25px; }
+        .paper-ui textarea { width: 100%; height: 100%; background: transparent; border: none; outline: none; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #553a1f; resize: none; line-height: 1.5; }
+        .paper-ui textarea::placeholder { color: rgba(85, 58, 31, 0.5); }
 
         /* ⏳ LIVE TOTAL CLOCK STYLES */
         .time-grid { display: flex; flex-direction: column; gap: 15px; width: 100%; padding-top: 10px; }
-        .t-box {
-            background: rgba(255, 77, 133, 0.15); border: 1.5px solid rgba(255, 77, 133, 0.5); border-radius: 15px;
-            width: 100%; min-height: 75px; padding: 10px 20px; box-sizing: border-box;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 0 15px rgba(255, 77, 133, 0.2); animation: pulseBox 2s infinite alternate;
-        }
+        .t-box { background: rgba(255, 77, 133, 0.15); border: 1.5px solid rgba(255, 77, 133, 0.5); border-radius: 15px; width: 100%; min-height: 75px; padding: 10px 20px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 15px rgba(255, 77, 133, 0.2); animation: pulseBox 2s infinite alternate; }
         @keyframes pulseBox { 100% { box-shadow: 0 0 25px rgba(255, 77, 133, 0.5); } }
         .t-box span { font-size: 1.7rem; font-weight: bold; color: #f7d77b; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 10px rgba(247, 215, 123, 0.8); line-height: 1;}
         .t-box small { font-size: 1rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-family: 'Poppins', sans-serif;}
@@ -207,14 +163,6 @@
     </style>
 </head>
 <body>
-
-    <svg width="0" height="0" style="position:absolute;">
-        <defs>
-            <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#ff4d4d; stop-opacity:1" /><stop offset="50%" style="stop-color:#ff0040; stop-opacity:1" /><stop offset="100%" style="stop-color:#b3002d; stop-opacity:1" />
-            </linearGradient>
-        </defs>
-    </svg>
 
     <div id="entry-screen">
         <div id="face-id-container" onclick="startUnlockSequence()">
@@ -239,21 +187,20 @@
         <div class="wheel-wrapper">
             <div class="wheel-container" id="wheel-spin-box">
                 <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
-                <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon"><span class="anim-globe">🌍</span></div><div class="wheel-label">Love in Every Tongue</div></div></div>
-                
-                <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('I will stop loving you-')"><div class="wheel-icon"><span class="anim-infinity">🛑</span></div><div class="wheel-label">I will stop loving you-</div></div></div>
-                
-                <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon"><span class="anim-chem">🧪</span></div><div class="wheel-label">Our Chemistry</div></div></div>
-                <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon"><span class="anim-letter">💌</span></div><div class="wheel-label">A Letter for You</div></div></div>
-                <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon"><span class="anim-time">⏳</span></div><div class="wheel-label">Us Since</div></div></div>
-                <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon"><span class="anim-candle">🕯️</span></div><div class="wheel-label">Make a Wish</div></div></div>
+                <div class="wheel-item" style="--i:0;"><div class="item-inner" onclick="handleItemClick('Love in Every Tongue')"><div class="wheel-icon">🌍</div><div class="wheel-label">Love in Every Tongue</div></div></div>
+                <div class="wheel-item" style="--i:1;"><div class="item-inner" onclick="handleItemClick('I will stop loving you-')"><div class="wheel-icon">🛑</div><div class="wheel-label">I will stop loving you-</div></div></div>
+                <div class="wheel-item" style="--i:2;"><div class="item-inner" onclick="handleItemClick('Our Chemistry')"><div class="wheel-icon">🧪</div><div class="wheel-label">Our Chemistry</div></div></div>
+                <div class="wheel-item" style="--i:3;"><div class="item-inner" onclick="handleItemClick('A Letter for You')"><div class="wheel-icon">💌</div><div class="wheel-label">A Letter for You</div></div></div>
+                <div class="wheel-item" style="--i:4;"><div class="item-inner" onclick="handleItemClick('Us Since')"><div class="wheel-icon">⏳</div><div class="wheel-label">Us Since</div></div></div>
+                <div class="wheel-item" style="--i:5;"><div class="item-inner" onclick="handleItemClick('Make a Wish')"><div class="wheel-icon">🕯️</div><div class="wheel-label">Make a Wish</div></div></div>
+                <div class="wheel-item" style="--i:6;"><div class="item-inner" onclick="handleItemClick('Proposal')"><div class="wheel-icon">💍</div><div class="wheel-label">Proposal</div></div></div>
             </div>
         </div>
         <div class="swipe-hint">&lt; SWIPE TO SPIN &gt;</div>
     </div>
 
     <div id="section-modal">
-        <div id="petal-container"></div>
+        <div id="effect-container"></div>
         <div class="modal-box">
             <div class="modal-close" onclick="closeSectionModal()">×</div>
             <div class="modal-header" id="modal-title">Title Here</div>
@@ -263,14 +210,12 @@
     </div>
 
     <script>
-        /* SETUP & GLOBAL CLOCK ENGINE */
         let isScanning = false;
-        let usSinceInterval; // Global clock interval
-        let effectInterval;  // Global interval for rain/petals
+        let usSinceInterval; 
+        let effectInterval;
 
         function updateClock() {
             if(!document.getElementById('t-y')) return; 
-
             const start = new Date('2023-04-05T00:00:00');
             const now = new Date();
             const diffMs = now.getTime() - start.getTime();
@@ -283,11 +228,8 @@
             
             let totalMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
             if (now.getDate() < start.getDate()) { totalMonths--; }
-            
             let totalYears = now.getFullYear() - start.getFullYear();
-            if (now.getMonth() < start.getMonth() || (now.getMonth() === start.getMonth() && now.getDate() < start.getDate())) {
-                totalYears--;
-            }
+            if (now.getMonth() < start.getMonth() || (now.getMonth() === start.getMonth() && now.getDate() < start.getDate())) { totalYears--; }
 
             const formatStr = (num) => num.toLocaleString('en-US');
 
@@ -331,7 +273,7 @@
             }});
         }
 
-        /* 🎡 WHEEL MENU & SWIPE */
+        /* 🎡 WHEEL MENU (7 ITEMS SWIPE) */
         let menuOpen = false; let currentRot = 0;
         function toggleMagicMenu() {
             const triggerBtn = document.getElementById('menu-trigger'); const overlay = document.getElementById('magic-menu-overlay'); const wheel = document.getElementById('wheel-spin-box');
@@ -353,52 +295,41 @@
         overlay.addEventListener('touchmove', e => { isSwiping = true; });
         overlay.addEventListener('touchend', e => {
             let diff = e.changedTouches[0].clientX - touchStartX;
-            if(Math.abs(diff) > 40) { if(diff < 0) rotateWheel(-60); else rotateWheel(60); }
+            // UPDATE: 360 / 7 items = 51.428 degrees per swipe
+            if(Math.abs(diff) > 40) { if(diff < 0) rotateWheel(-51.428); else rotateWheel(51.428); }
         });
         function rotateWheel(deg) { currentRot += deg; gsap.to("#wheel-spin-box", { rotation: currentRot, duration: 0.5, ease: "power2.out" }); gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5, ease: "power2.out" }); }
 
-        /* 🌸 REALISTIC 3D PETALS */
+        /* 🌸 REALISTIC 3D PETALS & RAIN */
         function startRealPetals() {
-            const container = document.getElementById('petal-container');
-            container.innerHTML = ''; 
+            const container = document.getElementById('effect-container'); container.innerHTML = ''; 
             const petalTypes = [
                 { bg: 'radial-gradient(ellipse at bottom, #ff4d85, #ff0040)', radius: '50% 0 50% 50%', width: '18px', height: '22px' },
                 { bg: 'radial-gradient(ellipse at top, #ffb3c6, #ff7eb3)', radius: '50% 50% 50% 0', width: '15px', height: '20px' },
                 { bg: 'linear-gradient(135deg, #f7d77b, #d4a737)', radius: '0 50% 0 50%', width: '12px', height: '25px' }
             ];
-
             effectInterval = setInterval(() => {
-                const petal = document.createElement('div');
-                petal.className = 'real-petal';
+                const petal = document.createElement('div'); petal.className = 'real-petal';
                 const type = petalTypes[Math.floor(Math.random() * petalTypes.length)];
-                petal.style.background = type.bg; petal.style.borderRadius = type.radius;
-                petal.style.width = type.width; petal.style.height = type.height;
-                petal.style.left = (Math.random() * 100) + 'vw';
-                petal.style.animationDuration = (Math.random() * 4 + 4) + 's'; 
+                petal.style.background = type.bg; petal.style.borderRadius = type.radius; petal.style.width = type.width; petal.style.height = type.height;
+                petal.style.left = (Math.random() * 100) + 'vw'; petal.style.animationDuration = (Math.random() * 4 + 4) + 's'; 
                 const driftAmount = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 100 + 50) + 'px';
-                petal.style.setProperty('--drift', driftAmount);
-                container.appendChild(petal);
+                petal.style.setProperty('--drift', driftAmount); container.appendChild(petal);
                 setTimeout(() => { if(petal.parentNode) petal.remove(); }, 9000); 
             }, 250); 
         }
 
-        /* 🌧️ ANIMATED WATER RAINFALL (CSS) */
         function startRain() {
-            const container = document.getElementById('petal-container');
-            container.innerHTML = ''; // Clear existing
-            
+            const container = document.getElementById('effect-container'); container.innerHTML = ''; 
             effectInterval = setInterval(() => {
-                const drop = document.createElement('div');
-                drop.className = 'raindrop';
-                drop.style.left = (Math.random() * 100) + 'vw';
-                drop.style.animationDuration = (Math.random() * 0.5 + 0.6) + 's'; // Fast falling rain
-                drop.style.height = (Math.random() * 20 + 20) + 'px';
-                container.appendChild(drop);
+                const drop = document.createElement('div'); drop.className = 'raindrop';
+                drop.style.left = (Math.random() * 100) + 'vw'; drop.style.animationDuration = (Math.random() * 0.5 + 0.6) + 's'; 
+                drop.style.height = (Math.random() * 20 + 20) + 'px'; container.appendChild(drop);
                 setTimeout(() => { if(drop.parentNode) drop.remove(); }, 2000);
-            }, 40); // Very fast interval for dense rain
+            }, 40); 
         }
 
-        function stopEffects() { clearInterval(effectInterval); document.getElementById('petal-container').innerHTML = ''; }
+        function stopEffects() { clearInterval(effectInterval); document.getElementById('effect-container').innerHTML = ''; }
 
         function getDecoration(lang) {
             const l = lang.toLowerCase();
@@ -525,47 +456,31 @@
             const modalBody = document.getElementById('modal-body');
 
             if(sectionName === 'Love in Every Tongue') {
-                modalTitle.innerHTML = "🌹 Happy 3rd Anniversary 🌹<br><span style='font-size:1.2rem; color:#fff;'>100 Languages of Love</span>";
+                modalTitle.innerHTML = "🌹 Happy 3rd Anniversary 🌹<br><span>100 Languages of Love</span>";
                 
                 let html = '';
                 const lines = languagesData.split('\n');
                 lines.forEach(line => {
                     if(!line.trim()) return;
                     if(line.includes(':') && line.match(/^\d+\./)) {
-                        let parts = line.split(':');
-                        let lang = parts[0].trim();
-                        let rest = parts.slice(1).join(':').trim();
-                        let msgParts = rest.split('(');
-                        let message = msgParts[0].trim();
-                        let meaning = msgParts.length > 1 ? '(' + msgParts[1].trim() : '';
+                        let parts = line.split(':'); let lang = parts[0].trim(); let rest = parts.slice(1).join(':').trim();
+                        let msgParts = rest.split('('); let message = msgParts[0].trim(); let meaning = msgParts.length > 1 ? '(' + msgParts[1].trim() : '';
                         let deco = getDecoration(lang);
-
-                        html += `
-                        <div class="lang-card">
-                            <div class="card-watermark">${deco}</div>
-                            <b>${lang}</b>
-                            <p>${message}</p>
-                            <span>${meaning}</span>
-                        </div>`;
+                        html += `<div class="lang-card"><div class="card-watermark">${deco}</div><b>${lang}</b><p>${message}</p><span>${meaning}</span></div>`;
                     } else {
                         html += `<div class="lang-special lang-card">${line}</div>`;
                     }
                 });
                 
-                modalBody.innerHTML = html;
-                modalBody.scrollTop = 0; 
-                modal.style.display = 'flex';
-                gsap.to(modal, { opacity: 1, duration: 0.4 });
+                modalBody.innerHTML = html; modalBody.scrollTop = 0; 
+                modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 gsap.fromTo('.lang-card', { y: -80, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, stagger: 0.1, duration: 0.6, ease: "back.out(1.2)" });
-                
-                stopEffects();
-                startRealPetals();
+                stopEffects(); startRealPetals();
 
             } 
             else if (sectionName === 'I will stop loving you-') {
-                // 🚫 NEVER CONDITIONS SECTION 🚫
-                modalTitle.innerHTML = "🛑 I will stop loving you... 🛑<br><span style='font-size:1.2rem; color:#fff; text-shadow:none;'>Only when...</span>";
-                
+                // 🚫 NEVER CONDITIONS SECTION
+                modalTitle.innerHTML = "🛑 I will stop loving you... 🛑<br><span>Only when...</span>";
                 let html = `
                     <div class="condition-card">📅 When February has 30 days</div>
                     <div class="condition-card">📏 When my dihh will size 1mm</div>
@@ -574,47 +489,33 @@
                     <div class="condition-card">👑 When Maharaj Inderverma will no longer rely on Chhota Bheem</div>
                     <div class="condition-card">🥀 When a fake flower dies</div>
                     <div class="condition-card">⏰ When each day has 25 hours</div>
-                    
                     <div class="special-cond scold-cond">😠 And when Lovleen will stop scolding me!</div>
                     <div class="special-cond irrit-cond">🤪 When I will stop irritating her!</div>
-                    
                     <div class="never-conclusion">Which means... NEVER! ❤️♾️</div>
                 `;
                 
-                modalBody.innerHTML = html;
-                modalBody.scrollTop = 0;
-                modal.style.display = 'flex';
-                gsap.to(modal, { opacity: 1, duration: 0.4 });
-                
-                // Animation for cards sliding in
+                modalBody.innerHTML = html; modalBody.scrollTop = 0;
+                modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 gsap.fromTo('.condition-card', { x: -50, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.15, duration: 0.5, ease: "power2.out" });
                 gsap.fromTo('.special-cond', { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, stagger: 0.3, delay: 1.2, duration: 0.7, ease: "elastic.out(1, 0.5)" });
-                
-                // Trigger Rain Animation
-                stopEffects();
-                startRain();
+                stopEffects(); startRain();
             }
             else if (sectionName === 'Our Chemistry') {
-                modalTitle.innerHTML = "🧪 Our Chemistry 🧪<br><span style='font-size:1.2rem; color:#fff;'>The Perfect Bond</span>";
+                modalTitle.innerHTML = "🧪 Our Chemistry 🧪<br><span>The Perfect Bond</span>";
                 let html = `
                 <div style="display: flex; justify-content: center; align-items: center; height: 100%; flex-direction: column;">
                     <video id="chemistry-video" width="100%" style="border-radius: 15px; box-shadow: 0 0 20px rgba(0, 255, 128, 0.4); border: 2px solid rgba(0, 255, 128, 0.6);" controls autoplay playsinline>
                         <source src="chemistry.mp4.MOV" type="video/mp4">
                         <source src="chemistry.mp4.MOV" type="video/quicktime">
-                        Your browser does not support the video tag.
                     </video>
                     <p style="margin-top: 15px; font-style: italic; color: #f7d77b; text-align: center;">Na + Cl = Unbreakable 💚</p>
-                </div>
-                `;
-                modalBody.innerHTML = html;
-                modalBody.scrollTop = 0; 
-                modal.style.display = 'flex';
-                gsap.to(modal, { opacity: 1, duration: 0.4 });
+                </div>`;
+                modalBody.innerHTML = html; modalBody.scrollTop = 0; 
+                modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
                 stopEffects();
                 
             } else if (sectionName === 'Us Since') {
-                modalTitle.innerHTML = "⏳ Us Since ⏳<br><span style='font-size:1.2rem; color:#fff; text-shadow: none;'>5 April 2023</span>";
-                
+                modalTitle.innerHTML = "⏳ Us Since ⏳<br><span>5 April 2023</span>";
                 let html = `
                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; padding-bottom: 20px;">
                     <div class="time-grid">
@@ -626,30 +527,99 @@
                         <div class="t-box"><small>Total Minutes</small><span id="t-min">0</span></div>
                         <div class="t-box"><small>Total Seconds</small><span id="t-s">0</span></div>
                     </div>
-                    
-                    <p style="font-style: italic; color: #ffb3c6; text-align: center; margin-top: 25px; font-size:1.2rem; text-shadow: 0 0 8px #ff4d85;">...and a lifetime to go ❤️</p>
+                    <p style="font-family: 'Great Vibes', cursive; color: #ffb3c6; text-align: center; margin-top: 25px; font-size:2.5rem; text-shadow: 0 0 8px #ff4d85;">...and a lifetime to go ❤️</p>
+                </div>`;
+                modalBody.innerHTML = html; modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
+                updateClock(); if(usSinceInterval) clearInterval(usSinceInterval); usSinceInterval = setInterval(updateClock, 1000); 
+                stopEffects(); startRealPetals();
+            } 
+            else if (sectionName === 'Make a Wish') {
+                // 🎂 MAKE A WISH SECTION 🎂
+                modalTitle.innerHTML = "🕯️ Make a Wish 🕯️<br><span>Close your eyes and blow...</span>";
+                
+                let html = `
+                <div id="cake-scene" class="cake-scene">
+                    <div class="css-cake">
+                        <div class="cake-candles">
+                            <div class="cake-candle"><div class="cake-flame flame-target"></div></div>
+                            <div class="cake-candle" style="height: 50px; top:-10px;"><div class="cake-flame flame-target"></div></div>
+                            <div class="cake-candle"><div class="cake-flame flame-target"></div></div>
+                        </div>
+                        <div class="cake-frosting"></div>
+                    </div>
+                    <button class="action-btn" onclick="blowCandles()">Blow the Candles 🌬️</button>
+                </div>
+
+                <div id="paper-scene" class="paper-scene">
+                    <div class="paper-ui">
+                        <textarea placeholder="Write your secret wish here, my love..."></textarea>
+                    </div>
+                    <button class="action-btn" onclick="saveWish()">Seal my Wish ✨</button>
+                </div>
+                `;
+                
+                modalBody.innerHTML = html;
+                modalBody.scrollTop = 0; 
+                modal.style.display = 'flex';
+                gsap.to(modal, { opacity: 1, duration: 0.4 });
+                stopEffects();
+            }
+            else if (sectionName === 'Proposal') {
+                // 💍 PROPOSAL SECTION 💍
+                modalTitle.innerHTML = "💍 My Question 💍<br><span>The ultimate one...</span>";
+                
+                let html = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                    <div style="font-size: 6rem; margin-bottom: 20px; animation: pulseBox 2s infinite alternate;">💍</div>
+                    <h2 style="font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #f7d77b; text-shadow: 0 0 15px rgba(247,215,123,0.8); margin: 0 0 30px 0;">Will you be mine forever?</h2>
+                    <div style="display: flex; gap: 20px;">
+                        <button class="action-btn" onclick="alert('I love you forever! ❤️')">Yes!</button>
+                        <button class="action-btn" onclick="alert('That is the only right answer! 🥰')">Always Yes!</button>
+                    </div>
                 </div>
                 `;
                 
                 modalBody.innerHTML = html;
                 modal.style.display = 'flex';
                 gsap.to(modal, { opacity: 1, duration: 0.4 });
-                
-                updateClock(); 
-                if(usSinceInterval) clearInterval(usSinceInterval);
-                usSinceInterval = setInterval(updateClock, 1000); 
                 stopEffects();
-
-            } else {
+                startRealPetals(); // Show petals for proposal
+            }
+            else {
                 alert('Yeh section abhi under construction hai: ' + sectionName);
             }
+        }
+
+        /* 🌬️ BLOW CANDLES LOGIC */
+        function blowCandles() {
+            // Blow animation for flames
+            gsap.to('.flame-target', { scale: 0, opacity: 0, x: 20, y: -10, duration: 0.5, ease: "power2.in" });
+            
+            // Show confetti for celebration
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 } });
+
+            // Transition to paper scene
+            setTimeout(() => {
+                const cakeScene = document.getElementById('cake-scene');
+                const paperScene = document.getElementById('paper-scene');
+                
+                gsap.to(cakeScene, { opacity: 0, duration: 0.5, onComplete: () => {
+                    cakeScene.style.display = 'none';
+                    paperScene.style.display = 'flex';
+                    gsap.to(paperScene, { opacity: 1, duration: 0.8 });
+                }});
+            }, 800);
+        }
+
+        function saveWish() {
+            alert("Your wish is sealed safely in my heart forever! ✨💖");
+            closeSectionModal();
         }
 
         function closeSectionModal() {
             const modal = document.getElementById('section-modal');
             const vid = document.getElementById('chemistry-video');
             if(vid) vid.pause(); 
-            
             if(usSinceInterval) clearInterval(usSinceInterval);
             
             gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => { 
