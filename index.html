@@ -57,7 +57,7 @@
         }
         @keyframes vibePulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(247, 215, 123, 0.5); } 50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(247, 215, 123, 0.9); } }
 
-        /* 🎡 MAGIC MENU OVERLAY */
+        /* 🎡 MAGIC MENU OVERLAY (WHEEL) */
         #magic-menu-overlay {
             position: fixed; inset: 0; background: rgba(10, 5, 5, 0.95); backdrop-filter: blur(12px);
             z-index: 400; display: none; opacity: 0; 
@@ -73,7 +73,6 @@
         .wheel-wrapper { position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 20; }
         .wheel-container { position: relative; width: 280px; height: 280px; border-radius: 50%; border: 2px dashed rgba(247, 215, 123, 0.4); display: flex; justify-content: center; align-items: center; }
 
-        /* 🏠 CENTER HOME BUTTON */
         #home-btn {
             position: absolute; width: 65px; height: 65px; border-radius: 50%;
             background: rgba(247, 215, 123, 0.15); border: 2.5px solid #f7d77b; display: flex; justify-content: center; align-items: center;
@@ -85,10 +84,7 @@
         .item-inner { cursor: pointer; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; align-items: center; }
         .item-inner:active { transform: scale(0.9) !important; }
 
-        .wheel-icon {
-            font-size: 2.2rem; background: rgba(0,0,0,0.6); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(247, 215, 123, 0.8); box-shadow: 0 0 20px rgba(255, 77, 133, 0.5); position: relative;
-        }
-
+        .wheel-icon { font-size: 2.2rem; background: rgba(0,0,0,0.6); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(247, 215, 123, 0.8); box-shadow: 0 0 20px rgba(255, 77, 133, 0.5); position: relative; }
         .wheel-label { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #fff; margin-top: 6px; line-height: 1.1; font-weight: bold; letter-spacing: 0.5px; text-shadow: 0 0 8px #ff4d85, 0 0 15px rgba(255, 77, 133, 0.8), 0 2px 2px rgba(0,0,0,0.9); }
         .swipe-hint { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; font-size: 0.95rem; color: #f7d77b; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 15px rgba(247, 215, 123, 0.8); z-index: 10; }
 
@@ -100,48 +96,70 @@
         .anim-time { display: inline-block; animation: tickTock 2s ease-in-out infinite; } @keyframes tickTock { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(15deg); } }
         .anim-candle { display: inline-block; animation: flickerCandle 0.15s infinite alternate; } @keyframes flickerCandle { 0% { transform: scale(1) skewX(1deg); filter: drop-shadow(0 0 5px #f7d77b); opacity: 0.9; } 100% { transform: scale(1.05) skewX(-1deg); filter: drop-shadow(0 0 15px #ffaa00); opacity: 1; } }
 
-        /* 📜 SECTION OVERLAY (100 LANGUAGES) */
-        #section-modal {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px);
-            z-index: 1000; display: none; opacity: 0; flex-direction: column; align-items: center; justify-content: center;
+        /* 🌧️ THE RAIN OF LOVE CONTAINER */
+        #rain-container {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
+            z-index: 1000; display: none; opacity: 0; flex-direction: column; overflow: hidden;
         }
 
-        .modal-box {
-            width: 85%; max-width: 450px; height: 75vh;
-            background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(247, 215, 123, 0.5);
-            border-radius: 20px; box-shadow: 0 0 40px rgba(255, 77, 133, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
-            position: relative; padding: 20px; display: flex; flex-direction: column;
+        .rain-header {
+            padding: 20px; text-align: center; z-index: 10; position: relative;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+        }
+        
+        .rain-title {
+            font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #fff;
+            text-shadow: 0 0 15px #ff4d85, 0 0 30px #f7d77b;
         }
 
-        .modal-close {
-            position: absolute; top: -15px; right: -15px; width: 40px; height: 40px;
-            background: #ff4d85; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 15px #ff4d85; border: 2px solid #fff;
-            -webkit-tap-highlight-color: transparent;
+        .close-rain-btn {
+            position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;
+            background: rgba(255,255,255,0.1); border: 1.5px solid #ff4d85; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; color: #ff4d85;
+            font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(5px);
         }
 
-        .modal-header {
-            font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #f7d77b;
-            text-align: center; margin-bottom: 15px; text-shadow: 0 0 10px rgba(247, 215, 123, 0.5);
-            border-bottom: 1px dashed rgba(247, 215, 123, 0.3); padding-bottom: 10px;
-        }
-
-        .modal-content {
-            flex-grow: 1; overflow-y: auto; padding-right: 10px;
-            /* Hide scrollbar for aesthetic look but keep functionality */
+        .rain-scroll-area {
+            flex-grow: 1; overflow-y: auto; overflow-x: hidden;
+            padding: 10px 20px 100px 20px; display: flex; flex-direction: column; align-items: center;
+            /* Hide scrollbar */
             scrollbar-width: none; -ms-overflow-style: none;
         }
-        .modal-content::-webkit-scrollbar { display: none; }
+        .rain-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* Styling for the language list */
-        .lang-item {
-            margin-bottom: 15px; font-size: 1rem; color: #fff; line-height: 1.4;
-            padding: 10px; background: rgba(255,255,255,0.05); border-radius: 10px;
-            border-left: 3px solid #ff4d85;
+        /* 💌 LOVE CARDS (Physics & Swaying) */
+        .love-card {
+            width: 90%; max-width: 400px; padding: 18px 20px; margin-bottom: 20px;
+            border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            color: #222; font-family: 'Poppins', sans-serif; position: relative;
+            /* Will be animated by GSAP but continuous sway added via CSS */
+            animation: cardSway 4s ease-in-out infinite alternate;
         }
-        .lang-item b { color: #f7d77b; font-family: 'Poppins', sans-serif; }
-        .lang-item span { display: block; font-size: 0.85rem; color: #ffebf0; font-style: italic; margin-top: 4px; opacity: 0.8; }
-        .lang-special { text-align: center; font-style: italic; color: #f7d77b; margin-top: 20px; padding: 15px; border: 1px dashed #ff4d85; border-radius: 10px;}
+        
+        /* Alternating sway to look natural */
+        .love-card:nth-child(even) { animation-direction: alternate-reverse; animation-duration: 5s; }
+        
+        @keyframes cardSway {
+            0% { transform: translateX(-3px) rotate(-1deg); }
+            100% { transform: translateX(3px) rotate(1deg); }
+        }
+
+        .love-card .lang-name { font-weight: 600; font-size: 1.1rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 5px; margin-bottom: 8px; }
+        .love-card .msg-text { font-size: 1rem; font-weight: bold; line-height: 1.4; color: #111; }
+        .love-card .meaning { font-size: 0.85rem; font-style: italic; color: #444; margin-top: 5px; }
+
+        /* 👑 The 100th Special Card */
+        .card-special {
+            background: linear-gradient(135deg, #ffd700, #ff4d85) !important;
+            color: #fff !important; text-align: center; border: 2px solid #fff;
+            box-shadow: 0 0 30px rgba(255, 77, 133, 0.8); transform: scale(1.05); margin-top: 30px;
+            animation: heartbeat 1.5s infinite !important;
+        }
+        .card-special .lang-name { border-bottom: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 1.3rem;}
+        .card-special .msg-text { color: #fff; font-size: 1.2rem; }
+        .card-special .meaning { color: rgba(255,255,255,0.9); font-size: 0.95rem;}
+        
+        @keyframes heartbeat { 0%, 100% { transform: scale(1.05); } 50% { transform: scale(1.1); } }
 
     </style>
 </head>
@@ -180,37 +198,37 @@
                 <div id="home-btn" onclick="toggleMagicMenu()">🏠</div>
 
                 <div class="wheel-item" style="--i:0;">
-                    <div class="item-inner" onclick="handleItemClick('Love in Every Tongue')">
+                    <div class="item-inner" onclick="openRainOfLove()">
                         <div class="wheel-icon"><span class="anim-globe">🌍</span></div>
                         <div class="wheel-label">Love in Every Tongue</div>
                     </div>
                 </div>
                 <div class="wheel-item" style="--i:1;">
-                    <div class="item-inner" onclick="handleItemClick('Never Conditions')">
+                    <div class="item-inner" onclick="alert('Under Construction')">
                         <div class="wheel-icon"><span class="anim-infinity">♾️</span></div>
                         <div class="wheel-label">Never Conditions</div>
                     </div>
                 </div>
                 <div class="wheel-item" style="--i:2;">
-                    <div class="item-inner" onclick="handleItemClick('Our Chemistry')">
+                    <div class="item-inner" onclick="alert('Under Construction')">
                         <div class="wheel-icon"><span class="anim-chem">🧪</span></div>
                         <div class="wheel-label">Our Chemistry</div>
                     </div>
                 </div>
                 <div class="wheel-item" style="--i:3;">
-                    <div class="item-inner" onclick="handleItemClick('A Letter for You')">
+                    <div class="item-inner" onclick="alert('Under Construction')">
                         <div class="wheel-icon"><span class="anim-letter">💌</span></div>
                         <div class="wheel-label">A Letter for You</div>
                     </div>
                 </div>
                 <div class="wheel-item" style="--i:4;">
-                    <div class="item-inner" onclick="handleItemClick('Us Since')">
+                    <div class="item-inner" onclick="alert('Under Construction')">
                         <div class="wheel-icon"><span class="anim-time">⏳</span></div>
                         <div class="wheel-label">Us Since</div>
                     </div>
                 </div>
                 <div class="wheel-item" style="--i:5;">
-                    <div class="item-inner" onclick="handleItemClick('Make a Wish')">
+                    <div class="item-inner" onclick="alert('Under Construction')">
                         <div class="wheel-icon"><span class="anim-candle">🕯️</span></div>
                         <div class="wheel-label">Make a Wish</div>
                     </div>
@@ -220,13 +238,13 @@
         <div class="swipe-hint">&lt; SWIPE TO SPIN &gt;</div>
     </div>
 
-    <div id="section-modal">
-        <div class="modal-box">
-            <div class="modal-close" onclick="closeSectionModal()">×</div>
-            <div class="modal-header" id="modal-title">Title Here</div>
-            <div class="modal-content" id="modal-body">
-                </div>
+    <div id="rain-container">
+        <div class="rain-header">
+            <div class="rain-title">100 Languages of Love</div>
+            <div class="close-rain-btn" onclick="closeRainOfLove()">×</div>
         </div>
+        <div class="rain-scroll-area" id="rain-scroll-area">
+            </div>
     </div>
 
     <script>
@@ -284,7 +302,6 @@
                 gsap.fromTo(triggerBtn, {scale: 1.5, rotation: -10}, {scale: 1, rotation: 0, duration: 0.5, ease: "elastic.out(1, 0.3)"});
                 overlay.style.display = 'block'; 
                 gsap.to(overlay, { opacity: 1, duration: 0.5 });
-                
                 currentRot = 0; gsap.set(wheel, { rotation: currentRot }); gsap.set('.item-inner', { rotation: -currentRot });
                 gsap.fromTo(wheel, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.2)" });
                 menuOpen = true;
@@ -312,7 +329,7 @@
             gsap.to(".item-inner", { rotation: -currentRot, duration: 0.5, ease: "power2.out" });
         }
 
-        /* 🌍 THE 100 LANGUAGES RAW DATA */
+        /* 🌍 THE 100 LANGUAGES RAW DATA (Cleaned for perfect drops) */
         const languagesData = `1. English: I love you, my Leenie 💖 (You are my forever happiness.)
 2. French: Je t’aime, ma Leenu 🇫🇷💕 (I love you, my sweetest forever.)
 3. Spanish: Te amo, meri jaan 🇪🇸❤️ (My heart beats only for you.)
@@ -410,60 +427,72 @@
 95. Tibetan: ང་ཁྱོད་ལ་དགའ་པོ་ཡོད། 🏔️💖 (Peaceful forever.)
 96. Kurdish: Ez te hez dikim 💕 (My brave heart.)
 97. Tatar: Мин сине яратам 💞 (Across all time.)
-98. Chechen: Со хьо йоьзна, meri Gugiii ❤️‍🔥
-(No matter where life takes us, my heart will always return to you, my forever safe place.) 🌍💖
-99. Uyghur: مەن سىزنى سۆيىمەن, meri Leenie Leenu 💞
-(In every lifetime, every universe, and every dream, I would still choose only you.) ✨🌙❤️
-100. Universal Language of My Heart: In every language, every country, every sky, it is only you — my Lovleen, meri jaan, meri Puchi, meri Gugiii 🌍👑❤️
-*(Happy 3rd Anniversary, my love. Three years down, a forever to go. Thank you for being my peace, my happiness, and the most beautiful part of my life.)`;
+98. Chechen: Со хьо йоьзна, meri Gugiii ❤️‍🔥 (No matter where life takes us, my heart will always return to you, my forever safe place.)
+99. Uyghur: مەن سىزنى سۆيىمەن, meri Leenie Leenu 💞 (In every lifetime, every universe, and every dream, I would still choose only you.)
+100. Universal Language of My Heart: In every language, every country, every sky, it is only you — my Lovleen, meri jaan, meri Puchi, meri Gugiii 🌍👑❤️ (Happy 3rd Anniversary, my love. Three years down, a forever to go. Thank you for being my peace, my happiness, and the most beautiful part of my life.)`;
 
-        /* CLICK HANDLER FOR OPENING SECTIONS */
-        function handleItemClick(sectionName) {
-            if(isSwiping) return; 
+        /* 🌧️ RAIN OF LOVE LOGIC */
+        function openRainOfLove() {
+            if(isSwiping) return;
             
-            const modal = document.getElementById('section-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalBody = document.getElementById('modal-body');
+            // Hide the Magic Wheel
+            document.getElementById('magic-menu-overlay').style.display = 'none';
+            menuOpen = false;
 
-            if(sectionName === 'Love in Every Tongue') {
-                modalTitle.innerHTML = "🌹 Happy 3rd Anniversary 🌹<br><span style='font-size:1.2rem; color:#fff;'>100 Languages of Love</span>";
+            const rainContainer = document.getElementById('rain-container');
+            const scrollArea = document.getElementById('rain-scroll-area');
+            
+            rainContainer.style.display = 'flex';
+            gsap.to(rainContainer, { opacity: 1, duration: 0.5 });
+
+            // Generate Cards
+            const pastels = ['#ffe1e8', '#e2f0cb', '#fde2e4', '#fff1e6', '#e2ece9', '#dfe7fd', '#f0efeb', '#ffeebb', '#d4f0f0'];
+            let html = '';
+            
+            const lines = languagesData.split('\n');
+            lines.forEach((line, index) => {
+                if(!line.trim()) return;
                 
-                // Smart Parser for 100 Languages
-                let html = '';
-                const lines = languagesData.split('\n');
-                lines.forEach(line => {
-                    if(!line.trim()) return;
-                    if(line.includes(':') && line.match(/^\d+\./)) {
-                        let parts = line.split(':');
-                        let lang = parts[0].trim();
-                        let rest = parts.slice(1).join(':').trim();
-                        
-                        let msgParts = rest.split('(');
-                        let message = msgParts[0].trim();
-                        let meaning = msgParts.length > 1 ? '(' + msgParts[1].trim() : '';
-
-                        html += `<div class="lang-item"><b>${lang}:</b> ${message} <span>${meaning}</span></div>`;
-                    } else {
-                        html += `<div class="lang-special">${line}</div>`;
-                    }
-                });
+                let parts = line.split(':');
+                let lang = parts[0].trim();
+                let rest = parts.slice(1).join(':').trim();
                 
-                modalBody.innerHTML = html;
-                modalBody.scrollTop = 0; // reset scroll
+                let msgParts = rest.split('(');
+                let message = msgParts[0].trim();
+                let meaning = msgParts.length > 1 ? '(' + msgParts[1].trim() : '';
 
-                // Show Modal
-                modal.style.display = 'flex';
-                gsap.to(modal, { opacity: 1, duration: 0.4 });
-            } 
-            else {
-                // Placeholder for other sections
-                alert('Yeh section abhi under construction hai bhai: ' + sectionName);
-            }
+                // If it's the 100th message, give it the special class
+                let isSpecial = index === 99 ? 'card-special' : '';
+                let bgColor = isSpecial ? '' : `background-color: ${pastels[index % pastels.length]};`;
+
+                html += `
+                <div class="love-card ${isSpecial}" style="${bgColor}">
+                    <div class="lang-name">${lang}</div>
+                    <div class="msg-text">${message}</div>
+                    <div class="meaning">${meaning}</div>
+                </div>`;
+            });
+
+            scrollArea.innerHTML = html;
+            scrollArea.scrollTop = 0;
+
+            // 🌟 GSAP RAIN PHYSICS (Staggered Drop)
+            gsap.from(".love-card", {
+                y: -1000, 
+                rotation: () => gsap.utils.random(-15, 15),
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.08, // Cards fall one by one
+                ease: "bounce.out"
+            });
         }
 
-        function closeSectionModal() {
-            const modal = document.getElementById('section-modal');
-            gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => { modal.style.display = 'none'; } });
+        function closeRainOfLove() {
+            const rainContainer = document.getElementById('rain-container');
+            gsap.to(rainContainer, { opacity: 0, duration: 0.4, onComplete: () => { 
+                rainContainer.style.display = 'none'; 
+                document.getElementById('rain-scroll-area').innerHTML = ''; // Clear DOM to reset animation next time
+            }});
         }
 
         /* BACKGROUND ELEMENTS */
