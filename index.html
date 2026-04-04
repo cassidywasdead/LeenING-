@@ -23,7 +23,7 @@
         #instruction-text { margin-top: 25px; color: #ff4d85; font-size: 1.2rem; font-weight: 600; text-align: center; }
         #terminal-logs { margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #00ff00; width: 85%; max-width: 350px; text-align: left; height: 160px; overflow: hidden; text-shadow: 0 0 5px rgba(0, 255, 0, 0.5); line-height: 1.5; }
 
-        /* 🌊 MAIN WORLD (BUBBLES & HEARTS) */
+        /* 🌊 MAIN WORLD */
         #main-world { display: none; opacity: 0; background: url('Background.jpg') no-repeat center center fixed; background-size: cover; width: 100vw; height: 100vh; position: relative; }
         #heart-pool { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
         .heart-wrapper { position: absolute; bottom: -50px; will-change: transform; animation: floatHeartUp linear infinite; }
@@ -65,9 +65,54 @@
         .modal-close { position: absolute; top: -15px; right: -15px; width: 45px; height: 45px; background: linear-gradient(135deg, #ff4d85, #ff0040); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 20px #ff4d85; border: 2px solid #fff; z-index: 20; }
         .modal-header { font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7d77b; text-align: center; margin-bottom: 10px; text-shadow: 0 0 15px rgba(247, 215, 123, 0.6); border-bottom: 1px solid rgba(247, 215, 123, 0.2); padding-bottom: 10px; z-index: 10; line-height: 1; }
         .modal-header span { font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; text-shadow: none; font-weight: 300; display: block; margin-top: 5px; }
-        .modal-content { flex-grow: 1; overflow-y: auto; padding-right: 10px; padding-top: 10px; scrollbar-width: none; z-index: 10; }
+        .modal-content { flex-grow: 1; overflow-y: auto; padding-right: 10px; scrollbar-width: none; z-index: 10; }
 
-        /* 📜 SCROLL ANIMATION FOR THE LETTER */
+        /* 🎂 CAKE SECTION */
+        .cake-scene { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; position: relative;}
+        .css-cake { position: relative; width: 180px; height: 90px; margin-top: 100px; margin-bottom: 50px; display: flex; z-index: 5; }
+        .cake-half { width: 50%; height: 100%; background: #ff4d85; position: relative; transition: transform 1.5s ease, opacity 1.5s ease; border-radius: 15px 0 0 15px; box-shadow: 0 15px 20px rgba(0,0,0,0.4); }
+        .cake-right { border-radius: 0 15px 15px 0; }
+        .cake-frosting-half { position: absolute; top: -5px; width: 105%; height: 40px; background: #fff; border-radius: 20px; }
+        .cake-left.cut { transform: translateX(-80px) rotate(-20deg); opacity: 0; }
+        .cake-right.cut { transform: translateX(80px) rotate(20deg); opacity: 0; }
+        .cake-candles { position: absolute; top: -50px; width: 100%; left: 0; display: flex; justify-content: space-evenly; transition: opacity 0.5s;}
+        .cake-candle { width: 14px; height: 45px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: relative; }
+        .cake-flame { position: absolute; top: -28px; left: -2px; width: 18px; height: 28px; background: radial-gradient(ellipse at bottom, #f7d77b, #ff4d85, transparent); border-radius: 50% 50% 20% 20%; animation: flickerFlame 0.15s infinite alternate; box-shadow: 0 0 15px #f7d77b; transform-origin: bottom center; }
+        @keyframes flickerFlame { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+        /* 🎉 ANNIVERSARY BANNER */
+        .anniversary-banner { position: absolute; top: 10%; left: 50%; transform: translateX(-50%) scale(0.5); opacity: 0; z-index: 100; width: 100%; font-family: 'Great Vibes', cursive; font-size: 3rem; color: #ffebf0; text-align: center; text-shadow: 0 0 20px #ff4d85; line-height: 1.1; transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .anniversary-banner.show { transform: translateX(-50%) scale(1); opacity: 1; }
+
+        .action-btn { background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; box-shadow: 0 5px 20px rgba(247, 215, 123, 0.5); margin-top: 20px;}
+
+        /* 📜 WISH PAPER (Used in Make a Wish) */
+        .paper-scene { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0; }
+        .paper-ui { background: #fdf5e6; border: 2px solid #d4a737; border-radius: 8px; padding: 25px; width: 90%; height: 250px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .paper-ui textarea { width: 100%; height: 100%; background: transparent; border: none; outline: none; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #553a1f; resize: none; }
+
+        /* ⏳ CLOCK STYLES */
+        .time-grid { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .t-box { background: rgba(255, 77, 133, 0.15); border: 1.5px solid rgba(255, 77, 133, 0.5); border-radius: 12px; width: 100%; padding: 10px 20px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; }
+        .t-box span { font-size: 1.5rem; font-weight: bold; color: #f7d77b; font-family: 'JetBrains Mono', monospace; }
+        .t-box small { font-size: 0.9rem; color: #fff; text-transform: uppercase; }
+
+        /* 🚫 NEVER STYLES */
+        .never-conclusion { text-align: center; font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 20px rgba(255, 77, 133, 0.9); margin-top: 20px; animation: vibePulse 2s infinite; }
+
+        /* OTHER STYLES */
+        .lang-card { position: relative; margin-bottom: 20px; padding: 15px 20px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)); border-radius: 15px; border-left: 4px solid #ff4d85; overflow: hidden; opacity: 0; transform: translateY(-30px); }
+        .card-watermark { position: absolute; right: 10px; bottom: -5px; font-size: 3.5rem; opacity: 0.2; pointer-events: none; filter: grayscale(50%); z-index: -1; }
+        .lang-card b { color: #f7d77b; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-shadow: 0 0 5px rgba(247, 215, 123, 0.3); }
+        .lang-card p { margin: 5px 0 0 0; font-size: 1.05rem; color: #fff; line-height: 1.4; }
+        .lang-card span { display: block; font-size: 0.9rem; color: #ffb3c6; font-style: italic; margin-top: 8px; }
+        .lang-special { text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px; font-size: 1.1rem; font-style: italic; }
+        .condition-card { padding: 15px 20px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f7d77b; border-radius: 10px; color: #fff; font-size: 1.1rem; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
+        .special-cond { font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-align: center; border: 2px dashed; border-radius: 15px; padding: 20px; margin-top: 25px; margin-bottom: 25px; animation: pulseBox 2s infinite alternate; }
+        .scold-cond { background: rgba(255, 77, 133, 0.15); border-color: #ff4d85; color: #ffebf0; text-shadow: 0 0 10px #ff4d85; }
+        .irrit-cond { background: rgba(247, 215, 123, 0.15); border-color: #f7d77b; color: #fff; text-shadow: 0 0 10px #d4a737; }
+        
+        /* 📜 ANIMATED SCROLL STYLE */
         .animated-scroll-container {
             width: 100%; height: 100%; min-height: 60vh;
             background: url('scroll.png') no-repeat center center;
@@ -94,52 +139,6 @@
         }
         .scroll-text::-webkit-scrollbar { display: none; }
 
-
-        /* 🎂 CAKE SECTION */
-        .cake-scene { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; position: relative;}
-        .css-cake { position: relative; width: 180px; height: 90px; margin-top: 100px; margin-bottom: 50px; display: flex; z-index: 5; }
-        .cake-half { width: 50%; height: 100%; background: #ff4d85; position: relative; transition: transform 1.5s ease, opacity 1.5s ease; border-radius: 15px 0 0 15px; box-shadow: 0 15px 20px rgba(0,0,0,0.4); }
-        .cake-right { border-radius: 0 15px 15px 0; }
-        .cake-frosting-half { position: absolute; top: -5px; width: 105%; height: 40px; background: #fff; border-radius: 20px; }
-        .cake-left.cut { transform: translateX(-80px) rotate(-20deg); opacity: 0; }
-        .cake-right.cut { transform: translateX(80px) rotate(20deg); opacity: 0; }
-        .cake-candles { position: absolute; top: -50px; width: 100%; left: 0; display: flex; justify-content: space-evenly; transition: opacity 0.5s;}
-        .cake-candle { width: 14px; height: 45px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d85 5px, #ff4d85 10px); border-radius: 3px; position: relative; }
-        .cake-flame { position: absolute; top: -28px; left: -2px; width: 18px; height: 28px; background: radial-gradient(ellipse at bottom, #f7d77b, #ff4d85, transparent); border-radius: 50% 50% 20% 20%; animation: flickerFlame 0.15s infinite alternate; box-shadow: 0 0 15px #f7d77b; transform-origin: bottom center; }
-        @keyframes flickerFlame { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-
-        /* 🎉 ANNIVERSARY BANNER */
-        .anniversary-banner { position: absolute; top: 10%; left: 50%; transform: translateX(-50%) scale(0.5); opacity: 0; z-index: 100; width: 100%; font-family: 'Great Vibes', cursive; font-size: 3rem; color: #ffebf0; text-align: center; text-shadow: 0 0 20px #ff4d85; line-height: 1.1; transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .anniversary-banner.show { transform: translateX(-50%) scale(1); opacity: 1; }
-
-        .action-btn { background: linear-gradient(135deg, #f7d77b, #d4a737); color: #000; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: bold; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; box-shadow: 0 5px 20px rgba(247, 215, 123, 0.5); margin-top: 20px;}
-
-        /* 📜 WISH PAPER */
-        .paper-scene { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; opacity: 0; }
-        .paper-ui { background: #fdf5e6; border: 2px solid #d4a737; border-radius: 8px; padding: 25px; width: 90%; height: 250px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .paper-ui textarea { width: 100%; height: 100%; background: transparent; border: none; outline: none; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #553a1f; resize: none; }
-
-        /* ⏳ CLOCK STYLES */
-        .time-grid { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-        .t-box { background: rgba(255, 77, 133, 0.15); border: 1.5px solid rgba(255, 77, 133, 0.5); border-radius: 12px; width: 100%; padding: 10px 20px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; }
-        .t-box span { font-size: 1.5rem; font-weight: bold; color: #f7d77b; font-family: 'JetBrains Mono', monospace; }
-        .t-box small { font-size: 0.9rem; color: #fff; text-transform: uppercase; }
-
-        /* 🚫 NEVER STYLES */
-        .never-conclusion { text-align: center; font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff4d85; text-shadow: 0 0 20px rgba(255, 77, 133, 0.9); margin-top: 20px; animation: vibePulse 2s infinite; }
-
-        /* OTHER STYLES */
-        .lang-card { position: relative; margin-bottom: 20px; padding: 15px 20px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)); border-radius: 15px; border-left: 4px solid #ff4d85; overflow: hidden; opacity: 0; transform: translateY(-30px); }
-        .card-watermark { position: absolute; right: 10px; bottom: -5px; font-size: 3.5rem; opacity: 0.2; pointer-events: none; filter: grayscale(50%); z-index: -1; }
-        .lang-card b { color: #f7d77b; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-shadow: 0 0 5px rgba(247, 215, 123, 0.3); }
-        .lang-card p { margin: 5px 0 0 0; font-size: 1.05rem; color: #fff; line-height: 1.4; }
-        .lang-card span { display: block; font-size: 0.9rem; color: #ffb3c6; font-style: italic; margin-top: 8px; }
-        .lang-special { text-align: center; color: #f7d77b; margin-top: 30px; padding: 20px; background: rgba(255, 77, 133, 0.1); border: 1px dashed #ff4d85; border-radius: 15px; font-size: 1.1rem; font-style: italic; }
-        .condition-card { padding: 15px 20px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f7d77b; border-radius: 10px; color: #fff; font-size: 1.1rem; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
-        .special-cond { font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-align: center; border: 2px dashed; border-radius: 15px; padding: 20px; margin-top: 25px; margin-bottom: 25px; animation: pulseBox 2s infinite alternate; }
-        .scold-cond { background: rgba(255, 77, 133, 0.15); border-color: #ff4d85; color: #ffebf0; text-shadow: 0 0 10px #ff4d85; }
-        .irrit-cond { background: rgba(247, 215, 123, 0.15); border-color: #f7d77b; color: #fff; text-shadow: 0 0 10px #d4a737; }
-        
         /* Effects */
         .real-petal { position: absolute; top: -30px; opacity: 0.9; animation: tumblePetal linear infinite; z-index: 0; }
         @keyframes tumblePetal { 0% { transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; } 10% { opacity: 0.9; } 50% { transform: translate3d(var(--drift), 50vh, 0) rotateX(180deg) rotateY(90deg) rotateZ(180deg); } 90% { opacity: 0.8; } 100% { transform: translate3d(calc(var(--drift) * -1), 110vh, 0) rotateX(360deg) rotateY(180deg) rotateZ(360deg); opacity: 0; } }
@@ -442,7 +441,6 @@
                 modal.style.display = 'flex'; gsap.to(modal, { opacity: 1, duration: 0.4 });
             }
             else if (sectionName === 'A Letter for You') {
-                // 📜 NEW SCROLL ANIMATION SECTION 📜
                 modalTitle.innerHTML = "💌 A Letter for You 💌<br><span>Unfolding my heart...</span>";
                 modalBody.innerHTML = `
                 <div class="animated-scroll-container">
